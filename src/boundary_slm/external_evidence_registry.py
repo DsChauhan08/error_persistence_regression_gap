@@ -272,16 +272,31 @@ def latex_escape(value: Any) -> str:
 def write_claim_use_table(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     selected = rows[:6]
+    display_names = {
+        "wild": "WILD item-level correctness",
+        "wild_raw": "WILD raw records",
+        "open_llm_leaderboard_results": "Open LLM Leaderboard aggregates",
+        "open_llm_leaderboard_details": "Open LLM Leaderboard details",
+        "opencompass_predictions": "OpenCompass predictions",
+        "model_cards_reports": "Model cards and reports",
+    }
+    display_use = {
+        "item_level_correctness_replication": "core item-level evidence",
+        "optional_private_or_license_checked": "not redistributed",
+        "context_only": "context only",
+        "excluded_until_access_granted": "excluded unless access granted",
+    }
     lines = [
-        r"\begin{tabular}{llll}",
+        r"\begin{tabular}{p{0.36\linewidth}lll}",
         r"\toprule",
         r"Source & Tier & Access & Paper use \\",
         r"\midrule",
     ]
     for row in selected:
         lines.append(
-            f"{latex_escape(row['source_id'])} & {latex_escape(row['evidence_tier'])} & "
-            f"{latex_escape(row['access_status'])} & {latex_escape(row['claim_use'])} \\\\"
+            f"{latex_escape(display_names.get(str(row['source_id']), str(row['source_name'])))} & "
+            f"{latex_escape(row['evidence_tier'])} & {latex_escape(row['access_status'])} & "
+            f"{latex_escape(display_use.get(str(row['claim_use']), str(row['claim_use'])))} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{tabular}", ""])
     path.write_text("\n".join(lines), encoding="utf-8")

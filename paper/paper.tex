@@ -37,7 +37,7 @@
 \newcommand{\reg}{\mathrm{R}}
 \newcommand{\nrb}{\mathrm{NRB}}
 
-\title[Item-Level Replacement Audit]{An Item-Level Audit of Error Persistence and Regression Burden in Small Language Model Replacement}
+\title[Item-Level Replacement Audit]{An Item-Level Audit Protocol for Error Persistence and Regression Burden in Small Language Model Replacement}
 
 \author{Dhananjay Singh Chauhan}
 \authornote{Corresponding author.}
@@ -55,7 +55,7 @@
 \begin{abstract}
 Aggregate benchmark accuracy is insufficient on its own for replacing a deployed small language model. A candidate model can improve the mean score while newly failing items that the current model answered correctly. This paper treats replacement as a paired item-level audit: each shared labeled item is assigned to persistent correct, corrected error, regression, or persistent error, yielding correction rate, regression mass, churn mass, error persistence, and normalized regression burden.
 
-The contribution is a practical audit protocol and artifact, not a scaling law or a causal account of model families. A public WILD correctness-only demonstration retains 276,685 item-level records across five Qwen and Llama models up to approximately four billion parameters and ten tasks. The Qwen2.5-0.5B to Qwen2.5-3B comparison improves aggregate correctness by 22.2 percentage points while changing 40.9\% of item outcomes; the near-parity Qwen2.5-1.5B to Qwen2.5-3B comparison improves by 5.7 points while changing 30.4\% of outcomes. An archived raw-output MMLU-Pro case study covers 14 model-output runs over 3,008 reconstructed and hashed items, but remains diagnostic because the original logs lack complete inference manifests and the manual parser audit is incomplete. The operational lesson is direct: replacement decisions should report corrected errors, regressions, persistent errors, and churn, not aggregate accuracy alone.
+The contribution is a practical audit protocol and artifact, not a scaling law or a causal account of model families. A public WILD correctness-only demonstration retains 276,685 item-level records across five Qwen and Llama models up to approximately four billion parameters and ten tasks. The Qwen2.5-0.5B to Qwen2.5-3B comparison improves aggregate correctness by 22.2 percentage points while changing 40.9\% of item outcomes; the near-parity Qwen2.5-1.5B to Qwen2.5-3B comparison improves by 5.7 points while changing 30.4\% of outcomes. An archived raw-output MMLU-Pro case study covers 14 model-output runs over 3,008 reconstructed and hashed items, but remains diagnostic because the original logs lack complete inference manifests and the manual parser audit is incomplete. The operational recommendation is direct: benchmark-based replacement decisions should report corrected errors, regressions, persistent errors, and churn, not aggregate accuracy alone.
 \end{abstract}
 
 \maketitle
@@ -64,7 +64,7 @@ The contribution is a practical audit protocol and artifact, not a scaling law o
 
 \section{Introduction}
 
-Models up to approximately four billion parameters are often considered for deployment because they can run under tighter memory, latency, privacy, and cost constraints than larger frontier systems. This paper uses that evaluated size range as its operational scope. In such settings, replacement is a common engineering decision. A practitioner has a current model, evaluates a candidate model checkpoint or larger variant, and may adopt the candidate model if its aggregate benchmark accuracy is higher.
+Models up to approximately four billion parameters are often considered for deployment because they can run under tighter memory, latency, privacy, and cost constraints than larger frontier systems. This paper uses that evaluated size range as its operational scope because it matches the retained model set and the deployment regime where local memory and latency constraints commonly motivate replacement decisions. In such settings, replacement is a common engineering decision. A practitioner has a current model, evaluates a candidate model checkpoint or larger variant, and may adopt the candidate model if its aggregate benchmark accuracy is higher.
 
 That decision rule is incomplete. A replacement can fix old errors while breaking items that the current model handled correctly. In a document triage system, for example, a small aggregate improvement may still introduce new failures on previously reliable cases. The replacement may still be worth adopting, but the tradeoff should be visible before deployment.
 
@@ -82,7 +82,7 @@ The paper makes four contributions.
   \item It gives a reusable replacement-audit protocol based on paired item-level correctness, including correction rate, regression mass, churn mass, error persistence, and normalized regression burden.
   \item It separates deployment-path audits from standardized all-pairs diagnostics. Directional metrics are meaningful only with respect to a specified current model and candidate model.
   \item It demonstrates the audit on a public WILD correctness-only matrix, so the core accounting result does not depend on private raw model completions or answer parsing.
-  \item It provides an archived-output MMLU-Pro case study with reconstructed source-item hashes, scoring-mode sensitivity checks, and explicit limitations on answer extraction and run provenance.
+  \item It provides a diagnostic archived-output MMLU-Pro case study with reconstructed source-item hashes, scoring-mode sensitivity checks, and explicit limitations on answer extraction and run provenance.
 \end{enumerate}
 
 The claim is not that prediction churn is new, that Qwen or Gemma has a generalizable family-level property, or that the reported numbers are a scaling law. The claim is practical: if benchmark scores are used to justify replacing a model, then corrected errors and newly introduced regressions should be reported alongside the aggregate score.
@@ -93,10 +93,13 @@ The claim is not that prediction churn is new, that Qwen or Gemma has a generali
 NLP evaluation has repeatedly shown that aggregate scores can hide important behavior. CheckList introduced behavioral tests to expose failures hidden by held-out accuracy \parencite{ribeiro2020checklist}. HELM argues for transparent, multi-metric model evaluation rather than single-number comparisons \parencite{liang2022helm}. The present audit follows the same evaluation philosophy, but focuses on paired item-level changes between a current model and a candidate replacement model.
 
 \paragraph{Prediction churn and regression bugs.}
-Prediction churn studies how model predictions change across retraining or deployment iterations \parencite{fard2016churn}. Regression-bug work in NLP model updates measures negative flips: cases where a newer model newly fails examples an older model handled correctly \parencite{xie2021regression}. The present work does not claim to invent churn or regression measurement. Its narrower contribution is to adapt this accounting to small language model replacement and to keep beneficial churn, harmful churn, and persistent old errors separate in the artifact and reporting.
+Prediction churn studies how model predictions change across retraining or deployment iterations \parencite{fard2016churn}. Regression-bug work in NLP model updates measures negative flips: cases where a newer model newly fails examples an older model handled correctly \parencite{xie2021regression}. Unlike work that proposes training or update methods to reduce regressions, this paper proposes a reporting and audit artifact for replacement decisions. The present work does not claim to invent churn or regression measurement. Its narrower contribution is to adapt this accounting to small language model replacement and to keep beneficial churn, harmful churn, and persistent old errors separate in the artifact and reporting.
 
 \paragraph{Regression testing and deployment audit.}
 The audit is close in spirit to software regression testing. Before replacing a component, users need to know which previously passing cases now fail. In model evaluation, the analogous question is which items were previously correct and are now wrong. This is a deployment-facing question rather than a claim about training mechanisms.
+
+\paragraph{Production readiness and documentation.}
+Production ML work emphasizes systematic testing, monitoring, and documentation rather than isolated aggregate scores \parencite{sculley2015technicaldebt,breck2017mltestscore}. Dataset and model documentation frameworks likewise stress provenance, intended use, and evaluation context \parencite{gebru2021datasheets,mitchell2019modelcards}. The present artifact follows that orientation by separating source provenance, evidence tier, scoring status, and claim use.
 
 \paragraph{Stability, forgetting, and underspecification.}
 The replacement problem also connects to work on catastrophic forgetting \parencite{kirkpatrick2017overcoming} and underspecification \parencite{damour2022underspecification}. Those literatures study different mechanisms and failure modes. Here, the object is narrower: observable item-level correctness changes between archived model outputs or public correctness records.
@@ -125,6 +128,24 @@ D & Gated, unavailable, incompatible, or unverified data & Excluded until access
 \end{tabular}
 \caption{Evidence tiers for replacement accounting. Only Tier A and Tier B sources support item-level churn metrics.}
 \label{tab:evidence-tiers}
+\end{table}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{p{0.30\linewidth}p{0.18\linewidth}p{0.42\linewidth}}
+\toprule
+Evidence component & Status & Claim use \\
+\midrule
+WILD item-level correctness & Supported & Core replacement-accounting evidence for persistence, regression mass, and churn over paired correctness records. \\
+MMLU-Pro source reconstruction & Supported & Provenance evidence that all 3,008 evaluated item identifiers map to the stated MMLU-Pro snapshot. \\
+MMLU-Pro raw-output accounting & Diagnostic only & Demonstrates the raw-output workflow and artifact-risk checks, but remains parser-dependent. \\
+Parser-validation claims & Not claimed & Human labels are incomplete, so the paper does not report parser agreement as validation. \\
+Aggregate benchmark context & Context only & Positions model capability; does not support item-level replacement or churn claims. \\
+\bottomrule
+\end{tabular}
+\caption{Claim ledger for the current GitHub/SSRN release. Parser-dependent MMLU-Pro claims are explicitly excluded from the core claim set until human validation is complete.}
+\label{tab:claim-ledger}
 \end{table}
 
 \subsection{Four-cell decomposition}
@@ -206,13 +227,21 @@ Path note & Whether the directed pair is a real replacement path or a diagnostic
 
 \subsection{Statistical posture}
 
-The audit is primarily descriptive. McNemar-style paired tests are appropriate when comparing two classifiers on the same items \parencite{mcnemar1947note,dietterich1998approximate}, but the MMLU-Pro family-level model comparisons are not independent because many directed pairs share the same model. For the MMLU-Pro family contrast, each model is assigned a neighborhood value by averaging over incident same-family directed pairs. An exact family-label permutation test is then used as a dependence-aware case-study check. This aggregation is used only to reduce repeated-pair dependence for family-level comparison; it is not a model-intrinsic parameter and does not make the selected models a random sample from all possible releases.
+The audit is primarily descriptive. McNemar-style paired tests are appropriate when comparing two classifiers on the same items \parencite{mcnemar1947note,dietterich1998approximate}, but replacement accounting should not treat shared-endpoint model pairs as independent evidence. The artifact therefore reports mass and churn metrics as the primary outputs and uses inferential checks only as clearly labeled diagnostics.
 
 \section{Public WILD Correctness-Only Demonstration}
 
-The WILD demonstration is the least parser-dependent empirical support for the audit protocol because it avoids answer extraction. WILD exposes item identifiers, model identifiers, task identifiers, and binary correctness records. The full WILD release contains evaluations of 65 models over 109,564 unique items spanning 163 tasks from 27 datasets \parencite{krumdick2026wild}. The present artifact uses a selected public subset containing five Qwen and Llama models up to approximately four billion parameters and ten tasks. It supports item-level churn accounting, but it does not support raw-response parsing claims, prompt-format claims, or manual answer-extraction validation.
+The WILD demonstration is the parser-independent empirical support for the audit protocol because it avoids answer extraction. WILD exposes item identifiers, model identifiers, task identifiers, and binary correctness records. The full WILD release contains evaluations of 65 models over 109,564 unique items spanning 163 tasks from 27 datasets \parencite{krumdick2026wild}. The present artifact uses a selected public subset containing five Qwen and Llama models up to approximately four billion parameters and ten tasks. It supports item-level churn accounting, but it does not support raw-response parsing claims, prompt-format claims, or manual answer-extraction validation.
 
 The WILD subset rule is fixed in the artifact: retain public item-level correctness rows for the selected Qwen2.5 chain and Llama 3.2 1B/3B models where the selected models share task coverage. The selected tasks are MMLU-Pro, MMLU, ARC-Challenge, GSM8K, HellaSwag, PIQA, BoolQ, IFEval, BBH, and MATH. This is a public cross-benchmark demonstration of the audit protocol, not a representative analysis of all WILD models or all WILD tasks.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\resizebox{\linewidth}{!}{\input{tables/wild_model_inclusion_coverage.tex}}
+\caption{WILD inclusion coverage for recognizable public WILD models at approximately four billion parameters or below. The table reports the selected-task rows available in WILD and the reason each model was retained or excluded from the paired-family demonstration.}
+\label{tab:wild-inclusion}
+\end{table}
 
 \begin{table}[t]
 \centering
@@ -222,13 +251,13 @@ The WILD subset rule is fixed in the artifact: retain public item-level correctn
 \label{tab:wild-summary}
 \end{table}
 
-The generated WILD replication contains 44 directed same-family comparisons: four all-selected comparisons, plus 40 task-level comparisons across ten tasks. Across the selected WILD tasks, the three Qwen all-selected directed comparisons have 34.4\% mean churn. The Qwen2.5-0.5B to Qwen2.5-3B comparison improves aggregate correctness by 22.2 percentage points while changing 40.9\% of item outcomes and regressing 9.3\% of all shared items. The near-parity Qwen2.5-1.5B to Qwen2.5-3B comparison improves aggregate correctness by 5.7 percentage points while changing 30.4\% of item outcomes. This is the core operational result in a parser-free setting: aggregate gain and item-level replacement churn are different quantities.
+The generated WILD replication contains 44 directed same-family comparisons: four selected-task pooled comparisons, plus 40 task-level comparisons across ten tasks. Across the selected WILD tasks, the three Qwen selected-task pooled directed comparisons have 34.4\% mean churn. The Qwen2.5-0.5B to Qwen2.5-3B comparison improves aggregate correctness by 22.2 percentage points while changing 40.9\% of item outcomes and regressing 9.3\% of all shared items. The near-parity Qwen2.5-1.5B to Qwen2.5-3B comparison improves aggregate correctness by 5.7 percentage points while changing 30.4\% of item outcomes. This is the core operational result in a parser-free setting: aggregate gain and item-level replacement churn are different quantities.
 
 \begin{table}[t]
 \centering
 \small
 \resizebox{\linewidth}{!}{\input{tables/wild_all_selected_pairs.tex}}
-\caption{All-selected WILD directed comparisons for retained small Qwen and Llama models. These are correctness-only item-level replacement metrics, not parser or raw-response analyses. $I$ is improvement mass, $R$ is regression mass, and NRB is normalized regression burden.}
+\caption{Selected-task pooled WILD directed comparisons for retained small Qwen and Llama models. These are correctness-only item-level replacement metrics, not parser or raw-response analyses. $I$ is improvement mass, $R$ is regression mass, and NRB is normalized regression burden.}
 \label{tab:wild-pairs}
 \end{table}
 
@@ -238,7 +267,7 @@ The Llama 3.2 1B to 3B comparison gives the same qualitative lesson. It improves
 \centering
 \small
 \resizebox{\linewidth}{!}{\input{tables/wild_task_dispersion.tex}}
-\caption{Task-level dispersion for WILD directed comparisons. The table summarizes the 40 task-level comparisons, separate from the four all-selected comparisons in Table~\ref{tab:wild-pairs}, and reports shared-item denominators.}
+\caption{Task-level dispersion for WILD directed comparisons. The table summarizes the 40 task-level comparisons, separate from the four selected-task pooled comparisons in Table~\ref{tab:wild-pairs}, and reports shared-item denominators.}
 \label{tab:wild-task-dispersion}
 \end{table}
 
@@ -304,7 +333,7 @@ The scoring-mode sensitivity check uses the three runs that contain both saved p
 \label{tab:scoring-mode}
 \end{table}
 
-The robustness generator also reruns MMLU-Pro accounting under five modes: default scoring, raw-only scoring where possible, exclusion of saved-prediction models, exclusion of low-confidence fallback extractions, and explicit-marker-only scoring where enough rows remain. The family contrast remains directionally similar under these modes, but the MMLU-Pro gate remains blocked because the manual parser audit is incomplete.
+The robustness generator also reruns MMLU-Pro accounting under five modes: default scoring, raw-only scoring where possible, exclusion of saved-prediction models, exclusion of low-confidence fallback extractions, and explicit-marker-only scoring where enough rows remain. The sign of the family contrast remains the same, but its magnitude changes under stricter extraction modes. The MMLU-Pro gate remains blocked because the manual parser audit is incomplete.
 
 \begin{table}[t]
 \centering
@@ -324,7 +353,7 @@ The robustness generator also reruns MMLU-Pro accounting under five modes: defau
 
 \subsection{Run-provenance status}
 
-The archived raw run files preserve item IDs, categories, ground-truth labels, model labels, and raw responses. They do not preserve exact Hugging Face repository identifiers, revision hashes, prompt templates, chat templates, decoding parameters, runtime versions, run dates, or complete hardware metadata. Consequently, the MMLU-Pro accounting can be regenerated from saved outputs, but the original inference runs cannot be independently reproduced as journal-grade model evaluations without rerunning or reconstructing the experiment.
+The archived raw run files preserve item IDs, categories, ground-truth labels, model labels, and raw responses. They do not preserve exact Hugging Face repository identifiers, revision hashes, prompt templates, chat templates, decoding parameters, runtime versions, run dates, or complete hardware metadata. Consequently, the MMLU-Pro accounting can be regenerated from saved outputs, but the original inference runs cannot be independently reproduced as validated model-behavior evaluations without rerunning or reconstructing the experiment.
 
 \subsection{Primary population and quality gate}
 
@@ -342,7 +371,7 @@ After the gate, Qwen contributes seven eligible models and 21 same-family direct
 
 \subsection{Same-family accounting}
 
-Table~\ref{tab:mmlu-family} reports the primary same-family MMLU-Pro accounting after the quality gate. These results are useful as an archived-output case study, but they remain parser-dependent until the manual parser audit is completed.
+Table~\ref{tab:mmlu-family} reports the primary same-family MMLU-Pro accounting after the quality gate. These are within-archive accuracies under the paper's scoring protocol and should not be read as official benchmark scores. The results are useful as an archived-output case study, but they remain parser-dependent until the manual parser audit is completed.
 
 \begin{table}[t]
 \centering
@@ -354,15 +383,7 @@ Table~\ref{tab:mmlu-family} reports the primary same-family MMLU-Pro accounting 
 
 Accuracy-improving directed comparisons still show substantial churn. Qwen has 20 accuracy-improving directed comparisons with mean churn of 35.2\%, mean improvement mass of 26.7\%, and mean regression mass of 8.5\%. Gemma has six accuracy-improving directed comparisons with mean churn of 27.3\%, mean improvement mass of 19.5\%, and mean regression mass of 7.9\%.
 
-A model-level exact permutation check over neighborhood-averaged values gives lower old-error persistence for Qwen than Gemma in this archived case study ($p=0.003$, Holm-adjusted $p=0.006$ over two primary contrasts). Normalized regression burden is not a robust family separator ($p=0.073$). These p-values are a descriptive sensitivity check, not confirmatory inference: model pairs share endpoints, the model set is not a random sample, and MMLU-Pro remains parser-dependent until the manual audit is complete.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.72\linewidth]{figures/model_level_persistence.pdf}
-\Description{Strip plot of model-level mean old-error persistence values for Qwen and Gemma models after averaging each model over its incident same-family pairs.}
-\caption{Model-level old-error persistence values used for the exact family-label permutation test. Each point is one eligible model averaged over its incident same-family comparisons; horizontal bars mark family means.}
-\label{fig:model-level-persistence}
-\end{figure}
+Within this archived diagnostic, Qwen comparisons have lower average old-error persistence than Gemma comparisons. The contrast is not confirmatory because the archive is selected, parser-dependent, and incompletely manifested. The dependence-aware permutation check and model-level diagnostic figure are therefore reported only in the appendix.
 
 \subsection{Near-parity diagnostics and domain triage}
 
@@ -406,24 +427,6 @@ Public model cards and technical reports provide useful aggregate context for sm
 
 The public WILD demonstration supports the core audit claim without answer extraction: aggregate gains can coincide with large item-level churn. The MMLU-Pro archived-output case study supports the same practical message under a raw-output workflow, while also demonstrating why source manifests, parser audits, scoring-mode sensitivity, and run manifests matter.
 
-\begin{table}[t]
-\centering
-\small
-\begin{tabular}{p{0.30\linewidth}p{0.18\linewidth}p{0.42\linewidth}}
-\toprule
-Evidence component & Status & Claim use \\
-\midrule
-WILD item-level correctness & Supported & Core replacement-accounting evidence for persistence, regression mass, and churn over paired correctness records. \\
-MMLU-Pro source reconstruction & Supported & Provenance evidence that all 3,008 evaluated item identifiers map to the stated MMLU-Pro snapshot. \\
-MMLU-Pro raw-output accounting & Diagnostic only & Demonstrates the raw-output workflow and artifact-risk checks, but remains parser-dependent. \\
-Parser-validation claims & Not claimed & Human labels are incomplete, so the paper does not report parser agreement as validation. \\
-Aggregate benchmark context & Context only & Positions model capability; does not support item-level replacement or churn claims. \\
-\bottomrule
-\end{tabular}
-\caption{Claim ledger for the current GitHub/SSRN release. Parser-dependent MMLU-Pro claims are explicitly excluded from the core claim set until human validation is complete.}
-\label{tab:claim-ledger}
-\end{table}
-
 The MMLU-Pro family result should be read narrowly. In the evaluated archived runs, Qwen comparisons show lower old-error persistence than Gemma comparisons. The evidence does not establish a generalizable property of either model family.
 
 \subsection{What the evidence does not support}
@@ -442,7 +445,7 @@ The audit card should be treated as a triage tool. Large regression mass, high n
 The audit measures changes in binary correctness over shared labeled items. It does not directly measure usefulness, calibration, safety, open-ended quality, or user satisfaction. WILD avoids parser error but is limited to correctness records. MMLU-Pro uses raw outputs but depends on deterministic answer extraction.
 
 \paragraph{Parser validity.}
-The MMLU-Pro parser may misclassify some raw completions, especially fallback cases. The generated 452-row manual audit sample includes 120 high-risk rows, but it must still be human-labeled before the raw-output case study can be treated as a fully validated model-evaluation result. Until then, MMLU-Pro churn and regression claims are correctness-under-parser claims. The saved-prediction sensitivity check shows that scoring mode can change per-row correctness for runs with both saved predictions and raw responses.
+The MMLU-Pro parser may misclassify some raw completions, especially fallback cases. The generated 452-row manual audit sample includes 120 high-risk rows, but it must still be human-labeled before the raw-output case study can be treated as a fully validated model-evaluation result. This is the primary blocker for treating the MMLU-Pro case study as validated model evaluation. Until then, MMLU-Pro churn and regression claims are correctness-under-parser claims. The saved-prediction sensitivity check shows that scoring mode can change per-row correctness for runs with both saved predictions and raw responses.
 
 \paragraph{Internal validity.}
 The archived MMLU-Pro run logs do not preserve exact repository identifiers, model revision hashes, prompt templates, chat templates, decoding parameters, runtime versions, run dates, or complete hardware metadata. The reported accounting can be regenerated from saved outputs, but model-behavior replication requires full run manifests or reruns.
@@ -457,7 +460,7 @@ The MMLU-Pro all-pairs diagnostic uses a deterministic ordering rule, not a comp
 
 The artifact is organized around generated, inspectable files rather than hand-computed paper values. The MMLU-Pro pipeline emits pairwise metrics as CSV/JSON, replacement-audit cards as CSV/JSON/Markdown, quality-gate summaries, parser-audit summaries, scoring-mode sensitivity tables, source-manifest hashes, and paper-ready LaTeX tables. The WILD pipeline emits normalized correctness records, pairwise replacement metrics, task-family summaries, task-dispersion summaries, a source-coverage report, and paper-ready tables. The external-evidence pipeline emits a source-quality map, aggregate context tables, informal-context exclusions, and a claim-use manifest.
 
-The artifact also includes a CPU-only mini-rerun harness for future journal-grade validation. It writes a run manifest, environment file, selected-item hash manifest, resumable raw records, per-model summaries, pairwise audit metrics, and claim checks. A completed real-model mini-rerun is not used as evidence in the present manuscript unless its outputs, exact model revisions, prompt template, tokenizer/chat-template metadata, decoding settings, runtime environment, hardware summary, and run date are archived with the release.
+The artifact also includes a CPU-only mini-rerun harness for fully manifested follow-up validation. It writes a run manifest, environment file, selected-item hash manifest, resumable raw records, per-model summaries, pairwise audit metrics, and claim checks. A completed real-model mini-rerun is not used as evidence in the present manuscript unless its outputs, exact model revisions, prompt template, tokenizer/chat-template metadata, decoding settings, runtime environment, hardware summary, and run date are archived with the release.
 
 The release also includes tests for source-manifest matching, parser-audit summaries, scoring-mode sensitivity, WILD replacement accounting, evidence-tier restrictions, CPU-rerun resume behavior, and public-release hygiene. A hygiene scan checks that public artifacts do not contain raw model responses, benchmark text, local cache paths, or private files.
 
@@ -473,7 +476,7 @@ The GitHub/SSRN public proof-of-analysis package is prepared for release at \url
 \label{tab:artifact-release-status}
 \end{table}
 
-The accounting can be regenerated from saved outputs, but full model-behavior replication requires complete run manifests. A future rerun intended for journal-grade model evaluation should archive exact model repository IDs, revision hashes, prompt templates, chat templates, decoding parameters, inference engine, package versions, hardware summary, and run dates. The absence of completed manual parser labels is therefore not hidden or bypassed: parser-dependent MMLU-Pro claims are excluded from the core claim set in Table~\ref{tab:claim-ledger}.
+The accounting can be regenerated from saved outputs, but full model-behavior replication requires complete run manifests. A future rerun intended to support confirmatory model-evaluation claims should archive exact model repository IDs, revision hashes, prompt templates, chat templates, decoding parameters, inference engine, package versions, hardware summary, and run dates. The absence of completed manual parser labels is therefore not hidden or bypassed: parser-dependent MMLU-Pro claims are excluded from the core claim set in Table~\ref{tab:claim-ledger}.
 
 The main public-package reproduction commands are:
 
@@ -547,6 +550,18 @@ The author thanks the maintainers of the open-source model and evaluation ecosys
 \caption{Run-metadata completeness in the archived MMLU-Pro raw-output files.}
 \label{tab:model-run-metadata}
 \end{table}
+
+\section{Diagnostic MMLU-Pro Family Check}
+
+For the archived MMLU-Pro diagnostic only, each eligible model is assigned a neighborhood value by averaging over its incident same-family directed pairs. An exact family-label permutation check over these model-level values gives lower old-error persistence for Qwen than Gemma in this archive ($p=0.003$, Holm-adjusted $p=0.006$ over two primary contrasts). Normalized regression burden is not a robust family separator ($p=0.073$). These p-values quantify a contrast in a small selected archive; they are not confirmatory family-level inference because the model set is selected, parser-dependent, incompletely manifested, and not a random sample of releases.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.72\linewidth]{figures/model_level_persistence.pdf}
+\Description{Strip plot of model-level mean old-error persistence values for Qwen and Gemma models after averaging each model over its incident same-family pairs.}
+\caption{Diagnostic MMLU-Pro persistence values with parser audit incomplete. Each point is one eligible model averaged over its incident same-family comparisons; horizontal bars mark family means.}
+\label{fig:model-level-persistence}
+\end{figure}
 
 \section{Primary MMLU-Pro Directed Comparisons}
 \label{app:all-pairs}

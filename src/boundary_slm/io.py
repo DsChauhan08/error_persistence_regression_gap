@@ -48,7 +48,7 @@ def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
             if key not in fieldnames:
                 fieldnames.append(key)
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -69,4 +69,3 @@ def load_json_or_yaml(path: Path) -> Any:
 
 def repo_root_from_file(file_path: str) -> Path:
     return Path(file_path).resolve().parents[3]
-

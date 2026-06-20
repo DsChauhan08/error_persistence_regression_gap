@@ -250,7 +250,7 @@ def write_latex_status(path: Path, report: dict[str, Any]) -> None:
         f"Matched MMLU-Pro rows & {report['matched_item_count']} \\\\",
         f"Mismatches & {report['mismatch_item_count']} \\\\",
         f"Missing source rows & {report['missing_source_item_count']} \\\\",
-        f"Claim-ready manifest & {'yes' if report['claim_ready'] else 'no'} \\\\",
+        f"Manifest reconstruction passed & {'yes' if report['claim_ready'] else 'no'} \\\\",
         "\\bottomrule",
         "\\end{tabular}",
         "",

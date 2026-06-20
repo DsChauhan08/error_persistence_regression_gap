@@ -178,14 +178,14 @@ def write_tex(path: Path, status: dict[str, Any]) -> None:
         ("Expected runtime", status["expected_runtime"]),
         ("Latest test command", status["latest_test_command"]),
         ("Latest test result", status["latest_test_result"]),
-        ("WILD claim gate", str(status["wild_claim_ready"]).lower()),
+        ("WILD item-level gate", str(status["wild_claim_ready"]).lower()),
         ("MMLU-Pro source manifest", str(status["mmlu_pro_source_manifest_ready"]).lower()),
-        ("Public hygiene scan", str(status["public_hygiene_ready"]).lower()),
-        ("Public manifest", str(status["public_manifest_ready"]).lower()),
-        ("Core claim ready", str(status["core_claim_ready"]).lower()),
-        ("Parser validated", str(status["parser_validated"]).lower()),
+        ("Public hygiene scan passed", str(status["public_hygiene_ready"]).lower()),
+        ("Public manifest verified", str(status["public_manifest_ready"]).lower()),
+        ("Core WILD-based claim supported", str(status["core_claim_ready"]).lower()),
+        ("Parser validation complete", str(status["parser_validated"]).lower()),
         ("MMLU-Pro confirmatory", str(status["mmlu_pro_confirmatory"]).lower()),
-        ("GitHub public ready", str(status["github_public_ready"]).lower()),
+        ("GitHub/SSRN package ready", str(status["github_public_ready"]).lower()),
     ]
     lines = [r"\begin{tabular}{lp{0.62\linewidth}}", r"\toprule", r"Field & Value \\", r"\midrule"]
     for key, value in rows:

@@ -1,6 +1,6 @@
 [
   {
-    "access_date": "2026-06-19",
+    "access_date": "2026-06-20",
     "access_status": "public",
     "artifact_type": "item_level_correctness",
     "benchmark_scope": "27 benchmarks; correctness matrix only",
@@ -24,7 +24,7 @@
     "source_url": "https://huggingface.co/datasets/kensho/WILD"
   },
   {
-    "access_date": "2026-06-19",
+    "access_date": "2026-06-20",
     "access_status": "public_large",
     "artifact_type": "raw_item_level_outputs",
     "benchmark_scope": "raw conversations, targets, model answers, scorer output",
@@ -48,7 +48,7 @@
     "source_url": "https://huggingface.co/datasets/michaelkrumdickkensho/WILD-raw"
   },
   {
-    "access_date": "2026-06-19",
+    "access_date": "2026-06-20",
     "access_status": "public",
     "artifact_type": "aggregate_scores",
     "benchmark_scope": "leaderboard aggregate task metrics",
@@ -72,7 +72,7 @@
     "source_url": "https://huggingface.co/datasets/open-llm-leaderboard/results"
   },
   {
-    "access_date": "2026-06-19",
+    "access_date": "2026-06-20",
     "access_status": "gated_terms_required",
     "artifact_type": "item_level_samples",
     "benchmark_scope": "per-model sample files, including MMLU-Pro for several exact study models",
@@ -97,7 +97,7 @@
     "tier_if_accessible": "A"
   },
   {
-    "access_date": "2026-06-19",
+    "access_date": "2026-06-20",
     "access_status": "gated_terms_required",
     "artifact_type": "item_level_predictions",
     "benchmark_scope": "large prediction archive across many tasks and models",
@@ -122,7 +122,7 @@
     "tier_if_accessible": "A"
   },
   {
-    "access_date": "2026-06-19",
+    "access_date": "2026-06-20",
     "access_status": "public_or_model-gated",
     "artifact_type": "aggregate_scores_and_source_pointers",
     "benchmark_scope": "reported benchmark scores and model documentation",
@@ -146,7 +146,7 @@
     "source_url": "https://huggingface.co/models"
   },
   {
-    "access_date": "2026-06-19",
+    "access_date": "2026-06-20",
     "access_status": "public_web",
     "artifact_type": "informal_aggregate_or_anecdotal_scores",
     "benchmark_scope": "community-reported small-model impressions and occasional benchmark numbers",
@@ -170,7 +170,7 @@
     "source_url": "https://www.reddit.com/r/LocalLLaMA/comments/1gii24g/mmlupro_scores_of_small_models_5b/"
   },
   {
-    "access_date": "2026-06-19",
+    "access_date": "2026-06-20",
     "access_status": "public_web",
     "artifact_type": "single_aggregate_score_report",
     "benchmark_scope": "MMLU-Pro Computer Science aggregate reported on consumer hardware",

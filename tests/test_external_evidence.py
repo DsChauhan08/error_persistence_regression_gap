@@ -185,12 +185,16 @@ def test_wild_smoke_ingest_from_local_parquet(tmp_path: Path) -> None:
     assert report["task_level_pair_count"] == 1
     assert (tmp_path / "out" / "wild_normalized_records.parquet").exists()
     assert (tmp_path / "out" / "wild_pairwise_replacement_metrics.csv").exists()
+    assert (tmp_path / "out" / "wild_model_inclusion_coverage.csv").exists()
     assert (tmp_path / "out" / "wild_task_dispersion_summary.csv").exists()
+    assert (tmp_path / "out" / "tables" / "wild_model_inclusion_coverage.tex").exists()
     assert (tmp_path / "out" / "tables" / "wild_task_dispersion.tex").exists()
     pair_table = (tmp_path / "out" / "tables" / "wild_all_selected_pairs.tex").read_text(encoding="utf-8")
     dispersion_table = (tmp_path / "out" / "tables" / "wild_task_dispersion.tex").read_text(encoding="utf-8")
+    inclusion_table = (tmp_path / "out" / "tables" / "wild_model_inclusion_coverage.tex").read_text(encoding="utf-8")
     assert "$N$" in pair_table
     assert "Median $N$" in dispersion_table
+    assert "Qwen2.5-0.5B-Instruct" in inclusion_table
 
 
 def test_open_llm_details_stub_writes_exclusions(tmp_path: Path) -> None:

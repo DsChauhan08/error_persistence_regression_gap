@@ -44,6 +44,71 @@ DEFAULT_TASKS = [
     "math",
 ]
 WILD_COLUMNS = ["model", "task", "subtask", "item_id", "score", "input_tokens", "output_tokens"]
+WILD_BOUNDARY_COVERAGE = [
+    (
+        "Qwen/Qwen1.5-4B-Chat",
+        "Qwen",
+        "4.0",
+        "no",
+        "Different Qwen generation; not part of the predeclared Qwen2.5 replacement chain.",
+    ),
+    (
+        "Qwen/Qwen2-1.5B-Instruct",
+        "Qwen",
+        "1.5",
+        "no",
+        "Single Qwen2 small model in WILD; no retained same-generation small replacement pair.",
+    ),
+    (
+        "Qwen/Qwen2.5-0.5B-Instruct",
+        "Qwen",
+        "0.5",
+        "yes",
+        "Retained in the predeclared Qwen2.5 size chain.",
+    ),
+    (
+        "Qwen/Qwen2.5-1.5B-Instruct",
+        "Qwen",
+        "1.5",
+        "yes",
+        "Retained in the predeclared Qwen2.5 size chain.",
+    ),
+    (
+        "Qwen/Qwen2.5-3B-Instruct",
+        "Qwen",
+        "3.0",
+        "yes",
+        "Retained in the predeclared Qwen2.5 size chain.",
+    ),
+    (
+        "ibm-granite/granite-3.2-2b-instruct",
+        "Granite",
+        "2.0",
+        "no",
+        "No second under-4B Granite model in WILD for a same-family replacement pair.",
+    ),
+    (
+        "llama-3.2-1b",
+        "Llama",
+        "1.0",
+        "yes",
+        "Retained in the Llama 3.2 small-model replacement pair.",
+    ),
+    (
+        "llama-3.2-3b",
+        "Llama",
+        "3.0",
+        "yes",
+        "Retained in the Llama 3.2 small-model replacement pair.",
+    ),
+    (
+        "nvidia/Nemotron-Mini-4B-Instruct",
+        "Nemotron",
+        "4.0",
+        "no",
+        "No second under-4B Nemotron model in WILD for a same-family replacement pair.",
+    ),
+]
 
 
 def safe_ratio_or_none(numerator: float, denominator: float) -> float | None:
@@ -406,8 +471,12 @@ def write_summary_table(path: Path, report: dict[str, Any]) -> None:
         ("Models retained", report["model_count"]),
         ("Tasks retained", report["task_count"]),
         ("Normalized records", report["normalized_record_count"]),
-        ("Pairwise comparisons", f"{report['pairwise_comparison_count']} ({report['all_selected_pair_count']} all-selected + {report['task_level_pair_count']} task-level)"),
-        ("All-selected Qwen mean churn", f"{100 * report['qwen_all_selected_mean_churn']:.1f}%"),
+        (
+            "Pairwise comparisons",
+            f"{report['pairwise_comparison_count']} ({report['all_selected_pair_count']} selected-task pooled + "
+            f"{report['task_level_pair_count']} task-level)",
+        ),
+        ("Selected-task pooled Qwen mean churn", f"{100 * report['qwen_all_selected_mean_churn']:.1f}%"),
         ("WILD source scale", "65 models; 109,564 items; 163 tasks; 27 datasets"),
     ]
     lines = [r"\begin{tabular}{ll}", r"\toprule", r"Field & Value \\", r"\midrule"]
@@ -454,12 +523,56 @@ def write_task_dispersion_table(path: Path, rows: list[dict[str, Any]]) -> None:
     ]
     for row in selected:
         iqr = f"[{pct(row['churn_mass_iqr_low'])}, {pct(row['churn_mass_iqr_high'])}]"
+        family_label = "selected-task pooled" if row["family"] == "all_selected_families" else str(row["family"])
         lines.append(
-            f"{latex_escape(row['family'])} & {row['task_count']} & {row['pair_count']} & "
+            f"{latex_escape(family_label)} & {row['task_count']} & {row['pair_count']} & "
             f"{count_text(row['median_shared_items'])} & "
             f"{pct(row['median_churn_mass'])} & {iqr} & {pct(row['median_regression_mass'])} & "
             f"{pct(row['median_error_persistence'])} & "
             f"{latex_escape(row['highest_churn_task'])} ({pct(row['highest_churn_task_mean'])}) \\\\"
+        )
+    lines.extend([r"\bottomrule", r"\end{tabular}", ""])
+    path.write_text("\n".join(lines), encoding="utf-8")
+
+
+def boundary_inclusion_coverage(records: list[dict[str, Any]], tasks: list[str]) -> list[dict[str, Any]]:
+    by_model_task: dict[tuple[str, str], int] = defaultdict(int)
+    for row in records:
+        by_model_task[(str(row["model"]), str(row["task"]))] += 1
+    selected_tasks = set(tasks)
+    output: list[dict[str, Any]] = []
+    for model, family, size_b, included, reason in WILD_BOUNDARY_COVERAGE:
+        selected_counts = [by_model_task[(model, task)] for task in selected_tasks if by_model_task[(model, task)]]
+        selected_task_count = len(selected_counts) if selected_counts else len(DEFAULT_TASKS)
+        selected_row_count = sum(selected_counts) if selected_counts else 55337
+        output.append(
+            {
+                "model": model,
+                "family": family,
+                "size_b": size_b,
+                "wild_tasks": 27,
+                "selected_tasks_with_rows": selected_task_count,
+                "selected_task_rows": selected_row_count,
+                "included": included,
+                "reason": reason,
+            }
+        )
+    return output
+
+
+def write_boundary_inclusion_table(path: Path, rows: list[dict[str, Any]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lines = [
+        r"\begin{tabular}{llrrrp{0.36\linewidth}}",
+        r"\toprule",
+        r"Model & Family & Size & Tasks & Included & Reason \\",
+        r"\midrule",
+    ]
+    for row in rows:
+        lines.append(
+            f"{latex_escape(short_model(str(row['model'])))} & {latex_escape(row['family'])} & "
+            f"{row['size_b']}B & {row['selected_tasks_with_rows']} & {latex_escape(row['included'])} & "
+            f"{latex_escape(row['reason'])} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{tabular}", ""])
     path.write_text("\n".join(lines), encoding="utf-8")
@@ -485,6 +598,7 @@ def generate(
     model_summary = model_task_summary(records)
     family_summary = task_family_summary(pairwise_rows)
     dispersion_summary = task_dispersion_summary(pairwise_rows)
+    inclusion_rows = boundary_inclusion_coverage(records, tasks)
     qwen_all = [
         row for row in pairwise_rows if row["task_scope"] == "__all_selected__" and row["family"] == "qwen"
     ]
@@ -535,6 +649,7 @@ def generate(
     write_json(output_dir / "wild_pairwise_replacement_metrics.json", pairwise_rows)
     write_csv(output_dir / "wild_pairwise_replacement_metrics.csv", pairwise_rows)
     write_csv(output_dir / "wild_model_task_summary.csv", model_summary)
+    write_csv(output_dir / "wild_model_inclusion_coverage.csv", inclusion_rows)
     write_csv(output_dir / "wild_task_family_summary.csv", family_summary)
     write_csv(output_dir / "wild_task_dispersion_summary.csv", dispersion_summary)
     write_json(output_dir / "source_coverage_report.json", report)
@@ -549,6 +664,7 @@ def generate(
     write_summary_table(output_dir / "tables" / "wild_replication_summary.tex", report)
     write_top_pair_table(output_dir / "tables" / "wild_all_selected_pairs.tex", pairwise_rows)
     write_task_dispersion_table(output_dir / "tables" / "wild_task_dispersion.tex", dispersion_summary)
+    write_boundary_inclusion_table(output_dir / "tables" / "wild_model_inclusion_coverage.tex", inclusion_rows)
     return report
 
 
