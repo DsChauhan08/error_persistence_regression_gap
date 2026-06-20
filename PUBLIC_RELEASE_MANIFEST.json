@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-06-20T18:40:44.287521+00:00",
+  "created_utc": "2026-06-20T18:42:27.403681+00:00",
   "file_count": 217,
   "files": [
     {
@@ -668,9 +668,9 @@
       "sha256": "da46c0c5f11eeba4b356ae700044b8286d96c30d3048daa045a962294103b046"
     },
     {
-      "bytes": 3974,
+      "bytes": 3875,
       "path": "docs/SSRN_SUBMISSION_GUIDE.md",
-      "sha256": "8797d11a46cb72413b42ccbf0c6803074968d39c7565eb04a5927ac53cd08f14"
+      "sha256": "c1499e90846af79026738b4a0af161aceda4c6e690e23986f836c036112336b3"
     },
     {
       "bytes": 119763,
@@ -1058,9 +1058,9 @@
       "sha256": "da46c0c5f11eeba4b356ae700044b8286d96c30d3048daa045a962294103b046"
     },
     {
-      "bytes": 3974,
+      "bytes": 3875,
       "path": "ssrn_submission/SSRN_SUBMISSION_GUIDE.md",
-      "sha256": "8797d11a46cb72413b42ccbf0c6803074968d39c7565eb04a5927ac53cd08f14"
+      "sha256": "c1499e90846af79026738b4a0af161aceda4c6e690e23986f836c036112336b3"
     },
     {
       "bytes": 390444,
@@ -1092,5 +1092,5 @@
   "missing": 0,
   "public_text_policy": "Public release excludes raw model responses, full benchmark text, private parser-audit samples, local caches, DOI metadata, and private notes.",
   "root": ".",
-  "total_bytes": 13417403
+  "total_bytes": 13417205
 }

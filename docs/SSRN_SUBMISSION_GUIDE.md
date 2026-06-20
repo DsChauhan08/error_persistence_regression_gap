@@ -48,12 +48,6 @@ Do not enter any city or country unless you personally want SSRN to display that
 
 ## Article Positioning
 
-Use this framing consistently:
-
-```text
-Software Tool Article / Methods and Software Artifact
-```
-
 Avoid presenting the paper as a broad empirical ML benchmark paper. The safest and strongest SSRN framing is:
 
 - Core contribution: item-level replacement-audit protocol and public artifact.
