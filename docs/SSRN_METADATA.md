@@ -6,17 +6,13 @@ Use this file as the copy-paste source for the SSRN submission form.
 
 An Item-Level Audit Protocol for Error Persistence and Regression Burden in Small Language Model Replacement
 
-## Article Type / Paper Type Note
-
-Software Tool Article / Methods and Software Artifact
-
 ## Author
 
 Dhananjay Singh Chauhan
 
 ## Affiliation
 
-Independent Researcher
+Independent Reviewer
 
 ## Email
 
@@ -47,10 +43,6 @@ Choose the closest available SSRN classifications. If SSRN offers more specific 
 - Software Engineering
 - Evaluation and Benchmarking
 - Reproducibility / Open Science, if available
-
-## AI Disclosure Statement
-
-AI-assisted editorial and software-development tools were used during manuscript drafting, code review, and artifact preparation. The author reviewed, edited, verified, and takes responsibility for the final manuscript, code, analyses, and claims.
 
 ## Funding Statement
 

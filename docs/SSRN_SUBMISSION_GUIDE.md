@@ -7,7 +7,6 @@ Official SSRN submission guidance checked on June 20, 2026:
 - SSRN requires a free SSRN account with a complete author profile.
 - SSRN requires an English title, date written, English abstract or summary, author names, current affiliations, valid email addresses, and a full-text English PDF.
 - The PDF must display the title and all authors with affiliations.
-- If AI was used, SSRN requires an AI disclosure statement with the abstract and displayed on the PDF.
 - SSRN says eligible content may still be rejected for missing information, research-integrity issues, policy issues, or terms-of-use non-compliance.
 
 Source: https://www.elsevier.support/ssrn/answer/get-started
@@ -27,14 +26,12 @@ Do not upload raw model-output JSONL files, private parser-audit samples, raw re
 Use `docs/SSRN_METADATA.md` as the copy-paste source for:
 
 - title
-- article type note
 - author name
 - affiliation
 - email
 - date written
 - abstract
 - keywords
-- AI disclosure statement
 - funding statement
 - competing-interest statement
 - data/software availability statement
@@ -44,7 +41,7 @@ Use `docs/SSRN_METADATA.md` as the copy-paste source for:
 Use:
 
 ```text
-Independent Researcher
+Independent Reviewer
 ```
 
 Do not enter any city or country unless you personally want SSRN to display that location. The manuscript PDF now removes location fields from the author block.
@@ -84,18 +81,15 @@ SSRN category names can change. Pick the closest available categories or eJourna
 3. Start a new paper submission.
 4. Upload `paper/paper.pdf`.
 5. Paste the title, abstract, keywords, and author metadata from `docs/SSRN_METADATA.md`.
-6. Paste the AI disclosure statement when the form asks for it, and keep it in the PDF.
-7. Paste the data/software availability statement and GitHub repository URL.
-8. Choose the closest subject classifications.
-9. Submit only after the PDF preview shows the title, author name, affiliation, email, article type, abstract, and AI disclosure.
+6. Paste the data/software availability statement and GitHub repository URL.
+7. Choose the closest subject classifications.
+8. Submit only after the PDF preview shows the title, author name, affiliation, email, and abstract.
 
 ## Pre-Submit Checklist
 
 - [ ] PDF opens and shows the title correctly.
-- [ ] Author block shows Dhananjay Singh Chauhan, `dschauhan08.me@gmail.com`, and Independent Researcher.
+- [ ] Author block shows Dhananjay Singh Chauhan, `dschauhan08.me@gmail.com`, and Independent Reviewer.
 - [ ] No city or country appears in the PDF author block.
-- [ ] Article type appears on the first page.
-- [ ] AI disclosure statement appears near the abstract on the first page.
 - [ ] Acknowledgments thank Kaggle and Google Colab for accessible compute used in the MMLU-Pro testing.
 - [ ] MMLU-Pro is described as a diagnostic raw-output use case, not confirmatory evidence.
 - [ ] GitHub URL is included in Data and Software Availability.
@@ -103,4 +97,4 @@ SSRN category names can change. Pick the closest available categories or eJourna
 
 ## What SSRN Might Still Reject
 
-SSRN does not guarantee posting. The most realistic rejection risks are missing metadata, missing AI disclosure, PDF metadata/display problems, or a reviewer treating the work as a guide/framework rather than a rigorous software-tool article. The current manuscript reduces that risk by explicitly labeling the article type, stating the method, reporting a public WILD use case, and keeping unsupported MMLU-Pro claims out of the core claim set.
+SSRN does not guarantee posting. The most realistic rejection risks are missing metadata, PDF metadata/display problems, or a reviewer treating the work as a guide/framework rather than a rigorous software-tool article. The current manuscript reduces that risk by stating the method, reporting a public WILD use case, and keeping unsupported MMLU-Pro claims out of the core claim set.
