@@ -53,9 +53,9 @@
 \begin{document}
 
 \begin{abstract}
-Aggregate benchmark accuracy is insufficient on its own for replacing a deployed small language model. A candidate model can improve the mean score while newly failing items that the current model answered correctly. This paper treats replacement as a paired item-level audit: each shared labeled item is assigned to persistent correct, corrected error, regression, or persistent error, yielding correction rate, regression mass, churn mass, error persistence, and normalized regression burden.
+Replacement decisions for small language models are often justified by aggregate benchmark gains. That practice can hide a deployment-relevant distinction: a candidate model may improve the mean score while newly failing on items that the current model answered correctly. This paper presents an item-level replacement-audit protocol for paired model evaluations. For each shared labeled item, the protocol separates persistent correct answers, corrected errors, regressions, and persistent errors, and reports correction rate, regression mass, churn mass, error persistence, and normalized regression burden.
 
-The contribution is a practical audit protocol and artifact, not a scaling law or a causal account of model families. A public WILD correctness-only demonstration retains 276,685 item-level records across five Qwen and Llama models up to approximately four billion parameters and ten tasks. The Qwen2.5-0.5B to Qwen2.5-3B comparison improves aggregate correctness by 22.2 percentage points while changing 40.9\% of item outcomes; the near-parity Qwen2.5-1.5B to Qwen2.5-3B comparison improves by 5.7 points while changing 30.4\% of outcomes. An archived raw-output MMLU-Pro case study covers 14 model-output runs over 3,008 reconstructed and hashed items, but remains diagnostic because the original logs lack complete inference manifests and the manual parser audit is incomplete. The operational recommendation is direct: benchmark-based replacement decisions should report corrected errors, regressions, persistent errors, and churn, not aggregate accuracy alone.
+The contribution is a practical reporting protocol and reproducible artifact, not a scaling law or a causal account of model families. The primary evidence is a parser-independent WILD correctness-only demonstration with 276,685 item-level records for five Qwen and Llama models up to approximately four billion parameters across ten tasks. In this public setting, Qwen2.5-0.5B to Qwen2.5-3B improves aggregate correctness by 22.2 percentage points while changing 40.9\% of item outcomes; Llama 3.2 1B to 3B improves by 17.8 points while changing 35.3\% of outcomes; and the near-parity Qwen2.5-1.5B to Qwen2.5-3B comparison improves by 5.7 points while changing 30.4\% of outcomes. A secondary archived-output MMLU-Pro case study reconstructs 3,008 source items across 14 model-output runs and demonstrates raw-response audit tooling, but remains diagnostic because complete inference manifests and human parser validation are not yet available. The paper's core claim is therefore narrow: benchmark-based replacement decisions should report item-level corrections, regressions, persistent errors, and churn alongside aggregate accuracy.
 \end{abstract}
 
 \maketitle
@@ -64,28 +64,32 @@ The contribution is a practical audit protocol and artifact, not a scaling law o
 
 \section{Introduction}
 
-Models up to approximately four billion parameters are often considered for deployment because they can run under tighter memory, latency, privacy, and cost constraints than larger frontier systems. This paper uses that evaluated size range as its operational scope because it matches the retained model set and the deployment regime where local memory and latency constraints commonly motivate replacement decisions. In such settings, replacement is a common engineering decision. A practitioner has a current model, evaluates a candidate model checkpoint or larger variant, and may adopt the candidate model if its aggregate benchmark accuracy is higher.
+Small language models are attractive deployment targets because they can satisfy memory, latency, privacy, and cost constraints that make larger models impractical. In that setting, replacement is an ordinary engineering decision. A team has a current model, evaluates a candidate model, and must decide whether the candidate is a better component for the same task. Benchmark accuracy is often the first summary used for this decision.
 
-That decision rule is incomplete. A replacement can fix old errors while breaking items that the current model handled correctly. In a document triage system, for example, a small aggregate improvement may still introduce new failures on previously reliable cases. The replacement may still be worth adopting, but the tradeoff should be visible before deployment.
+Aggregate accuracy is a useful summary, but it is not a replacement audit. The same net gain can arise from very different item-level behavior. A candidate may correct many current-model errors while introducing few new failures, or it may achieve a similar mean score after replacing one set of correct items with another. The second case matters in applications where previously reliable cases carry operational risk, such as routing documents, flagging compliance cases, or triaging support requests. A higher average score does not tell a user which old errors remain, which old errors were fixed, or which old successes were lost.
 
-This paper reframes replacement as a paired item-level audit. Given two models evaluated on the same labeled items, we separate persistent correct items, corrected errors, regressions, and persistent errors. This decomposition measures what aggregate accuracy hides: which errors remain, which errors are fixed, which old successes are newly broken, and how much of the item-level correctness pattern changes.
+This paper treats model replacement as a paired item-level accounting problem. Given two models evaluated on the same labeled item identifiers, each item falls into one of four cells: persistent correct, corrected error, regression, or persistent error. From these counts, the audit reports aggregate gain together with improvement mass, regression mass, churn mass, error persistence, correction rate, and normalized regression burden. The result is not a new training method or a mechanistic explanation of model behavior. It is a reporting protocol for a practical question: what changes, item by item, when one small model is used in place of another?
 
-The central question is deliberately narrow:
+The empirical design follows that modest claim. The primary demonstration uses WILD, a public item-level correctness matrix, because binary correctness records avoid the answer-extraction problem that arises with raw language-model completions. The retained WILD subset contains five Qwen and Llama models up to approximately four billion parameters across ten tasks. It is not presented as a representative census of all small models. It is used to show, in a public parser-independent setting, that aggregate gains and item-level churn are distinct quantities.
+
+The paper also includes an archived-output MMLU-Pro case study. That case study is useful because it shows the additional work required when the audit begins from raw model responses: source-row reconstruction, answer extraction, scoring-mode sensitivity, parser-audit sampling, and run-provenance checks. It is not treated as confirmatory evidence for parser-dependent claims, because the original run logs do not contain complete inference manifests and the manual parser audit is not complete. This evidence split is intentional. WILD carries the core item-level correctness claim; MMLU-Pro demonstrates the raw-output workflow and its remaining validation requirements.
+
+The central question is therefore deliberately narrow:
 
 \begin{quote}
-When a small language model improves in aggregate, how much of the item-level correctness pattern actually changes?
+When a candidate small language model improves a benchmark score, how much of the shared item-level correctness pattern is corrected, regressed, or left unchanged?
 \end{quote}
 
-The paper makes four contributions.
+The paper makes four contributions:
 
 \begin{enumerate}
-  \item It gives a reusable replacement-audit protocol based on paired item-level correctness, including correction rate, regression mass, churn mass, error persistence, and normalized regression burden.
-  \item It separates deployment-path audits from standardized all-pairs diagnostics. Directional metrics are meaningful only with respect to a specified current model and candidate model.
-  \item It demonstrates the audit on a public WILD correctness-only matrix, so the core accounting result does not depend on private raw model completions or answer parsing.
-  \item It provides a diagnostic archived-output MMLU-Pro case study with reconstructed source-item hashes, scoring-mode sensitivity checks, and explicit limitations on answer extraction and run provenance.
+  \item A reusable replacement-audit protocol for paired item-level correctness, including correction rate, regression mass, churn mass, error persistence, and normalized regression burden.
+  \item A clear distinction between deployment-path audits and standardized all-pairs diagnostics, so directional metrics are interpreted only with respect to a specified current model and candidate model.
+  \item A public WILD correctness-only demonstration showing that aggregate improvements can coincide with substantial item-level churn without relying on private completions or answer parsing.
+  \item A diagnostic archived-output MMLU-Pro case study with source-item hashes, scoring-mode sensitivity checks, parser-audit tooling, and explicit limits on answer extraction and run provenance.
 \end{enumerate}
 
-The claim is not that prediction churn is new, that Qwen or Gemma has a generalizable family-level property, or that the reported numbers are a scaling law. The claim is practical: if benchmark scores are used to justify replacing a model, then corrected errors and newly introduced regressions should be reported alongside the aggregate score.
+The paper does not claim that prediction churn is new, that one model family has a general property, or that the reported values define a scaling law. Its claim is operational: when benchmark scores are used to justify replacing a model, the report should include corrected errors, regressions, persistent errors, and churn, not aggregate accuracy alone.
 
 \section{Related Work}
 

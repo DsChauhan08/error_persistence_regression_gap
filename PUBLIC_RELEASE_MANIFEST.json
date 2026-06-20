@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-06-20T11:55:05.290742+00:00",
+  "created_utc": "2026-06-20T12:00:35.945754+00:00",
   "file_count": 210,
   "files": [
     {
@@ -723,14 +723,14 @@
       "sha256": "b203f8fe198a82afececa5fc5c2641fa529e3aa05b82b329bcf5891be339fc68"
     },
     {
-      "bytes": 441383,
+      "bytes": 443070,
       "path": "paper/paper.pdf",
-      "sha256": "cd1acaed1513a5565eaf1485012f8f1b89b9b2bed081ee03f5e232bc53d84427"
+      "sha256": "2cef692fe8dbb9bddda482821843bc97648be749e0aa1fbcef2028bd8274f20e"
     },
     {
-      "bytes": 47082,
+      "bytes": 48989,
       "path": "paper/paper.tex",
-      "sha256": "c98ec8138e3149603cdef6d8e6f6c455a04e10419e292f4c122e88ba47277fe1"
+      "sha256": "5eca738496f0f2d45d11732aee78872839bb8bb79515fcfc988f8a4bc2bd22cf"
     },
     {
       "bytes": 10305,
@@ -1057,5 +1057,5 @@
   "missing": 0,
   "public_text_policy": "Public release excludes raw model responses, full benchmark text, private parser-audit samples, local caches, DOI metadata, and private notes.",
   "root": ".",
-  "total_bytes": 13055705
+  "total_bytes": 13059299
 }
