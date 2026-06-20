@@ -1,6 +1,6 @@
 {
-  "created_utc": "2026-06-20T16:35:45.994343+00:00",
-  "file_count": 211,
+  "created_utc": "2026-06-20T17:45:45.436235+00:00",
+  "file_count": 217,
   "files": [
     {
       "bytes": 300,
@@ -33,19 +33,19 @@
       "sha256": "fca3fa046bf116c5fd9a2fef81b038c7e26a533dcd06b6edf94697c90e0d2711"
     },
     {
-      "bytes": 9866,
+      "bytes": 10381,
       "path": "README.md",
-      "sha256": "3f152310c2de100b8d6d04db7bc3056e94de586c68c7239d49807dee375cc30d"
+      "sha256": "aa4e689b7ca7e6334b159de53730014ed3d40679c348aad8c22ef2df00f7ea1c"
     },
     {
-      "bytes": 2732,
+      "bytes": 2764,
       "path": "analysis/artifact_release_status/artifact_release_status.json",
-      "sha256": "8b900e6709c746abcb1aaf7804e8d3643d8a2737d4a4cb16cd08f2745092b94a"
+      "sha256": "0170326615a6b96c96596c63b4b756fe64f8bba7586d7d2bc3259e66b6a456bf"
     },
     {
-      "bytes": 1488,
+      "bytes": 1217,
       "path": "analysis/artifact_release_status/artifact_release_status.tex",
-      "sha256": "0cce8879d690ce715a0a3de35de895c9ebe9b8ea108dd5b6d190b428901f2b91"
+      "sha256": "7099a07bbaafb61d1bc13c90bfbdbb6e6957c288c05746009436693b42a6214d"
     },
     {
       "bytes": 3774,
@@ -663,6 +663,16 @@
       "sha256": "749e222f75db13e92372dfdb19972b21604989dadc9c9de6c5147933747f257f"
     },
     {
+      "bytes": 4328,
+      "path": "docs/SSRN_METADATA.md",
+      "sha256": "2b4d5870ee059710a0539a879dd973b750d0f308a982cbc1f1ed797eb6db1992"
+    },
+    {
+      "bytes": 4422,
+      "path": "docs/SSRN_SUBMISSION_GUIDE.md",
+      "sha256": "c9040c92241917736fcffa6ec9a9b76eae8da56905524e44a616ddf77fab37e2"
+    },
+    {
       "bytes": 119763,
       "path": "paper/acmart.cls",
       "sha256": "b174b1003076b63285ef5fcbc0469ce26206b70f6259922be82f96425d227693"
@@ -728,14 +738,14 @@
       "sha256": "b203f8fe198a82afececa5fc5c2641fa529e3aa05b82b329bcf5891be339fc68"
     },
     {
-      "bytes": 440560,
+      "bytes": 474457,
       "path": "paper/paper.pdf",
-      "sha256": "82d10e4d39ac55227318f55416095ac5de20a94d97979fed809cc4fea3ca2704"
+      "sha256": "a74c59509aea66a54eacdeaa1719b536f39c60b346f035e4f9f6c67f5031bd22"
     },
     {
-      "bytes": 48683,
+      "bytes": 45657,
       "path": "paper/paper.tex",
-      "sha256": "bbe24e98b5f7e9998b9f8b726893b5a7c5ed459b5533fcaa866b6ebca5ff4e56"
+      "sha256": "28b4c7fe5d80d974084f3f7718d45a519ceb98737f111bb033b382199a4574e3"
     },
     {
       "bytes": 10305,
@@ -758,9 +768,9 @@
       "sha256": "1cb2ba39e82f77a707fe69caf43fa715616cf317673ead1f30f7091024743b09"
     },
     {
-      "bytes": 1488,
+      "bytes": 1217,
       "path": "paper/tables/artifact_release_status.tex",
-      "sha256": "0cce8879d690ce715a0a3de35de895c9ebe9b8ea108dd5b6d190b428901f2b91"
+      "sha256": "7099a07bbaafb61d1bc13c90bfbdbb6e6957c288c05746009436693b42a6214d"
     },
     {
       "bytes": 565,
@@ -888,9 +898,9 @@
       "sha256": "8e150df9d7649836b2731ca80ea817f34a1956d8abbd0b38ab0494c8b5b25a5a"
     },
     {
-      "bytes": 16128,
+      "bytes": 16328,
       "path": "src/boundary_slm/artifact_release_status.py",
-      "sha256": "f5e30637b43cad6d7794feb2eced11917fd997798198e4df0ae16f8649e60dcd"
+      "sha256": "ca48ca28e3aa4a2e4afb9c8e30093247e721fc995a5c633abd0a1a5ecdd3c84f"
     },
     {
       "bytes": 19681,
@@ -1038,6 +1048,26 @@
       "sha256": "5b3087010e634a466bc280810daf52d06a4b39b2cc0678b2685340983e6cda3b"
     },
     {
+      "bytes": 591,
+      "path": "ssrn_submission/README.md",
+      "sha256": "a253112e3a01acabfbcceb9fae22c35ec4978f506f90be0ff60067e289aaf460"
+    },
+    {
+      "bytes": 4328,
+      "path": "ssrn_submission/SSRN_METADATA.md",
+      "sha256": "2b4d5870ee059710a0539a879dd973b750d0f308a982cbc1f1ed797eb6db1992"
+    },
+    {
+      "bytes": 4422,
+      "path": "ssrn_submission/SSRN_SUBMISSION_GUIDE.md",
+      "sha256": "c9040c92241917736fcffa6ec9a9b76eae8da56905524e44a616ddf77fab37e2"
+    },
+    {
+      "bytes": 474457,
+      "path": "ssrn_submission/paper.pdf",
+      "sha256": "a74c59509aea66a54eacdeaa1719b536f39c60b346f035e4f9f6c67f5031bd22"
+    },
+    {
       "bytes": 4813,
       "path": "tests/test_boundary_slm.py",
       "sha256": "1bfc06277793996ac3e614bf175349f4eb1f315afa6489b22d29cad97cba76bb"
@@ -1062,5 +1092,5 @@
   "missing": 0,
   "public_text_policy": "Public release excludes raw model responses, full benchmark text, private parser-audit samples, local caches, DOI metadata, and private notes.",
   "root": ".",
-  "total_bytes": 13063586
+  "total_bytes": 13587210
 }

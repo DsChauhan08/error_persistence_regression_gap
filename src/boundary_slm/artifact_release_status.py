@@ -209,30 +209,28 @@ def write_tex(path: Path, status: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     rows = [
         ("Repository", status["repository_url"]),
-        ("Persistent archive", status["archive_identifier"] if status["archive_ready"] else "not provided"),
+        ("Public source archive", status["archive_identifier"] if status["archive_ready"] else "not provided"),
         ("Code license", status["code_license"]),
         ("Data-output license", status["data_output_license"]),
         ("Python support", "Python 3.11+ recommended; local run metadata is recorded in JSON"),
         ("Dependency file", status["dependency_file"]),
-        ("Latest public tests", status["latest_test_result"]),
-        ("WILD accounting layer", "Supported; core claim evidence"),
-        ("MMLU-Pro source reconstruction", "Supported; provenance evidence"),
-        ("Public proof-of-analysis package", "Ready" if status["github_ssrn_ready"] else "Not ready"),
+        ("Public tests", "Passed" if status["tests_ready"] else "Not passed"),
+        ("Public hygiene scan", "Passed" if status["public_hygiene_ready"] else "Not passed"),
+        ("Public manifest", "Verified" if status["public_manifest_ready"] else "Not verified"),
+        ("WILD accounting layer", "Supported by public item-level correctness data"),
+        ("MMLU-Pro source reconstruction", "Supported by source-row hashes"),
+        ("Public proof-of-analysis package", "Available" if status["github_ssrn_ready"] else "Unavailable"),
         (
             "Methods/software article scope",
-            "Ready for WILD-supported protocol claims" if status["methods_software_article_ready"] else "Not ready",
+            "Supported by the public artifact" if status["methods_software_article_ready"] else "Not supported",
         ),
         (
             "MMLU-Pro parser validation",
-            "Complete" if status["parser_validated"] else "Not complete; parser-dependent claims excluded",
+            "Completed" if status["parser_validated"] else "Not claimed in this article",
         ),
         (
             "MMLU-Pro confirmatory evaluation",
-            "Supported" if status["mmlu_pro_confirmatory"] else "Not claimed; diagnostic only",
-        ),
-        (
-            "Full empirical ML article scope",
-            "Ready" if status["full_empirical_ml_ready"] else "Not ready; not the target article type",
+            "Supported" if status["mmlu_pro_confirmatory"] else "Not claimed; diagnostic workflow only",
         ),
     ]
     lines = [r"\begin{tabular}{lp{0.62\linewidth}}", r"\toprule", r"Field & Value \\", r"\midrule"]
@@ -243,7 +241,13 @@ def write_tex(path: Path, status: dict[str, Any]) -> None:
         lines.append(f"Blockers & {latex_escape('; '.join(status['blockers']))} \\\\")
     if status.get("scope_notes"):
         lines.append(r"\midrule")
-        lines.append(f"Scope note & {latex_escape(' '.join(status['scope_notes']))} \\\\")
+        lines.append(
+            "Claim boundary & "
+            + latex_escape(
+                "Parser-dependent MMLU-Pro model-evaluation claims are excluded from the article's core claim set."
+            )
+            + r" \\"
+        )
     lines.extend([r"\bottomrule", r"\end{tabular}", ""])
     path.write_text("\n".join(lines), encoding="utf-8")
 

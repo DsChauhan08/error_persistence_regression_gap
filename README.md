@@ -12,6 +12,14 @@ This is not the full working repository. Internal review notes, venue strategy f
 
 This package is intended for public proof-of-analysis on GitHub and for an SSRN preprint. The active readiness targets are `github_ssrn_ready` and `methods_software_article_ready`, scoped to a WILD-supported protocol/software article. `full_empirical_ml_ready` remains false because MMLU-Pro parser validation and confirmatory raw-output evaluation are not claimed.
 
+The SSRN upload packet is in `ssrn_submission/`:
+
+- `ssrn_submission/paper.pdf`: upload this PDF to SSRN.
+- `ssrn_submission/SSRN_METADATA.md`: copy-paste title, abstract, keywords, author metadata, AI disclosure, and data/software statement.
+- `ssrn_submission/SSRN_SUBMISSION_GUIDE.md`: submission checklist and field guidance.
+
+The manuscript author block intentionally uses `Independent Reviewer` only; no city or country is displayed.
+
 Known limitations for the current public package:
 
 - Raw model-output JSONL files are not included in this public package because some model responses echo benchmark question or option text.
@@ -36,6 +44,7 @@ Known limitations for the current public package:
 - `analysis/external_evidence/`: external evidence map, public WILD item-level correctness replication, and gated-source exclusion manifests.
 - `outputs/`: reserved for optional CPU reruns; real model rerun outputs are not included.
 - `docs/`: public documentation for data status, model runs, benchmark provenance, and reproduction.
+- `ssrn_submission/`: SSRN upload PDF and copy-paste submission metadata.
 - `tests/`: minimal tests for parsing, raw-result analysis, and replacement-audit cards.
 - `CITATION.cff`: citation metadata for the GitHub/SSRN artifact.
 
