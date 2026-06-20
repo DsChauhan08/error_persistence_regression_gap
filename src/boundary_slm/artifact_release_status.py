@@ -60,6 +60,13 @@ def latex_escape(value: Any) -> str:
     return "".join(replacements.get(ch, ch) for ch in text)
 
 
+def latex_cell(value: Any) -> str:
+    text = str(value)
+    if text.startswith(("http://", "https://")):
+        return r"\url{" + text + "}"
+    return latex_escape(text)
+
+
 def release_status(
     *,
     root: Path,
@@ -186,10 +193,10 @@ def write_tex(path: Path, status: dict[str, Any]) -> None:
         ("Latest test command", status["latest_test_command"]),
         ("Latest test result", status["latest_test_result"]),
         ("Persistent archive", status["archive_identifier"] if status["archive_ready"] else "not provided"),
-        ("WILD item-level gate", str(status["wild_claim_ready"]).lower()),
-        ("MMLU-Pro source manifest", str(status["mmlu_pro_source_manifest_ready"]).lower()),
-        ("Public hygiene scan passed", str(status["public_hygiene_ready"]).lower()),
-        ("Public manifest verified", str(status["public_manifest_ready"]).lower()),
+        ("WILD item-level evidence supported", str(status["wild_claim_ready"]).lower()),
+        ("MMLU-Pro source reconstruction passed", str(status["mmlu_pro_source_manifest_ready"]).lower()),
+        ("Public-package hygiene check", str(status["public_hygiene_ready"]).lower()),
+        ("Public-package manifest verified", str(status["public_manifest_ready"]).lower()),
         ("Core WILD-based claim supported", str(status["core_claim_ready"]).lower()),
         ("Parser validation complete", str(status["parser_validated"]).lower()),
         ("MMLU-Pro confirmatory", str(status["mmlu_pro_confirmatory"]).lower()),
@@ -198,7 +205,7 @@ def write_tex(path: Path, status: dict[str, Any]) -> None:
     ]
     lines = [r"\begin{tabular}{lp{0.62\linewidth}}", r"\toprule", r"Field & Value \\", r"\midrule"]
     for key, value in rows:
-        lines.append(f"{latex_escape(key)} & {latex_escape(value)} \\\\")
+        lines.append(f"{latex_escape(key)} & {latex_cell(value)} \\\\")
     if status["blockers"]:
         lines.append(r"\midrule")
         lines.append(f"Blockers & {latex_escape('; '.join(status['blockers']))} \\\\")

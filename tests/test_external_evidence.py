@@ -13,6 +13,7 @@ import pandas as pd
 
 from boundary_slm.external_evidence_registry import generate as generate_registry
 from boundary_slm.external_evidence_registry import validate_sources
+from boundary_slm.external_wild_ingest import boundary_inclusion_coverage
 from boundary_slm.external_wild_ingest import generate as generate_wild
 from boundary_slm.external_wild_ingest import normalize_records, pairwise_metrics
 from boundary_slm.open_llm_details_ingest import generate as generate_open_llm_details
@@ -150,6 +151,39 @@ def test_wild_pairwise_zero_old_errors_marks_old_error_ratios_na() -> None:
     assert main["error_persistence"] is None
     assert main["correction_rate"] is None
     assert main["normalized_regression_burden"] is None
+
+
+def test_wild_inclusion_coverage_uses_actual_rows_not_fallback() -> None:
+    frame = pd.DataFrame(
+        [
+            {
+                "model": "Qwen/Qwen2.5-0.5B-Instruct",
+                "task": "mmlu_pro",
+                "subtask": "math",
+                "item_id": "i1",
+                "score": 1,
+                "input_tokens": 1,
+                "output_tokens": 1,
+            },
+            {
+                "model": "Qwen/Qwen2.5-0.5B-Instruct",
+                "task": "gsm8k",
+                "subtask": "main",
+                "item_id": "i2",
+                "score": 0,
+                "input_tokens": 1,
+                "output_tokens": 1,
+            },
+        ]
+    )
+    rows = boundary_inclusion_coverage(frame, ["mmlu_pro", "gsm8k"])
+    by_model = {row["model"]: row for row in rows}
+    retained = by_model["Qwen/Qwen2.5-0.5B-Instruct"]
+    absent = by_model["llama-3.2-1b"]
+    assert retained["selected_tasks_with_rows"] == 2
+    assert retained["selected_task_rows"] == 2
+    assert absent["selected_tasks_with_rows"] == 0
+    assert absent["selected_task_rows"] == 0
 
 
 def test_wild_smoke_ingest_from_local_parquet(tmp_path: Path) -> None:

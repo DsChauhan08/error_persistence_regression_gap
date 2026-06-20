@@ -1,44 +1,44 @@
 [
   {
     "model": "Qwen/Qwen2-0.5B-Instruct",
-    "reason": "optional gated source; rerun with --try-download after accepting Hugging Face dataset terms",
+    "reason": "HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets",
     "repo_id": "open-llm-leaderboard/Qwen__Qwen2-0.5B-Instruct-details",
-    "status": "not_downloaded"
+    "status": "excluded_no_hf_token"
   },
   {
     "model": "Qwen/Qwen2.5-0.5B-Instruct",
-    "reason": "optional gated source; rerun with --try-download after accepting Hugging Face dataset terms",
+    "reason": "HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets",
     "repo_id": "open-llm-leaderboard/Qwen__Qwen2.5-0.5B-Instruct-details",
-    "status": "not_downloaded"
+    "status": "excluded_no_hf_token"
   },
   {
     "model": "Qwen/Qwen2.5-1.5B-Instruct",
-    "reason": "optional gated source; rerun with --try-download after accepting Hugging Face dataset terms",
+    "reason": "HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets",
     "repo_id": "open-llm-leaderboard/Qwen__Qwen2.5-1.5B-Instruct-details",
-    "status": "not_downloaded"
+    "status": "excluded_no_hf_token"
   },
   {
     "model": "Qwen/Qwen2.5-3B-Instruct",
-    "reason": "optional gated source; rerun with --try-download after accepting Hugging Face dataset terms",
+    "reason": "HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets",
     "repo_id": "open-llm-leaderboard/Qwen__Qwen2.5-3B-Instruct-details",
-    "status": "not_downloaded"
+    "status": "excluded_no_hf_token"
   },
   {
     "model": "google/gemma-2-2b-it",
-    "reason": "optional gated source; rerun with --try-download after accepting Hugging Face dataset terms",
+    "reason": "HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets",
     "repo_id": "open-llm-leaderboard/google__gemma-2-2b-it-details",
-    "status": "not_downloaded"
+    "status": "excluded_no_hf_token"
   },
   {
     "model": "meta-llama/Llama-3.2-1B-Instruct",
-    "reason": "optional gated source; rerun with --try-download after accepting Hugging Face dataset terms",
+    "reason": "HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets",
     "repo_id": "open-llm-leaderboard/meta-llama__Llama-3.2-1B-Instruct-details",
-    "status": "not_downloaded"
+    "status": "excluded_no_hf_token"
   },
   {
     "model": "microsoft/phi-2",
-    "reason": "optional gated source; rerun with --try-download after accepting Hugging Face dataset terms",
+    "reason": "HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets",
     "repo_id": "open-llm-leaderboard/microsoft__phi-2-details",
-    "status": "not_downloaded"
+    "status": "excluded_no_hf_token"
   }
 ]

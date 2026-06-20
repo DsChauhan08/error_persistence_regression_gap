@@ -1,13 +1,13 @@
 cff-version: 1.2.0
 message: "If you use this artifact, please cite this public GitHub/SSRN release package."
-title: "An Item-Level Audit of Error Persistence and Regression Burden in Small Language Model Replacement"
+title: "An Item-Level Audit Protocol for Error Persistence and Regression Burden in Small Language Model Replacement"
 authors:
   - family-names: "Chauhan"
     given-names: "Dhananjay Singh"
 version: "1.0.0-github-ssrn"
 date-released: "2026-06-20"
 license: "MIT"
-abstract: "Public analysis artifact for an item-level replacement audit of small and boundary-size language models, including WILD correctness-only replication, MMLU-Pro source hashes, parser-audit summaries, scoring sensitivity reports, and paper-generation code."
+abstract: "Public analysis artifact for an item-level replacement-audit protocol for small language models, including WILD correctness-only replication, MMLU-Pro source hashes, parser-audit summaries, scoring sensitivity reports, and paper-generation code."
 keywords:
   - "small language models"
   - "model replacement"

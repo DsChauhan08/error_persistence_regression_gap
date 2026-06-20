@@ -8,7 +8,7 @@
     "claim_ready": false,
     "completed_high_risk_rows": 0,
     "completed_manual_rows": 0,
-    "created_utc": "2026-06-19T16:16:35.601209+00:00",
+    "created_utc": "2026-06-20T11:23:13.455654+00:00",
     "false_improvement_impact_cases": 0,
     "false_regression_impact_cases": 0,
     "minimum_parser_agreement": 0.95,
@@ -18,7 +18,7 @@
     "required_manual_rows": 452,
     "status": "blocked"
   },
-  "created_utc": "2026-06-19T16:16:35.601254+00:00",
+  "created_utc": "2026-06-20T11:23:13.455701+00:00",
   "false_regression_improvement_impact": [],
   "legacy_family_method_summary": [],
   "parser_audit_impact": [],

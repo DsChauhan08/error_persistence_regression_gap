@@ -15,7 +15,7 @@ The gate is intentionally not satisfied by WILD alone. WILD supports the core pa
 
 ## Fastest Path To `parser_validated=true`
 
-Run short labeling sessions:
+Run short labeling sessions from the full private/source workspace, where the withheld parser-audit sample is available:
 
 ```bash
 PYTHONPATH=main/src python3 -m boundary_slm.parser_audit_labeler --limit 25

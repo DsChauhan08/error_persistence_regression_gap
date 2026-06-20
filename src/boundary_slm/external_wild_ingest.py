@@ -220,10 +220,21 @@ def load_wild_rows(
     max_rows: int | None = None,
 ) -> list[dict[str, Any]]:
     frame = pd.read_parquet(input_uri, columns=WILD_COLUMNS)
+    filtered = filter_wild_frame(frame, models=models, tasks=tasks, max_rows=max_rows)
+    return normalize_records(filtered)
+
+
+def filter_wild_frame(
+    frame: pd.DataFrame,
+    *,
+    models: list[str],
+    tasks: list[str],
+    max_rows: int | None = None,
+) -> pd.DataFrame:
     filtered = frame[frame["model"].isin(models) & frame["task"].isin(tasks)]
     if max_rows is not None:
         filtered = filtered.head(max_rows)
-    return normalize_records(filtered)
+    return filtered
 
 
 def index_by_id(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
@@ -535,24 +546,20 @@ def write_task_dispersion_table(path: Path, rows: list[dict[str, Any]]) -> None:
     path.write_text("\n".join(lines), encoding="utf-8")
 
 
-def boundary_inclusion_coverage(records: list[dict[str, Any]], tasks: list[str]) -> list[dict[str, Any]]:
-    by_model_task: dict[tuple[str, str], int] = defaultdict(int)
-    for row in records:
-        by_model_task[(str(row["model"]), str(row["task"]))] += 1
+def boundary_inclusion_coverage(frame: pd.DataFrame, tasks: list[str]) -> list[dict[str, Any]]:
     selected_tasks = set(tasks)
     output: list[dict[str, Any]] = []
     for model, family, size_b, included, reason in WILD_BOUNDARY_COVERAGE:
-        selected_counts = [by_model_task[(model, task)] for task in selected_tasks if by_model_task[(model, task)]]
-        selected_task_count = len(selected_counts) if selected_counts else len(DEFAULT_TASKS)
-        selected_row_count = sum(selected_counts) if selected_counts else 55337
+        model_frame = frame[frame["model"] == model]
+        selected_frame = model_frame[model_frame["task"].isin(selected_tasks)]
         output.append(
             {
                 "model": model,
                 "family": family,
                 "size_b": size_b,
-                "wild_tasks": 27,
-                "selected_tasks_with_rows": selected_task_count,
-                "selected_task_rows": selected_row_count,
+                "wild_tasks": int(model_frame["task"].nunique()),
+                "selected_tasks_with_rows": int(selected_frame["task"].nunique()),
+                "selected_task_rows": int(len(selected_frame)),
                 "included": included,
                 "reason": reason,
             }
@@ -563,16 +570,16 @@ def boundary_inclusion_coverage(records: list[dict[str, Any]], tasks: list[str])
 def write_boundary_inclusion_table(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     lines = [
-        r"\begin{tabular}{llrrrp{0.36\linewidth}}",
+        r"\begin{tabular}{llrrrrp{0.34\linewidth}}",
         r"\toprule",
-        r"Model & Family & Size & Tasks & Included & Reason \\",
+        r"Model & Family & Size & Tasks & Rows & Included & Reason \\",
         r"\midrule",
     ]
     for row in rows:
         lines.append(
             f"{latex_escape(short_model(str(row['model'])))} & {latex_escape(row['family'])} & "
-            f"{row['size_b']}B & {row['selected_tasks_with_rows']} & {latex_escape(row['included'])} & "
-            f"{latex_escape(row['reason'])} \\\\"
+            f"{row['size_b']}B & {row['selected_tasks_with_rows']} & {row['selected_task_rows']} & "
+            f"{latex_escape(row['included'])} & {latex_escape(row['reason'])} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{tabular}", ""])
     path.write_text("\n".join(lines), encoding="utf-8")
@@ -593,12 +600,14 @@ def generate(
     max_rows: int | None = None,
 ) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
-    records = load_wild_rows(input_uri, models=models, tasks=tasks, max_rows=max_rows)
+    frame = pd.read_parquet(input_uri, columns=WILD_COLUMNS)
+    selected_frame = filter_wild_frame(frame, models=models, tasks=tasks, max_rows=max_rows)
+    records = normalize_records(selected_frame)
     pairwise_rows = pairwise_metrics(records, bootstrap_iters=bootstrap_iters)
     model_summary = model_task_summary(records)
     family_summary = task_family_summary(pairwise_rows)
     dispersion_summary = task_dispersion_summary(pairwise_rows)
-    inclusion_rows = boundary_inclusion_coverage(records, tasks)
+    inclusion_rows = boundary_inclusion_coverage(frame, tasks)
     qwen_all = [
         row for row in pairwise_rows if row["task_scope"] == "__all_selected__" and row["family"] == "qwen"
     ]

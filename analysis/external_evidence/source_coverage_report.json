@@ -6,7 +6,7 @@
   "claim_boundary": "WILD supports external item-level correctness replication only, not raw-response parsing claims.",
   "claim_ready": true,
   "claim_use": "item_level_correctness_replication",
-  "created_utc": "2026-06-19T08:29:57.497062+00:00",
+  "created_utc": "2026-06-20T11:47:20.827491+00:00",
   "evidence_tier": "B",
   "license": "apache-2.0",
   "model_count": 5,

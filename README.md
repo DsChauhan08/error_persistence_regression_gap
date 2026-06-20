@@ -2,7 +2,7 @@
 
 This folder is the public GitHub/SSRN release package for the paper:
 
-**An Item-Level Audit of Error Persistence and Regression Burden in Small Language Model Replacement**
+**An Item-Level Audit Protocol for Error Persistence and Regression Burden in Small Language Model Replacement**
 
 It contains the manuscript, analysis code, derived metrics, figures, tables, and reproducibility commands needed to inspect the current paper results.
 
@@ -31,7 +31,7 @@ Known limitations for the current public package:
 - `analysis/source_manifest/`: MMLU-Pro source-row hashes and source-manifest status.
 - `analysis/paper_metrics/`: paper-ready metrics, model-run metadata status, all-pairs appendix metrics, replacement-audit cards, tables, and JSON summaries.
 - `analysis/parser_audit/`: public parser-audit summaries, scoring sensitivity summaries, and claim-gate reports. Private first-pass and second-pass audit samples are withheld.
-- `analysis/artifact_release_status/`: journal-release metadata and gate status.
+- `analysis/artifact_release_status/`: public-release metadata and gate status.
 - `analysis/external_benchmark_context/`: context-only aggregate benchmark source table.
 - `analysis/external_evidence/`: external evidence map, public WILD item-level correctness replication, and gated-source exclusion manifests.
 - `outputs/`: reserved for optional CPU reruns; real model rerun outputs are not included.

@@ -1,6 +1,6 @@
 {
   "claim_boundary": "MMLU-Pro remains a parser-dependent archived-output diagnostic unless parser and scoring robustness gates pass.",
-  "created_utc": "2026-06-19T16:18:26.480341+00:00",
+  "created_utc": "2026-06-20T11:24:25.905354+00:00",
   "family_contrast_robustness": [
     {
       "gemma_mean_error_persistence": 0.859147,
@@ -69,7 +69,7 @@
       "manual parser audit is incomplete or below threshold"
     ],
     "claim_ready": false,
-    "created_utc": "2026-06-19T16:18:26.480233+00:00",
+    "created_utc": "2026-06-20T11:24:25.905336+00:00",
     "family_contrast_material_change": false,
     "mmlu_pro_confirmatory": false,
     "parser_validated": false,

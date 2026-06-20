@@ -1,8 +1,8 @@
 model,repo_id,status,reason
-Qwen/Qwen2-0.5B-Instruct,open-llm-leaderboard/Qwen__Qwen2-0.5B-Instruct-details,not_downloaded,optional gated source; rerun with --try-download after accepting Hugging Face dataset terms
-Qwen/Qwen2.5-0.5B-Instruct,open-llm-leaderboard/Qwen__Qwen2.5-0.5B-Instruct-details,not_downloaded,optional gated source; rerun with --try-download after accepting Hugging Face dataset terms
-Qwen/Qwen2.5-1.5B-Instruct,open-llm-leaderboard/Qwen__Qwen2.5-1.5B-Instruct-details,not_downloaded,optional gated source; rerun with --try-download after accepting Hugging Face dataset terms
-Qwen/Qwen2.5-3B-Instruct,open-llm-leaderboard/Qwen__Qwen2.5-3B-Instruct-details,not_downloaded,optional gated source; rerun with --try-download after accepting Hugging Face dataset terms
-google/gemma-2-2b-it,open-llm-leaderboard/google__gemma-2-2b-it-details,not_downloaded,optional gated source; rerun with --try-download after accepting Hugging Face dataset terms
-meta-llama/Llama-3.2-1B-Instruct,open-llm-leaderboard/meta-llama__Llama-3.2-1B-Instruct-details,not_downloaded,optional gated source; rerun with --try-download after accepting Hugging Face dataset terms
-microsoft/phi-2,open-llm-leaderboard/microsoft__phi-2-details,not_downloaded,optional gated source; rerun with --try-download after accepting Hugging Face dataset terms
+Qwen/Qwen2-0.5B-Instruct,open-llm-leaderboard/Qwen__Qwen2-0.5B-Instruct-details,excluded_no_hf_token,HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets
+Qwen/Qwen2.5-0.5B-Instruct,open-llm-leaderboard/Qwen__Qwen2.5-0.5B-Instruct-details,excluded_no_hf_token,HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets
+Qwen/Qwen2.5-1.5B-Instruct,open-llm-leaderboard/Qwen__Qwen2.5-1.5B-Instruct-details,excluded_no_hf_token,HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets
+Qwen/Qwen2.5-3B-Instruct,open-llm-leaderboard/Qwen__Qwen2.5-3B-Instruct-details,excluded_no_hf_token,HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets
+google/gemma-2-2b-it,open-llm-leaderboard/google__gemma-2-2b-it-details,excluded_no_hf_token,HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets
+meta-llama/Llama-3.2-1B-Instruct,open-llm-leaderboard/meta-llama__Llama-3.2-1B-Instruct-details,excluded_no_hf_token,HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets
+microsoft/phi-2,open-llm-leaderboard/microsoft__phi-2-details,excluded_no_hf_token,HF_TOKEN or HUGGINGFACE_HUB_TOKEN is required for gated detail datasets
