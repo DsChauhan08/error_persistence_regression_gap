@@ -1,0 +1,3 @@
+family_a,family_b,metric,family_a_model_count,family_b_model_count,family_a_mean,family_b_mean,observed_difference,exact_p,n_permutations
+qwen,gemma,mean_error_persistence_across_incident_pairs,7,4,0.658368,0.777886,-0.119518,0.00303,330
+qwen,gemma,mean_regression_gap_across_incident_pairs,7,4,0.127513,0.089833,0.03768,0.072727,330

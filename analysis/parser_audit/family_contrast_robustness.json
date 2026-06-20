@@ -1,0 +1,62 @@
+[
+  {
+    "gemma_mean_error_persistence": 0.859147,
+    "gemma_mean_nrb": 0.145086,
+    "gemma_pair_count": 10,
+    "has_qwen_gemma_contrast": true,
+    "mode": "default",
+    "qwen_mean_error_persistence": 0.658368,
+    "qwen_mean_nrb": 0.127513,
+    "qwen_minus_gemma_error_persistence": -0.200779,
+    "qwen_minus_gemma_nrb": -0.017573,
+    "qwen_pair_count": 21
+  },
+  {
+    "gemma_mean_error_persistence": 0.655372,
+    "gemma_mean_nrb": 0.081124,
+    "gemma_pair_count": 10,
+    "has_qwen_gemma_contrast": true,
+    "mode": "exclude_low_confidence_fallback",
+    "qwen_mean_error_persistence": 0.54712,
+    "qwen_mean_nrb": 0.129642,
+    "qwen_minus_gemma_error_persistence": -0.108252,
+    "qwen_minus_gemma_nrb": 0.048518,
+    "qwen_pair_count": 21
+  },
+  {
+    "gemma_mean_error_persistence": 0.895007,
+    "gemma_mean_nrb": 0.256834,
+    "gemma_pair_count": 3,
+    "has_qwen_gemma_contrast": true,
+    "mode": "exclude_saved_prediction_models",
+    "qwen_mean_error_persistence": 0.658368,
+    "qwen_mean_nrb": 0.127513,
+    "qwen_minus_gemma_error_persistence": -0.236639,
+    "qwen_minus_gemma_nrb": -0.129321,
+    "qwen_pair_count": 21
+  },
+  {
+    "gemma_mean_error_persistence": 0.655372,
+    "gemma_mean_nrb": 0.081124,
+    "gemma_pair_count": 10,
+    "has_qwen_gemma_contrast": true,
+    "mode": "explicit_marker_only",
+    "qwen_mean_error_persistence": 0.54712,
+    "qwen_mean_nrb": 0.129642,
+    "qwen_minus_gemma_error_persistence": -0.108252,
+    "qwen_minus_gemma_nrb": 0.048518,
+    "qwen_pair_count": 21
+  },
+  {
+    "gemma_mean_error_persistence": 0.860073,
+    "gemma_mean_nrb": 0.145404,
+    "gemma_pair_count": 10,
+    "has_qwen_gemma_contrast": true,
+    "mode": "raw_only",
+    "qwen_mean_error_persistence": 0.658368,
+    "qwen_mean_nrb": 0.127513,
+    "qwen_minus_gemma_error_persistence": -0.201705,
+    "qwen_minus_gemma_nrb": -0.017891,
+    "qwen_pair_count": 21
+  }
+]

@@ -1,0 +1,16 @@
+rows_with_saved_prediction,raw_response_parseable_rows,saved_prediction_matches_raw_response_parser,saved_prediction_differs_from_raw_response_parser,raw_response_unparseable_rows,family,raw_response_extraction_method,agreement_rate_among_parseable_raw_responses,raw_response_parseable_rate
+118,118,19,99,0,gemma,answer_is,0.161017,1.0
+485,485,31,454,0,gemma,correct_answer,0.063918,1.0
+419,419,413,6,0,gemma,final_answer,0.98568,1.0
+146,146,136,10,0,gemma,last_standalone_letter,0.931507,1.0
+2,0,0,0,2,gemma,none,0.0,0.0
+76,76,67,9,0,gemma,option_is,0.881579,1.0
+4609,4609,3198,1411,0,gemma,tail_option,0.69386,1.0
+30,30,21,9,0,phi,answer_is,0.7,1.0
+1145,1145,833,312,0,phi,correct_answer,0.727511,1.0
+2,2,2,0,0,phi,final_answer,1.0,1.0
+408,408,312,96,0,phi,last_standalone_letter,0.764706,1.0
+874,0,0,0,874,phi,none,0.0,0.0
+30,30,14,16,0,phi,option_is,0.466667,1.0
+1,1,1,0,0,phi,single_letter,1.0,1.0
+240,240,134,106,0,phi,tail_option,0.558333,1.0

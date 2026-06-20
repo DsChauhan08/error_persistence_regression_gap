@@ -1,0 +1,37 @@
+{
+  "created_utc": "2026-06-16T19:21:47.710723+00:00",
+  "input_files": [
+    "main/results/Gemma-2-2B-Instruct.jsonl",
+    "main/results/Gemma-3-1B-Instruct.jsonl",
+    "main/results/Gemma-3-1B-it.jsonl",
+    "main/results/Gemma-3-270M-Instruct.jsonl",
+    "main/results/Gemma-4-E2B-Instruct.jsonl",
+    "main/results/Llama-3.2-1B-Instruct.jsonl",
+    "main/results/Phi-2.jsonl",
+    "main/results/Qwen2-0.5B-Instruct.jsonl",
+    "main/results/Qwen2.5-0.5B-Instruct.jsonl",
+    "main/results/Qwen2.5-3B-Instruct.jsonl",
+    "main/results/Qwen3-0.6B.jsonl",
+    "main/results/Qwen3-4B-Instruct-2507.jsonl",
+    "main/results/Qwen3.5-0.8B.jsonl",
+    "main/results/Qwen3.5-2B.jsonl"
+  ],
+  "outputs": [
+    "per_model/*.json",
+    "leaderboard.csv",
+    "leaderboard.json",
+    "category_table.csv",
+    "pairwise_error_ecology.csv",
+    "pairwise_error_ecology.json",
+    "standardized_pairwise_error_ecology_all_models.csv",
+    "standardized_pairwise_error_ecology_all_models.json",
+    "evidence_audit.json",
+    "paper_conclusions.json",
+    "PAPER_CONCLUSIONS.md"
+  ],
+  "parser_notes": [
+    "Answers were extracted from verbose raw responses using explicit final-answer patterns first.",
+    "Ground truth letters span A-J.",
+    "Rows with no parseable answer are counted as unanswered and incorrect."
+  ]
+}

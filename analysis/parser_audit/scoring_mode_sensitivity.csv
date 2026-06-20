@@ -1,0 +1,4 @@
+model,family,n,saved_prediction_rows,saved_prediction_row_rate,saved_primary_accuracy,raw_response_only_accuracy,accuracy_delta_raw_minus_saved,saved_primary_answered_rate,raw_response_only_answered_rate,prediction_comparable_rows,prediction_agreement_rows,prediction_disagreement_rows,raw_unparseable_saved_rows,agreement_rate_on_comparable_predictions,same_correctness_rows,changed_correctness_rows,changed_correctness_rate,saved_primary_correct_only_rows,raw_response_only_correct_only_rows
+Gemma-3-1B-Instruct,gemma,3008,2981,0.991024,0.117686,0.131316,0.01363,0.991024,0.990359,2979,1396,1583,2,0.468614,2659,349,0.116024,154,195
+Gemma-3-270M-Instruct,gemma,3008,2874,0.955452,0.104388,0.100399,-0.003989,0.955452,0.955452,2874,2468,406,0,0.858733,2910,98,0.03258,55,43
+Phi-2,phi,3008,2730,0.90758,0.118019,0.109043,-0.008976,0.90758,0.617021,1856,1317,539,874,0.709591,2761,247,0.082114,137,110

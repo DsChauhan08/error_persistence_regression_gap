@@ -1,0 +1,238 @@
+{
+  "claim_boundary": "MMLU-Pro remains a parser-dependent archived-output diagnostic unless parser and scoring robustness gates pass.",
+  "created_utc": "2026-06-19T16:18:26.480341+00:00",
+  "family_contrast_robustness": [
+    {
+      "gemma_mean_error_persistence": 0.859147,
+      "gemma_mean_nrb": 0.145086,
+      "gemma_pair_count": 10,
+      "has_qwen_gemma_contrast": true,
+      "mode": "default",
+      "qwen_mean_error_persistence": 0.658368,
+      "qwen_mean_nrb": 0.127513,
+      "qwen_minus_gemma_error_persistence": -0.200779,
+      "qwen_minus_gemma_nrb": -0.017573,
+      "qwen_pair_count": 21
+    },
+    {
+      "gemma_mean_error_persistence": 0.655372,
+      "gemma_mean_nrb": 0.081124,
+      "gemma_pair_count": 10,
+      "has_qwen_gemma_contrast": true,
+      "mode": "exclude_low_confidence_fallback",
+      "qwen_mean_error_persistence": 0.54712,
+      "qwen_mean_nrb": 0.129642,
+      "qwen_minus_gemma_error_persistence": -0.108252,
+      "qwen_minus_gemma_nrb": 0.048518,
+      "qwen_pair_count": 21
+    },
+    {
+      "gemma_mean_error_persistence": 0.895007,
+      "gemma_mean_nrb": 0.256834,
+      "gemma_pair_count": 3,
+      "has_qwen_gemma_contrast": true,
+      "mode": "exclude_saved_prediction_models",
+      "qwen_mean_error_persistence": 0.658368,
+      "qwen_mean_nrb": 0.127513,
+      "qwen_minus_gemma_error_persistence": -0.236639,
+      "qwen_minus_gemma_nrb": -0.129321,
+      "qwen_pair_count": 21
+    },
+    {
+      "gemma_mean_error_persistence": 0.655372,
+      "gemma_mean_nrb": 0.081124,
+      "gemma_pair_count": 10,
+      "has_qwen_gemma_contrast": true,
+      "mode": "explicit_marker_only",
+      "qwen_mean_error_persistence": 0.54712,
+      "qwen_mean_nrb": 0.129642,
+      "qwen_minus_gemma_error_persistence": -0.108252,
+      "qwen_minus_gemma_nrb": 0.048518,
+      "qwen_pair_count": 21
+    },
+    {
+      "gemma_mean_error_persistence": 0.860073,
+      "gemma_mean_nrb": 0.145404,
+      "gemma_pair_count": 10,
+      "has_qwen_gemma_contrast": true,
+      "mode": "raw_only",
+      "qwen_mean_error_persistence": 0.658368,
+      "qwen_mean_nrb": 0.127513,
+      "qwen_minus_gemma_error_persistence": -0.201705,
+      "qwen_minus_gemma_nrb": -0.017891,
+      "qwen_pair_count": 21
+    }
+  ],
+  "input_dir": "main/results",
+  "mmlu_claim_gate": {
+    "blockers": [
+      "manual parser audit is incomplete or below threshold"
+    ],
+    "claim_ready": false,
+    "created_utc": "2026-06-19T16:18:26.480233+00:00",
+    "family_contrast_material_change": false,
+    "mmlu_pro_confirmatory": false,
+    "parser_validated": false,
+    "status": "blocked"
+  },
+  "mmlu_scoring_robustness": [
+    {
+      "family": "gemma",
+      "mean_accuracy_delta": 0.005386,
+      "mean_churn_mass": 0.240691,
+      "mean_correction_rate": 0.140853,
+      "mean_error_persistence": 0.859147,
+      "mean_improvement_mass": 0.123039,
+      "mean_normalized_regression_burden": 0.145086,
+      "mean_regression_mass": 0.117653,
+      "median_n_common": 3008,
+      "mode": "default",
+      "pair_count": 10
+    },
+    {
+      "family": "qwen",
+      "mean_accuracy_delta": 0.171574,
+      "mean_churn_mass": 0.350367,
+      "mean_correction_rate": 0.341632,
+      "mean_error_persistence": 0.658368,
+      "mean_improvement_mass": 0.260971,
+      "mean_normalized_regression_burden": 0.127513,
+      "mean_regression_mass": 0.089397,
+      "median_n_common": 3008,
+      "mode": "default",
+      "pair_count": 21
+    },
+    {
+      "family": "gemma",
+      "mean_accuracy_delta": 0.228102,
+      "mean_churn_mass": 0.363652,
+      "mean_correction_rate": 0.344628,
+      "mean_error_persistence": 0.655372,
+      "mean_improvement_mass": 0.295877,
+      "mean_normalized_regression_burden": 0.081124,
+      "mean_regression_mass": 0.067775,
+      "median_n_common": 1633,
+      "mode": "exclude_low_confidence_fallback",
+      "pair_count": 10
+    },
+    {
+      "family": "qwen",
+      "mean_accuracy_delta": 0.238492,
+      "mean_churn_mass": 0.391359,
+      "mean_correction_rate": 0.45288,
+      "mean_error_persistence": 0.54712,
+      "mean_improvement_mass": 0.314926,
+      "mean_normalized_regression_burden": 0.129642,
+      "mean_regression_mass": 0.076433,
+      "median_n_common": 1747,
+      "mode": "exclude_low_confidence_fallback",
+      "pair_count": 21
+    },
+    {
+      "family": "gemma",
+      "mean_accuracy_delta": -0.104609,
+      "mean_churn_mass": 0.276152,
+      "mean_correction_rate": 0.104993,
+      "mean_error_persistence": 0.895007,
+      "mean_improvement_mass": 0.085771,
+      "mean_normalized_regression_burden": 0.256834,
+      "mean_regression_mass": 0.190381,
+      "median_n_common": 3008,
+      "mode": "exclude_saved_prediction_models",
+      "pair_count": 3
+    },
+    {
+      "family": "qwen",
+      "mean_accuracy_delta": 0.171574,
+      "mean_churn_mass": 0.350367,
+      "mean_correction_rate": 0.341632,
+      "mean_error_persistence": 0.658368,
+      "mean_improvement_mass": 0.260971,
+      "mean_normalized_regression_burden": 0.127513,
+      "mean_regression_mass": 0.089397,
+      "median_n_common": 3008,
+      "mode": "exclude_saved_prediction_models",
+      "pair_count": 21
+    },
+    {
+      "family": "gemma",
+      "mean_accuracy_delta": 0.228102,
+      "mean_churn_mass": 0.363652,
+      "mean_correction_rate": 0.344628,
+      "mean_error_persistence": 0.655372,
+      "mean_improvement_mass": 0.295877,
+      "mean_normalized_regression_burden": 0.081124,
+      "mean_regression_mass": 0.067775,
+      "median_n_common": 1633,
+      "mode": "explicit_marker_only",
+      "pair_count": 10
+    },
+    {
+      "family": "qwen",
+      "mean_accuracy_delta": 0.238492,
+      "mean_churn_mass": 0.391359,
+      "mean_correction_rate": 0.45288,
+      "mean_error_persistence": 0.54712,
+      "mean_improvement_mass": 0.314926,
+      "mean_normalized_regression_burden": 0.129642,
+      "mean_regression_mass": 0.076433,
+      "median_n_common": 1747,
+      "mode": "explicit_marker_only",
+      "pair_count": 21
+    },
+    {
+      "family": "gemma",
+      "mean_accuracy_delta": 0.004256,
+      "mean_churn_mass": 0.239428,
+      "mean_correction_rate": 0.139927,
+      "mean_error_persistence": 0.860073,
+      "mean_improvement_mass": 0.121842,
+      "mean_normalized_regression_burden": 0.145404,
+      "mean_regression_mass": 0.117586,
+      "median_n_common": 3008,
+      "mode": "raw_only",
+      "pair_count": 10
+    },
+    {
+      "family": "qwen",
+      "mean_accuracy_delta": 0.171574,
+      "mean_churn_mass": 0.350367,
+      "mean_correction_rate": 0.341632,
+      "mean_error_persistence": 0.658368,
+      "mean_improvement_mass": 0.260971,
+      "mean_normalized_regression_burden": 0.127513,
+      "mean_regression_mass": 0.089397,
+      "median_n_common": 3008,
+      "mode": "raw_only",
+      "pair_count": 21
+    }
+  ],
+  "mode_model_counts": [
+    {
+      "mode": "default",
+      "model_count": 14,
+      "scored_row_count": 42112
+    },
+    {
+      "mode": "raw_only",
+      "model_count": 14,
+      "scored_row_count": 42112
+    },
+    {
+      "mode": "exclude_saved_prediction_models",
+      "model_count": 11,
+      "scored_row_count": 33088
+    },
+    {
+      "mode": "exclude_low_confidence_fallback",
+      "model_count": 14,
+      "scored_row_count": 30484
+    },
+    {
+      "mode": "explicit_marker_only",
+      "model_count": 14,
+      "scored_row_count": 30484
+    }
+  ],
+  "parser_gate_path": "main/analysis/parser_audit/parser_audit_claim_gate.json"
+}

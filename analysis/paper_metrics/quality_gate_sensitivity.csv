@@ -1,0 +1,5 @@
+answerability_gate,excluded_primary_family_models,qwen_pair_count,qwen_mean_error_persistence,qwen_mean_regression_gap,qwen_mean_normalized_regression_burden,qwen_mean_churn_mass,gemma_pair_count,gemma_mean_error_persistence,gemma_mean_regression_gap,gemma_mean_normalized_regression_burden,gemma_mean_churn_mass
+none,none,21,0.658368,0.127513,0.127513,0.350367,10,0.859147,0.145086,0.145086,0.240692
+0.70,Gemma-4-E2B-Instruct,21,0.658368,0.127513,0.127513,0.350367,6,0.777885,0.089833,0.089833,0.273493
+0.80,Gemma-4-E2B-Instruct,21,0.658368,0.127513,0.127513,0.350367,6,0.777885,0.089833,0.089833,0.273493
+0.90,Gemma-4-E2B-Instruct,21,0.658368,0.127513,0.127513,0.350367,6,0.777885,0.089833,0.089833,0.273493

@@ -1,0 +1,8 @@
+{
+  "claim_boundary": "WILD supports external item-level correctness replication only, not raw-response parsing claims.",
+  "claim_ready": true,
+  "claim_use": "item_level_correctness_replication",
+  "pairwise_comparison_count": 44,
+  "qwen_all_selected_pair_count": 3,
+  "source_id": "wild"
+}

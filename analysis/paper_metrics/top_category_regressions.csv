@@ -1,0 +1,7 @@
+family,rank,category,pair_count,mean_accuracy_delta,mean_improvement_mass,mean_regression_mass
+gemma,1,health,6,0.100169,0.21128,0.111111
+gemma,2,history,6,0.052188,0.1633,0.111111
+gemma,3,computer science,6,0.099057,0.199685,0.100629
+qwen,1,history,21,0.092352,0.210678,0.118326
+qwen,2,law,21,0.042006,0.152634,0.110628
+qwen,3,computer science,21,0.17071,0.277179,0.106469

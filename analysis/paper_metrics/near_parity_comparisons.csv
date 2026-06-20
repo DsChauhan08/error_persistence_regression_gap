@@ -1,0 +1,6 @@
+comparison_id,family,accuracy_delta,churn_mass,improvement_mass,regression_mass,error_persistence,error_redistribution_index
+Qwen2.5-3B-Instruct -> Qwen3-4B-Instruct-2507,qwen,0.040226,0.3248,0.182513,0.142287,0.672825,0.463913
+Qwen3.5-2B -> Qwen2.5-3B-Instruct,qwen,-0.026928,0.314827,0.143949,0.170878,0.728867,0.448603
+Qwen3.5-2B -> Qwen3-4B-Instruct-2507,qwen,0.013298,0.291224,0.152261,0.138963,0.713212,0.434739
+Qwen2-0.5B-Instruct -> Qwen2.5-0.5B-Instruct,qwen,0.034574,0.216755,0.125665,0.09109,0.85556,0.225527
+Gemma-3-270M-Instruct -> Gemma-3-1B-Instruct,gemma,0.013298,0.180186,0.096742,0.083444,0.891982,0.184041

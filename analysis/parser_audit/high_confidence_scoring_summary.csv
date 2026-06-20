@@ -1,0 +1,5 @@
+rows,all_parser_correct,high_confidence_answered,high_confidence_correct,low_confidence_rows,family,all_parser_accuracy,high_confidence_accuracy_on_answered,high_confidence_coverage
+15040,2203,11216,2129,3824,gemma,0.146476,0.189818,0.745745
+3008,637,2626,598,382,llama,0.211769,0.227723,0.873005
+3008,355,2730,355,278,phi,0.118019,0.130037,0.90758
+21056,6914,18029,6529,3027,qwen,0.328362,0.362139,0.856241

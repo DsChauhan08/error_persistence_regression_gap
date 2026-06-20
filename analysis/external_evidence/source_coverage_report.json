@@ -1,0 +1,52 @@
+{
+  "all_selected_pair_count": 4,
+  "all_selected_shared_item_count_max": 54464,
+  "all_selected_shared_item_count_median": 54464,
+  "all_selected_shared_item_count_min": 54463,
+  "claim_boundary": "WILD supports external item-level correctness replication only, not raw-response parsing claims.",
+  "claim_ready": true,
+  "claim_use": "item_level_correctness_replication",
+  "created_utc": "2026-06-19T08:29:57.497062+00:00",
+  "evidence_tier": "B",
+  "license": "apache-2.0",
+  "model_count": 5,
+  "models_requested": [
+    "Qwen/Qwen2.5-0.5B-Instruct",
+    "Qwen/Qwen2.5-1.5B-Instruct",
+    "Qwen/Qwen2.5-3B-Instruct",
+    "llama-3.2-1b",
+    "llama-3.2-3b"
+  ],
+  "normalized_record_count": 276685,
+  "pairwise_comparison_count": 44,
+  "public_text_policy": "Only hashed WILD item ids and binary correctness scores are written; no prompt text or model responses are emitted.",
+  "qwen_all_selected_mean_churn": 0.343835,
+  "qwen_all_selected_pair_count": 3,
+  "source_id": "wild",
+  "source_input_uri": "hf://datasets/kensho/WILD/data.parquet",
+  "source_repo": "kensho/WILD",
+  "source_url": "https://huggingface.co/datasets/kensho/WILD",
+  "task_count": 10,
+  "task_level_pair_count": 40,
+  "task_level_shared_item_count_max": 13957,
+  "task_level_shared_item_count_median": 4135,
+  "task_level_shared_item_count_min": 541,
+  "tasks_requested": [
+    "mmlu_pro",
+    "mmlu",
+    "arc_challenge",
+    "gsm8k",
+    "hellaswag",
+    "piqa",
+    "boolq",
+    "ifeval",
+    "bbh",
+    "math"
+  ],
+  "wild_paper_source_scale": {
+    "datasets": 27,
+    "models": 65,
+    "tasks": 163,
+    "unique_items": 109564
+  }
+}

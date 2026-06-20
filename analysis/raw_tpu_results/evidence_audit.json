@@ -1,0 +1,235 @@
+{
+  "condition_values": [],
+  "has_condition_field": false,
+  "has_experiment_field": false,
+  "has_latency_or_token_field": false,
+  "has_prompt_field": false,
+  "model_count": 14,
+  "models_with_conditions": {},
+  "observed_fields": [
+    "category",
+    "gpu",
+    "ground_truth",
+    "id",
+    "model",
+    "prediction",
+    "response"
+  ],
+  "pairs_with_multiple_conditions_same_model_item": 0,
+  "pairs_with_multiple_rows_same_model_item": 0,
+  "paper2_pairing_detected": false,
+  "per_model": [
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "ground_truth",
+        "id",
+        "model",
+        "response"
+      ],
+      "model": "Gemma-2-2B-Instruct",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    },
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "gpu",
+        "ground_truth",
+        "id",
+        "model",
+        "prediction",
+        "response"
+      ],
+      "model": "Gemma-3-1B-Instruct",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    },
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "ground_truth",
+        "id",
+        "model",
+        "response"
+      ],
+      "model": "Gemma-3-1B-it",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    },
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "gpu",
+        "ground_truth",
+        "id",
+        "model",
+        "prediction",
+        "response"
+      ],
+      "model": "Gemma-3-270M-Instruct",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    },
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "ground_truth",
+        "id",
+        "model",
+        "response"
+      ],
+      "model": "Gemma-4-E2B-Instruct",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    },
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "ground_truth",
+        "id",
+        "model",
+        "response"
+      ],
+      "model": "Llama-3.2-1B-Instruct",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    },
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "ground_truth",
+        "id",
+        "model",
+        "prediction",
+        "response"
+      ],
+      "model": "Phi-2",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    },
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "ground_truth",
+        "id",
+        "model",
+        "response"
+      ],
+      "model": "Qwen2-0.5B-Instruct",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    },
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "ground_truth",
+        "id",
+        "model",
+        "response"
+      ],
+      "model": "Qwen2.5-0.5B-Instruct",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    },
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "ground_truth",
+        "id",
+        "model",
+        "response"
+      ],
+      "model": "Qwen2.5-3B-Instruct",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    },
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "ground_truth",
+        "id",
+        "model",
+        "response"
+      ],
+      "model": "Qwen3-0.6B",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    },
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "ground_truth",
+        "id",
+        "model",
+        "response"
+      ],
+      "model": "Qwen3-4B-Instruct-2507",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    },
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "ground_truth",
+        "id",
+        "model",
+        "response"
+      ],
+      "model": "Qwen3.5-0.8B",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    },
+    {
+      "condition_values": [],
+      "duplicate_item_rows": 0,
+      "fields": [
+        "category",
+        "ground_truth",
+        "id",
+        "model",
+        "response"
+      ],
+      "model": "Qwen3.5-2B",
+      "row_count": 3008,
+      "unique_item_count": 3008
+    }
+  ],
+  "required_for_paper2": [
+    "condition field",
+    "baseline condition",
+    "at least one non-baseline intervention condition",
+    "same model and item_id observed under baseline and intervention",
+    "prompt or prompt hash",
+    "error field for failed generations",
+    "latency/token fields for runtime claims"
+  ],
+  "total_rows": 42112,
+  "verdict": "not_provable_missing_condition_field"
+}

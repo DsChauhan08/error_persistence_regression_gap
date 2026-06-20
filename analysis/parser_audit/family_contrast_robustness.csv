@@ -1,0 +1,6 @@
+mode,has_qwen_gemma_contrast,qwen_pair_count,gemma_pair_count,qwen_mean_error_persistence,gemma_mean_error_persistence,qwen_minus_gemma_error_persistence,qwen_mean_nrb,gemma_mean_nrb,qwen_minus_gemma_nrb
+default,True,21,10,0.658368,0.859147,-0.200779,0.127513,0.145086,-0.017573
+exclude_low_confidence_fallback,True,21,10,0.54712,0.655372,-0.108252,0.129642,0.081124,0.048518
+exclude_saved_prediction_models,True,21,3,0.658368,0.895007,-0.236639,0.127513,0.256834,-0.129321
+explicit_marker_only,True,21,10,0.54712,0.655372,-0.108252,0.129642,0.081124,0.048518
+raw_only,True,21,10,0.658368,0.860073,-0.201705,0.127513,0.145404,-0.017891

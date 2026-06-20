@@ -1,0 +1,33 @@
+\begin{tabular}{lllrrrrrrrl}
+\toprule
+Family & Directed pair & Path note & $\Delta$ & $I$ & $R$ & Churn & Persist. & Corr. & NRB & Review \\
+\midrule
+Gemma & Gemma-3-270M-Instruct $\rightarrow$ Gemma-3-1B-Instruct & same-gen larger & 1.3 & 9.7 & 8.3 & 18.0 & 89.2 & 10.8 & 9.3 & manual required \\
+Gemma & Gemma-3-270M-Instruct $\rightarrow$ Gemma-3-1B-it & same-gen larger & 7.1 & 15.6 & 8.5 & 24.0 & 82.6 & 17.4 & 9.5 & manual advised \\
+Gemma & Gemma-3-270M-Instruct $\rightarrow$ Gemma-2-2B-Instruct & larger; chronology unclear & 21.2 & 28.4 & 7.1 & 35.5 & 68.3 & 31.7 & 8.0 & manual advised \\
+Gemma & Gemma-3-1B-Instruct $\rightarrow$ Gemma-3-1B-it & same-size variant & 5.8 & 13.5 & 7.7 & 21.2 & 84.7 & 15.3 & 8.7 & routine \\
+Gemma & Gemma-3-1B-Instruct $\rightarrow$ Gemma-2-2B-Instruct & larger; chronology unclear & 19.9 & 26.9 & 6.9 & 33.8 & 69.6 & 30.4 & 7.9 & manual advised \\
+Gemma & Gemma-3-1B-it $\rightarrow$ Gemma-2-2B-Instruct & larger; chronology unclear & 14.2 & 22.8 & 8.7 & 31.5 & 72.3 & 27.7 & 10.5 & manual required \\
+Qwen & Qwen2-0.5B-Instruct $\rightarrow$ Qwen2.5-0.5B-Instruct & newer & 3.5 & 12.6 & 9.1 & 21.7 & 85.6 & 14.4 & 10.5 & manual required \\
+Qwen & Qwen2-0.5B-Instruct $\rightarrow$ Qwen3-0.6B & newer+larger & 15.0 & 22.6 & 7.6 & 30.2 & 74.1 & 25.9 & 8.7 & manual advised \\
+Qwen & Qwen2.5-0.5B-Instruct $\rightarrow$ Qwen3-0.6B & newer+larger & 11.5 & 20.8 & 9.3 & 30.2 & 75.0 & 25.0 & 11.1 & manual required \\
+Qwen & Qwen2-0.5B-Instruct $\rightarrow$ Qwen3.5-0.8B & newer+larger & 20.0 & 27.1 & 7.1 & 34.2 & 68.8 & 31.2 & 8.1 & manual advised \\
+Qwen & Qwen2.5-0.5B-Instruct $\rightarrow$ Qwen3.5-0.8B & newer+larger & 16.6 & 25.4 & 8.8 & 34.2 & 69.6 & 30.4 & 10.5 & manual required \\
+Qwen & Qwen2-0.5B-Instruct $\rightarrow$ Qwen3.5-2B & newer+larger & 33.9 & 39.8 & 5.9 & 45.7 & 54.3 & 45.7 & 6.8 & manual advised \\
+Qwen & Qwen2.5-0.5B-Instruct $\rightarrow$ Qwen3.5-2B & newer+larger & 30.5 & 36.5 & 6.1 & 42.6 & 56.3 & 43.7 & 7.2 & manual advised \\
+Qwen & Qwen2-0.5B-Instruct $\rightarrow$ Qwen2.5-3B-Instruct & newer+larger & 31.2 & 37.2 & 6.0 & 43.1 & 57.3 & 42.7 & 6.8 & manual advised \\
+Qwen & Qwen2.5-0.5B-Instruct $\rightarrow$ Qwen2.5-3B-Instruct & same-gen larger & 27.8 & 34.0 & 6.3 & 40.3 & 59.3 & 40.7 & 7.5 & manual advised \\
+Qwen & Qwen2-0.5B-Instruct $\rightarrow$ Qwen3-4B-Instruct-2507 & newer+larger & 35.2 & 41.2 & 5.9 & 47.1 & 52.7 & 47.3 & 6.8 & manual advised \\
+Qwen & Qwen2.5-0.5B-Instruct $\rightarrow$ Qwen3-4B-Instruct-2507 & newer+larger & 31.8 & 38.3 & 6.5 & 44.9 & 54.1 & 45.9 & 7.8 & manual advised \\
+Qwen & Qwen3-0.6B $\rightarrow$ Qwen3.5-0.8B & newer+larger & 5.1 & 17.0 & 11.9 & 28.9 & 76.5 & 23.5 & 16.5 & manual required \\
+Qwen & Qwen3-0.6B $\rightarrow$ Qwen3.5-2B & newer+larger & 18.9 & 26.6 & 7.6 & 34.2 & 63.1 & 36.9 & 10.6 & manual required \\
+Qwen & Qwen3-0.6B $\rightarrow$ Qwen2.5-3B-Instruct & larger; chronology unclear & 16.2 & 24.7 & 8.5 & 33.2 & 65.7 & 34.3 & 11.8 & manual required \\
+Qwen & Qwen3-0.6B $\rightarrow$ Qwen3-4B-Instruct-2507 & same-gen larger & 20.2 & 27.4 & 7.1 & 34.5 & 62.0 & 38.0 & 9.9 & manual advised \\
+Qwen & Qwen3.5-0.8B $\rightarrow$ Qwen3.5-2B & same-gen larger & 13.9 & 22.2 & 8.3 & 30.5 & 66.9 & 33.1 & 12.4 & manual required \\
+Qwen & Qwen3.5-0.8B $\rightarrow$ Qwen2.5-3B-Instruct & larger; chronology unclear & 11.2 & 21.9 & 10.7 & 32.6 & 67.3 & 32.7 & 16.0 & manual required \\
+Qwen & Qwen3.5-0.8B $\rightarrow$ Qwen3-4B-Instruct-2507 & larger; chronology unclear & 15.2 & 25.0 & 9.8 & 34.8 & 62.7 & 37.3 & 14.6 & manual required \\
+Qwen & Qwen3.5-2B $\rightarrow$ Qwen2.5-3B-Instruct & negative swap & -2.7 & 14.4 & 17.1 & 31.5 & 72.9 & 27.1 & 32.2 & not upgrade \\
+Qwen & Qwen3.5-2B $\rightarrow$ Qwen3-4B-Instruct-2507 & larger; chronology unclear & 1.3 & 15.2 & 13.9 & 29.1 & 71.3 & 28.7 & 26.2 & manual required \\
+Qwen & Qwen2.5-3B-Instruct $\rightarrow$ Qwen3-4B-Instruct-2507 & newer+larger & 4.0 & 18.3 & 14.2 & 32.5 & 67.3 & 32.7 & 25.5 & manual required \\
+\bottomrule
+\end{tabular}

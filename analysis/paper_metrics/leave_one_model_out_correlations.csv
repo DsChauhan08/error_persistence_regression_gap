@@ -1,0 +1,11 @@
+family,metric,model_count,pair_count,full_pairwise_r,fisher_ci95_low,fisher_ci95_high,leave_one_model_out_min_r,leave_one_model_out_max_r,leave_one_model_out_runs
+gemma,regression_gap,4,6,-0.472146,-0.928087,0.550263,-0.99212,-0.105308,4
+gemma,churn_mass,4,6,0.988404,0.893822,0.998787,0.963174,0.999553,4
+gemma,improvement_mass,4,6,0.997416,0.975429,0.999731,0.990754,0.999904,4
+gemma,regression_mass,4,6,-0.653667,-0.957358,0.336296,-0.98158,-0.136986,4
+gemma,error_persistence,4,6,-0.988044,-0.99875,-0.890692,-0.999981,-0.969176,4
+qwen,regression_gap,7,21,-0.81062,-0.920272,-0.582916,-0.891103,-0.726611,7
+qwen,churn_mass,7,21,0.896964,0.759275,0.957788,0.874225,0.950778,7
+qwen,improvement_mass,7,21,0.986158,0.965492,0.994482,0.984266,0.992071,7
+qwen,regression_mass,7,21,-0.883882,-0.952234,-0.731187,-0.934381,-0.849815,7
+qwen,error_persistence,7,21,-0.856112,-0.940293,-0.673233,-0.897912,-0.860511,7

@@ -1,0 +1,250 @@
+{
+  "high_risk_rows_requested": 120,
+  "high_risk_sampled_rows": 120,
+  "input_dir": "main/results",
+  "instructions": [
+    "Fill human_prediction with A-J when a valid final option is recoverable by a human.",
+    "Fill human_answered with true/false.",
+    "Fill human_parser_correct with true when parser_prediction matches the human label and false otherwise.",
+    "Use human_notes for prompt echo, ambiguous answer, multiple answer, or other parser failure notes."
+  ],
+  "per_stratum": 12,
+  "sampled_rows": 452,
+  "seed": 20260617,
+  "strata": [
+    {
+      "audit_source": "stratified",
+      "extraction_method": "answer_is",
+      "family": "gemma",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "correct_answer",
+      "family": "gemma",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "extraction_method": "empty",
+      "family": "gemma",
+      "sampled_rows": 1
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "empty",
+      "family": "gemma",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "final_answer",
+      "family": "gemma",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "extraction_method": "last_standalone_letter",
+      "family": "gemma",
+      "sampled_rows": 9
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "last_standalone_letter",
+      "family": "gemma",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "extraction_method": "none",
+      "family": "gemma",
+      "sampled_rows": 1
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "none",
+      "family": "gemma",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "option_is",
+      "family": "gemma",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "extraction_method": "prompt_echo_without_completion",
+      "family": "gemma",
+      "sampled_rows": 25
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "prompt_echo_without_completion",
+      "family": "gemma",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "extraction_method": "raw_prediction",
+      "family": "gemma",
+      "sampled_rows": 21
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "raw_prediction",
+      "family": "gemma",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "single_letter",
+      "family": "gemma",
+      "sampled_rows": 7
+    },
+    {
+      "audit_source": "high_risk",
+      "extraction_method": "tail_option",
+      "family": "gemma",
+      "sampled_rows": 4
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "tail_option",
+      "family": "gemma",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "answer_is",
+      "family": "llama",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "correct_answer",
+      "family": "llama",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "final_answer",
+      "family": "llama",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "last_standalone_letter",
+      "family": "llama",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "none",
+      "family": "llama",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "option_is",
+      "family": "llama",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "tail_option",
+      "family": "llama",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "extraction_method": "empty",
+      "family": "phi",
+      "sampled_rows": 2
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "empty",
+      "family": "phi",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "none",
+      "family": "phi",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "extraction_method": "raw_prediction",
+      "family": "phi",
+      "sampled_rows": 16
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "raw_prediction",
+      "family": "phi",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "answer_is",
+      "family": "qwen",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "correct_answer",
+      "family": "qwen",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "final_answer",
+      "family": "qwen",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "extraction_method": "last_standalone_letter",
+      "family": "qwen",
+      "sampled_rows": 27
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "last_standalone_letter",
+      "family": "qwen",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "none",
+      "family": "qwen",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "option_is",
+      "family": "qwen",
+      "sampled_rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "single_letter",
+      "family": "qwen",
+      "sampled_rows": 1
+    },
+    {
+      "audit_source": "high_risk",
+      "extraction_method": "tail_option",
+      "family": "qwen",
+      "sampled_rows": 14
+    },
+    {
+      "audit_source": "stratified",
+      "extraction_method": "tail_option",
+      "family": "qwen",
+      "sampled_rows": 12
+    }
+  ]
+}

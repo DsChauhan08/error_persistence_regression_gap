@@ -1,0 +1,12 @@
+family,model,mean_regression_gap_across_incident_pairs,incident_pair_count
+gemma,Gemma-2-2B-Instruct,0.087919,3
+gemma,Gemma-3-1B-Instruct,0.086445,3
+gemma,Gemma-3-1B-it,0.095757,3
+gemma,Gemma-3-270M-Instruct,0.089211,3
+qwen,Qwen2-0.5B-Instruct,0.079544,6
+qwen,Qwen2.5-0.5B-Instruct,0.091266,6
+qwen,Qwen2.5-3B-Instruct,0.166433,6
+qwen,Qwen3-0.6B,0.1145,6
+qwen,Qwen3-4B-Instruct-2507,0.151415,6
+qwen,Qwen3.5-0.8B,0.130435,6
+qwen,Qwen3.5-2B,0.158995,6

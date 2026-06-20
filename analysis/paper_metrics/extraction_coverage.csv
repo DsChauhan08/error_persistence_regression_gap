@@ -1,0 +1,15 @@
+model,family,n,raw_prediction_rows,explicit_marker_rows,fallback_letter_rows,unanswered_rows,answered_rows,has_saved_prediction_field
+Gemma-2-2B-Instruct,gemma,3008,0,1785,1205,18,2990,False
+Gemma-3-1B-Instruct,gemma,3008,2981,0,0,27,2981,True
+Gemma-3-1B-it,gemma,3008,0,2307,645,56,2952,False
+Gemma-3-270M-Instruct,gemma,3008,2874,0,0,134,2874,True
+Gemma-4-E2B-Instruct,gemma,3008,0,77,79,2852,156,False
+Llama-3.2-1B-Instruct,llama,3008,0,2440,513,55,2953,False
+Phi-2,phi,3008,2730,0,0,278,2730,True
+Qwen2-0.5B-Instruct,qwen,3008,0,2366,602,40,2968,False
+Qwen2.5-0.5B-Instruct,qwen,3008,0,2315,673,20,2988,False
+Qwen2.5-3B-Instruct,qwen,3008,0,2514,484,10,2998,False
+Qwen3-0.6B,qwen,3008,0,2028,980,0,3008,False
+Qwen3-4B-Instruct-2507,qwen,3008,0,1743,1264,1,3007,False
+Qwen3.5-0.8B,qwen,3008,0,2115,882,11,2997,False
+Qwen3.5-2B,qwen,3008,0,2201,801,6,3002,False

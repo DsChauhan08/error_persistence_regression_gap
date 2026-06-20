@@ -1,0 +1,40 @@
+[
+  {
+    "access_date": "2026-06-19",
+    "benchmark": "MMLU-Pro Computer Science",
+    "caveat": "Informal single-subject report; not used for paper claims or statistical tests.",
+    "claim_use": "context_only",
+    "evidence_tier": "D",
+    "excluded_from_statistical_tests": true,
+    "model_or_family": "google/gemma-4-E4B",
+    "model_revision_known": false,
+    "paper_use": "context_only",
+    "reported_model_scope": "informal user benchmark report",
+    "reported_score": 68.8,
+    "score_unit": "accuracy_percent",
+    "setting": "consumer-hardware report; exact harness and revision not archived here",
+    "setting_complete": false,
+    "source_quality": "informal",
+    "source_type": "community_benchmark_report",
+    "source_url": "https://www.linkedin.com/posts/nicholasacarroll_gemma-4-small-model-benchmarks-activity-7446994230763393024-QZLZ"
+  },
+  {
+    "access_date": "2026-06-19",
+    "benchmark": "BABILong-style long-context examples",
+    "caveat": "Logged only to show informal evidence was screened; no numerical claim is made from it.",
+    "claim_use": "context_only",
+    "evidence_tier": "D",
+    "excluded_from_statistical_tests": true,
+    "model_or_family": "Llama 3.2 1B/3B",
+    "model_revision_known": false,
+    "paper_use": "context_only",
+    "reported_model_scope": "informal blog hardware/performance discussion",
+    "reported_score": "",
+    "score_unit": "not_transcribed",
+    "setting": "blog report; exact harness not archived here",
+    "setting_complete": false,
+    "source_quality": "informal",
+    "source_type": "community_blog",
+    "source_url": "https://medium.com/pythoneers/llama-3-2-1b-and-3b-small-but-mighty-23648ca7a431"
+  }
+]

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "default_seed": 20260606,
+  "procedural_counts": {
+    "smoke": {
+      "math": 3,
+      "multiple_choice": 3,
+      "instruction": 2,
+      "code": 2
+    },
+    "full": {
+      "math": 80,
+      "multiple_choice": 80,
+      "instruction": 60,
+      "code": 60
+    }
+  },
+  "interventions": [
+    "baseline",
+    "context_short_beginning",
+    "context_short_middle",
+    "context_short_end",
+    "context_medium_beginning",
+    "context_medium_middle",
+    "context_medium_end",
+    "context_long_beginning",
+    "context_long_middle",
+    "context_long_end",
+    "system_conflict",
+    "strict_format_json",
+    "strict_format_letter",
+    "thinking_enabled",
+    "thinking_disabled",
+    "multimodal_image_distractor",
+    "multimodal_audio_distractor",
+    "multimodal_video_distractor"
+  ],
+  "claim_thresholds": {
+    "error_ecology": {
+      "minimum_family_passes": 2,
+      "minimum_accuracy_gain": 0.01,
+      "maximum_regression_mass": 0.08
+    },
+    "interface": {
+      "minimum_family_passes": 2,
+      "minimum_interface_tax": 0.03,
+      "bootstrap_ci_iterations": 1000
+    }
+  }
+}
+

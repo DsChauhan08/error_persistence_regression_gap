@@ -1,0 +1,2 @@
+model,family,answered_rate,parse_failure_rate,reason
+Gemma-4-E2B-Instruct,gemma,0.051862,0.948138,answered_rate below primary-analysis threshold 0.8

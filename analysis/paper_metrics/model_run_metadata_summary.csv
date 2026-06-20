@@ -1,0 +1,14 @@
+metadata_field,models_with_field,model_count,status
+Item id,14,14,complete
+Category,14,14,complete
+Ground-truth label,14,14,complete
+Raw response,14,14,complete
+Saved prediction,3,14,incomplete
+GPU worker id,2,14,incomplete
+HF repository,0,14,incomplete
+Model revision hash,0,14,incomplete
+Prompt template,0,14,incomplete
+Chat template,0,14,incomplete
+Decoding parameters,0,14,incomplete
+Runtime/package versions,0,14,incomplete
+Run date,0,14,incomplete

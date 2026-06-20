@@ -1,0 +1,411 @@
+{
+  "batch_count": 10,
+  "batch_manifest_public_note": "Private batch file paths are omitted from the public progress report.",
+  "batch_size": 50,
+  "created_utc": "2026-06-19T17:53:24.908892+00:00",
+  "progress": {
+    "completed_high_risk_rows": 0,
+    "completed_rows": 0,
+    "completion_rate": 0.0,
+    "high_risk_completion_rate": 0.0,
+    "high_risk_rows": 120,
+    "remaining_high_risk_rows": 120,
+    "remaining_rows": 452,
+    "total_rows": 452
+  },
+  "progress_by_stratum": [
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "answer_is",
+      "family": "gemma",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "correct_answer",
+      "family": "gemma",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "empty",
+      "family": "gemma",
+      "high_risk_rows": 1,
+      "rows": 1
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "empty",
+      "family": "gemma",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "final_answer",
+      "family": "gemma",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "last_standalone_letter",
+      "family": "gemma",
+      "high_risk_rows": 9,
+      "rows": 9
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "last_standalone_letter",
+      "family": "gemma",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "none",
+      "family": "gemma",
+      "high_risk_rows": 1,
+      "rows": 1
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "none",
+      "family": "gemma",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "option_is",
+      "family": "gemma",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "prompt_echo_without_completion",
+      "family": "gemma",
+      "high_risk_rows": 25,
+      "rows": 25
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "prompt_echo_without_completion",
+      "family": "gemma",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "raw_prediction",
+      "family": "gemma",
+      "high_risk_rows": 21,
+      "rows": 21
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "raw_prediction",
+      "family": "gemma",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "single_letter",
+      "family": "gemma",
+      "high_risk_rows": 0,
+      "rows": 7
+    },
+    {
+      "audit_source": "high_risk",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "tail_option",
+      "family": "gemma",
+      "high_risk_rows": 4,
+      "rows": 4
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "tail_option",
+      "family": "gemma",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "answer_is",
+      "family": "llama",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "correct_answer",
+      "family": "llama",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "final_answer",
+      "family": "llama",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "last_standalone_letter",
+      "family": "llama",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "none",
+      "family": "llama",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "option_is",
+      "family": "llama",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "tail_option",
+      "family": "llama",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "empty",
+      "family": "phi",
+      "high_risk_rows": 2,
+      "rows": 2
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "empty",
+      "family": "phi",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "none",
+      "family": "phi",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "raw_prediction",
+      "family": "phi",
+      "high_risk_rows": 16,
+      "rows": 16
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "raw_prediction",
+      "family": "phi",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "answer_is",
+      "family": "qwen",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "correct_answer",
+      "family": "qwen",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "final_answer",
+      "family": "qwen",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "high_risk",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "last_standalone_letter",
+      "family": "qwen",
+      "high_risk_rows": 27,
+      "rows": 27
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "last_standalone_letter",
+      "family": "qwen",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "none",
+      "family": "qwen",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "option_is",
+      "family": "qwen",
+      "high_risk_rows": 0,
+      "rows": 12
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "single_letter",
+      "family": "qwen",
+      "high_risk_rows": 0,
+      "rows": 1
+    },
+    {
+      "audit_source": "high_risk",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "tail_option",
+      "family": "qwen",
+      "high_risk_rows": 14,
+      "rows": 14
+    },
+    {
+      "audit_source": "stratified",
+      "completed_high_risk_rows": 0,
+      "completed_rows": 0,
+      "completion_rate": 0.0,
+      "extraction_method": "tail_option",
+      "family": "qwen",
+      "high_risk_rows": 0,
+      "rows": 12
+    }
+  ],
+  "public_text_policy": "Batch CSV files are private because they may include response excerpts. Public reports contain only counts and completion rates.",
+  "sample_csv": "main/analysis/parser_audit/parser_audit_sample.csv",
+  "write_batches": true
+}

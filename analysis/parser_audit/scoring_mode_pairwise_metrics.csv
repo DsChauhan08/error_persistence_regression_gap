@@ -1,0 +1,3 @@
+mode,family,old_model,new_model,comparison_id,n_common,old_accuracy,new_accuracy,accuracy_delta,improvement_mass,regression_mass,churn_mass,error_persistence,normalized_regression_burden
+saved_prediction_primary,gemma,Gemma-3-270M-Instruct,Gemma-3-1B-Instruct,Gemma-3-270M-Instruct -> Gemma-3-1B-Instruct,3008,0.104388,0.117686,0.013298,0.096742,0.083444,0.180186,0.891982,0.09317
+raw_response_only,gemma,Gemma-3-270M-Instruct,Gemma-3-1B-Instruct,Gemma-3-270M-Instruct -> Gemma-3-1B-Instruct,3008,0.100399,0.131316,0.030917,0.097074,0.066157,0.163231,0.892092,0.07354

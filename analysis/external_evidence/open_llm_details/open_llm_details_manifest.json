@@ -1,0 +1,10 @@
+{
+  "claim_boundary": "Gated detail files are optional and never silently skipped; exclusions are recorded.",
+  "created_utc": "2026-06-18T08:07:19.112113+00:00",
+  "exclusion_count": 7,
+  "hf_token_available": false,
+  "normalized_record_count": 0,
+  "source_id": "open_llm_leaderboard_details",
+  "target_count": 7,
+  "try_download": false
+}

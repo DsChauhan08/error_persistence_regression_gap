@@ -1,0 +1,13 @@
+\begin{tabular}{lrrrrr}
+\toprule
+Mode & Qwen pairs & Gemma pairs & Qwen persist. & Gemma persist. & Difference \\
+\midrule
+default & 21 & 10 & 65.8 & 85.9 & -20.1 \\
+exclude\_low\_confidence\_fallback & 21 & 10 & 54.7 & 65.5 & -10.8 \\
+exclude\_saved\_prediction\_models & 21 & 3 & 65.8 & 89.5 & -23.7 \\
+explicit\_marker\_only & 21 & 10 & 54.7 & 65.5 & -10.8 \\
+raw\_only & 21 & 10 & 65.8 & 86.0 & -20.2 \\
+\midrule
+Claim gate & \multicolumn{5}{l}{blocked: manual parser audit is incomplete or below threshold} \\
+\bottomrule
+\end{tabular}

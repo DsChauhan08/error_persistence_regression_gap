@@ -1,0 +1,4 @@
+source_id,family,task_count,pair_count,median_shared_items,min_shared_items,max_shared_items,median_churn_mass,churn_mass_iqr_low,churn_mass_iqr_high,min_churn_mass,max_churn_mass,median_regression_mass,median_error_persistence,median_normalized_regression_burden,highest_churn_task,highest_churn_task_mean,highest_regression_task,highest_regression_task_mean
+wild,all_selected_families,10,40,4135.0,541.0,13957.0,0.33941,0.300468,0.394427,0.205983,0.521908,0.07423,0.479364,0.117947,piqa,0.418192,mmlu,0.135631
+wild,llama,10,10,4135.0,541.0,13957.0,0.347598,0.327505,0.378441,0.3012,0.437113,0.069245,0.456314,0.114608,hellaswag,0.437113,bbh,0.121147
+wild,qwen,10,30,4135.0,541.0,13957.0,0.326017,0.280339,0.397918,0.205983,0.521908,0.07423,0.501815,0.117947,piqa,0.429285,mmlu,0.145686

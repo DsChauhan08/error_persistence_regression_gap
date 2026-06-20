@@ -1,0 +1,12 @@
+family,model,mean_error_persistence_across_incident_pairs,incident_pair_count
+gemma,Gemma-2-2B-Instruct,0.70055,3
+gemma,Gemma-3-1B-Instruct,0.811645,3
+gemma,Gemma-3-1B-it,0.798926,3
+gemma,Gemma-3-270M-Instruct,0.800421,3
+qwen,Qwen2-0.5B-Instruct,0.654439,6
+qwen,Qwen2.5-0.5B-Instruct,0.666469,6
+qwen,Qwen2.5-3B-Instruct,0.649467,6
+qwen,Qwen3-0.6B,0.693875,6
+qwen,Qwen3-4B-Instruct-2507,0.616802,6
+qwen,Qwen3.5-0.8B,0.686239,6
+qwen,Qwen3.5-2B,0.641282,6

@@ -1,0 +1,16 @@
+\begin{tabular}{llrrrrrr}
+\toprule
+Mode & Family & Pairs & Mean $N$ & $\Delta$ & $R$ & Churn & Persist. \\
+\midrule
+default & gemma & 10 & 3008 & +0.5 & 11.8 & 24.1 & 85.9 \\
+default & qwen & 21 & 3008 & +17.2 & 8.9 & 35.0 & 65.8 \\
+exclude\_low\_confidence\_fallback & gemma & 10 & 1633 & +22.8 & 6.8 & 36.4 & 65.5 \\
+exclude\_low\_confidence\_fallback & qwen & 21 & 1747 & +23.8 & 7.6 & 39.1 & 54.7 \\
+exclude\_saved\_prediction\_models & gemma & 3 & 3008 & -10.5 & 19.0 & 27.6 & 89.5 \\
+exclude\_saved\_prediction\_models & qwen & 21 & 3008 & +17.2 & 8.9 & 35.0 & 65.8 \\
+explicit\_marker\_only & gemma & 10 & 1633 & +22.8 & 6.8 & 36.4 & 65.5 \\
+explicit\_marker\_only & qwen & 21 & 1747 & +23.8 & 7.6 & 39.1 & 54.7 \\
+raw\_only & gemma & 10 & 3008 & +0.4 & 11.8 & 23.9 & 86.0 \\
+raw\_only & qwen & 21 & 3008 & +17.2 & 8.9 & 35.0 & 65.8 \\
+\bottomrule
+\end{tabular}

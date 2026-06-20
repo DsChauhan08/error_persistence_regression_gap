@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+*.aux
+*.bcf
+*.blg
+*.log
+*.out
+*.run.xml
+*.zip
+*.tar.gz
+analysis/parser_audit/parser_audit_sample.csv
+analysis/parser_audit/second_pass_parser_audit_sample.csv
+analysis/parser_audit/parser_audit_labeling_batches.csv
+analysis/parser_audit/labeling_batches/

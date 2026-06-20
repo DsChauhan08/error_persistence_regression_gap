@@ -1,0 +1,15 @@
+{
+  "completed_manual_audit_rows": 0,
+  "high_confidence_sensitivity_family_count": 4,
+  "manual_claim_gate": {
+    "claim_ready": false,
+    "completed_manual_rows": 0,
+    "minimum_parser_agreement": 0.95,
+    "reason": "No completed human_parser_correct labels were found.",
+    "required_manual_rows": 452,
+    "status": "blocked_no_completed_human_labels"
+  },
+  "manual_parser_audit_summary": [],
+  "public_text_policy": "No raw responses or response excerpts are included in this public parser-audit summary.",
+  "saved_prediction_consistency_rows": 8585
+}

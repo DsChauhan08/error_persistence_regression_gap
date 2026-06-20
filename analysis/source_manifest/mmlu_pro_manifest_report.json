@@ -1,0 +1,33 @@
+{
+  "category_counts": {
+    "biology": 180,
+    "business": 188,
+    "chemistry": 302,
+    "computer science": 106,
+    "economics": 202,
+    "engineering": 249,
+    "health": 198,
+    "history": 99,
+    "law": 263,
+    "math": 335,
+    "other": 230,
+    "philosophy": 126,
+    "physics": 324,
+    "psychology": 206
+  },
+  "claim_ready": true,
+  "created_utc": "2026-06-18T06:34:37.698540+00:00",
+  "evaluated_item_count": 3008,
+  "manifest_item_hash_sha256": "1f482b880fad0d8c97aa08f83d250ffd43e715b78ec2619987e0db4e9a98d9d3",
+  "matched_item_count": 3008,
+  "mismatch_item_count": 0,
+  "missing_source_item_count": 0,
+  "public_text_policy": "Question text, answer-option text, and raw model responses are not written to this manifest.",
+  "source_parquet_sha256": "0e24a191921c2f453518a537a8b2117bd137e7714d4ef1565e9ba06c1ecb9ad8",
+  "source_repo": "TIGER-Lab/MMLU-Pro",
+  "source_revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be",
+  "source_split": "test",
+  "status_counts": {
+    "matched": 3008
+  }
+}

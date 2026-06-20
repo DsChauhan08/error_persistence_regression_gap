@@ -1,0 +1,232 @@
+{
+  "completed_manual_audit_rows": 0,
+  "high_confidence_scoring_summary": [
+    {
+      "all_parser_accuracy": 0.146476,
+      "all_parser_correct": 2203,
+      "family": "gemma",
+      "high_confidence_accuracy_on_answered": 0.189818,
+      "high_confidence_answered": 11216,
+      "high_confidence_correct": 2129,
+      "high_confidence_coverage": 0.745745,
+      "low_confidence_rows": 3824,
+      "rows": 15040
+    },
+    {
+      "all_parser_accuracy": 0.211769,
+      "all_parser_correct": 637,
+      "family": "llama",
+      "high_confidence_accuracy_on_answered": 0.227723,
+      "high_confidence_answered": 2626,
+      "high_confidence_correct": 598,
+      "high_confidence_coverage": 0.873005,
+      "low_confidence_rows": 382,
+      "rows": 3008
+    },
+    {
+      "all_parser_accuracy": 0.118019,
+      "all_parser_correct": 355,
+      "family": "phi",
+      "high_confidence_accuracy_on_answered": 0.130037,
+      "high_confidence_answered": 2730,
+      "high_confidence_correct": 355,
+      "high_confidence_coverage": 0.90758,
+      "low_confidence_rows": 278,
+      "rows": 3008
+    },
+    {
+      "all_parser_accuracy": 0.328362,
+      "all_parser_correct": 6914,
+      "family": "qwen",
+      "high_confidence_accuracy_on_answered": 0.362139,
+      "high_confidence_answered": 18029,
+      "high_confidence_correct": 6529,
+      "high_confidence_coverage": 0.856241,
+      "low_confidence_rows": 3027,
+      "rows": 21056
+    }
+  ],
+  "input_dir": "main/results",
+  "manual_audit_ready_for_submission": false,
+  "manual_claim_gate": {
+    "claim_ready": false,
+    "completed_manual_rows": 0,
+    "minimum_parser_agreement": 0.95,
+    "reason": "No completed human_parser_correct labels were found.",
+    "required_manual_rows": 452,
+    "status": "blocked_no_completed_human_labels"
+  },
+  "manual_parser_audit_summary": [],
+  "notes": [
+    "The saved-prediction consistency check is not a substitute for a manual parser audit.",
+    "A manuscript should report manual parser-audit results only after human_* columns are completed."
+  ],
+  "sample_csv": "main/analysis/parser_audit/parser_audit_sample.csv",
+  "saved_prediction_consistency": [
+    {
+      "agreement_rate_among_parseable_raw_responses": 0.161017,
+      "family": "gemma",
+      "raw_response_extraction_method": "answer_is",
+      "raw_response_parseable_rate": 1.0,
+      "raw_response_parseable_rows": 118,
+      "raw_response_unparseable_rows": 0,
+      "rows_with_saved_prediction": 118,
+      "saved_prediction_differs_from_raw_response_parser": 99,
+      "saved_prediction_matches_raw_response_parser": 19
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 0.063918,
+      "family": "gemma",
+      "raw_response_extraction_method": "correct_answer",
+      "raw_response_parseable_rate": 1.0,
+      "raw_response_parseable_rows": 485,
+      "raw_response_unparseable_rows": 0,
+      "rows_with_saved_prediction": 485,
+      "saved_prediction_differs_from_raw_response_parser": 454,
+      "saved_prediction_matches_raw_response_parser": 31
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 0.98568,
+      "family": "gemma",
+      "raw_response_extraction_method": "final_answer",
+      "raw_response_parseable_rate": 1.0,
+      "raw_response_parseable_rows": 419,
+      "raw_response_unparseable_rows": 0,
+      "rows_with_saved_prediction": 419,
+      "saved_prediction_differs_from_raw_response_parser": 6,
+      "saved_prediction_matches_raw_response_parser": 413
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 0.931507,
+      "family": "gemma",
+      "raw_response_extraction_method": "last_standalone_letter",
+      "raw_response_parseable_rate": 1.0,
+      "raw_response_parseable_rows": 146,
+      "raw_response_unparseable_rows": 0,
+      "rows_with_saved_prediction": 146,
+      "saved_prediction_differs_from_raw_response_parser": 10,
+      "saved_prediction_matches_raw_response_parser": 136
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 0.0,
+      "family": "gemma",
+      "raw_response_extraction_method": "none",
+      "raw_response_parseable_rate": 0.0,
+      "raw_response_parseable_rows": 0,
+      "raw_response_unparseable_rows": 2,
+      "rows_with_saved_prediction": 2,
+      "saved_prediction_differs_from_raw_response_parser": 0,
+      "saved_prediction_matches_raw_response_parser": 0
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 0.881579,
+      "family": "gemma",
+      "raw_response_extraction_method": "option_is",
+      "raw_response_parseable_rate": 1.0,
+      "raw_response_parseable_rows": 76,
+      "raw_response_unparseable_rows": 0,
+      "rows_with_saved_prediction": 76,
+      "saved_prediction_differs_from_raw_response_parser": 9,
+      "saved_prediction_matches_raw_response_parser": 67
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 0.69386,
+      "family": "gemma",
+      "raw_response_extraction_method": "tail_option",
+      "raw_response_parseable_rate": 1.0,
+      "raw_response_parseable_rows": 4609,
+      "raw_response_unparseable_rows": 0,
+      "rows_with_saved_prediction": 4609,
+      "saved_prediction_differs_from_raw_response_parser": 1411,
+      "saved_prediction_matches_raw_response_parser": 3198
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 0.7,
+      "family": "phi",
+      "raw_response_extraction_method": "answer_is",
+      "raw_response_parseable_rate": 1.0,
+      "raw_response_parseable_rows": 30,
+      "raw_response_unparseable_rows": 0,
+      "rows_with_saved_prediction": 30,
+      "saved_prediction_differs_from_raw_response_parser": 9,
+      "saved_prediction_matches_raw_response_parser": 21
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 0.727511,
+      "family": "phi",
+      "raw_response_extraction_method": "correct_answer",
+      "raw_response_parseable_rate": 1.0,
+      "raw_response_parseable_rows": 1145,
+      "raw_response_unparseable_rows": 0,
+      "rows_with_saved_prediction": 1145,
+      "saved_prediction_differs_from_raw_response_parser": 312,
+      "saved_prediction_matches_raw_response_parser": 833
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 1.0,
+      "family": "phi",
+      "raw_response_extraction_method": "final_answer",
+      "raw_response_parseable_rate": 1.0,
+      "raw_response_parseable_rows": 2,
+      "raw_response_unparseable_rows": 0,
+      "rows_with_saved_prediction": 2,
+      "saved_prediction_differs_from_raw_response_parser": 0,
+      "saved_prediction_matches_raw_response_parser": 2
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 0.764706,
+      "family": "phi",
+      "raw_response_extraction_method": "last_standalone_letter",
+      "raw_response_parseable_rate": 1.0,
+      "raw_response_parseable_rows": 408,
+      "raw_response_unparseable_rows": 0,
+      "rows_with_saved_prediction": 408,
+      "saved_prediction_differs_from_raw_response_parser": 96,
+      "saved_prediction_matches_raw_response_parser": 312
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 0.0,
+      "family": "phi",
+      "raw_response_extraction_method": "none",
+      "raw_response_parseable_rate": 0.0,
+      "raw_response_parseable_rows": 0,
+      "raw_response_unparseable_rows": 874,
+      "rows_with_saved_prediction": 874,
+      "saved_prediction_differs_from_raw_response_parser": 0,
+      "saved_prediction_matches_raw_response_parser": 0
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 0.466667,
+      "family": "phi",
+      "raw_response_extraction_method": "option_is",
+      "raw_response_parseable_rate": 1.0,
+      "raw_response_parseable_rows": 30,
+      "raw_response_unparseable_rows": 0,
+      "rows_with_saved_prediction": 30,
+      "saved_prediction_differs_from_raw_response_parser": 16,
+      "saved_prediction_matches_raw_response_parser": 14
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 1.0,
+      "family": "phi",
+      "raw_response_extraction_method": "single_letter",
+      "raw_response_parseable_rate": 1.0,
+      "raw_response_parseable_rows": 1,
+      "raw_response_unparseable_rows": 0,
+      "rows_with_saved_prediction": 1,
+      "saved_prediction_differs_from_raw_response_parser": 0,
+      "saved_prediction_matches_raw_response_parser": 1
+    },
+    {
+      "agreement_rate_among_parseable_raw_responses": 0.558333,
+      "family": "phi",
+      "raw_response_extraction_method": "tail_option",
+      "raw_response_parseable_rate": 1.0,
+      "raw_response_parseable_rows": 240,
+      "raw_response_unparseable_rows": 0,
+      "rows_with_saved_prediction": 240,
+      "saved_prediction_differs_from_raw_response_parser": 106,
+      "saved_prediction_matches_raw_response_parser": 134
+    }
+  ]
+}
