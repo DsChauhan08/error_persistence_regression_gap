@@ -30,7 +30,7 @@ PYTHONPATH=main/src python3 -m boundary_slm.mmlu_scoring_robustness
 
 ## Archive Route Without Zenodo
 
-Software Heritage can archive public Git repositories and provide Software Hash Identifiers (SWHIDs). The public repository has a Software Heritage save request accepted under request id `2368881`; the observed snapshot for the previous public commit was `swh:1:snp:5a0551512f5ff83ed69ae7ff9faa341a823d1257`.
+Software Heritage can archive public Git repositories and provide Software Hash Identifiers (SWHIDs). The release-status gate uses the stable origin archive URL rather than a single request-specific identifier, because every public push creates a new commit that should be saved again.
 
 For the current release status, use the stable origin archive URL:
 

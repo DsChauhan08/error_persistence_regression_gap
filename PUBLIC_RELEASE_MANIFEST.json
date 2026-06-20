@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-06-20T11:53:41.283660+00:00",
+  "created_utc": "2026-06-20T11:55:05.290742+00:00",
   "file_count": 210,
   "files": [
     {
@@ -643,9 +643,9 @@
       "sha256": "b7f620833b95018eb728fbb99ee9004c3548b19660eb36f0d8581dcddcdaa376"
     },
     {
-      "bytes": 2857,
+      "bytes": 2834,
       "path": "docs/JOURNAL_READINESS_GATES.md",
-      "sha256": "5f4aa944e3c5b6d6a36bdaa54ee3d83ec40e334d050c67cb983fa8b09ba0f6a5"
+      "sha256": "cf9572200950d3ebfc87567b1e7b30d46d3eb55f49a9ccbaa6b3576c8488e0ce"
     },
     {
       "bytes": 3154,
@@ -1057,5 +1057,5 @@
   "missing": 0,
   "public_text_policy": "Public release excludes raw model responses, full benchmark text, private parser-audit samples, local caches, DOI metadata, and private notes.",
   "root": ".",
-  "total_bytes": 13055728
+  "total_bytes": 13055705
 }
