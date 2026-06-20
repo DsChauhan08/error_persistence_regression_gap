@@ -44,7 +44,7 @@ Use `docs/SSRN_METADATA.md` as the copy-paste source for:
 Use:
 
 ```text
-Independent Reviewer
+Independent Researcher
 ```
 
 Do not enter any city or country unless you personally want SSRN to display that location. The manuscript PDF now removes location fields from the author block.
@@ -92,7 +92,7 @@ SSRN category names can change. Pick the closest available categories or eJourna
 ## Pre-Submit Checklist
 
 - [ ] PDF opens and shows the title correctly.
-- [ ] Author block shows Dhananjay Singh Chauhan, `dschauhan08.me@gmail.com`, and Independent Reviewer.
+- [ ] Author block shows Dhananjay Singh Chauhan, `dschauhan08.me@gmail.com`, and Independent Researcher.
 - [ ] No city or country appears in the PDF author block.
 - [ ] Article type appears on the first page.
 - [ ] AI disclosure statement appears near the abstract on the first page.

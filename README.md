@@ -18,7 +18,7 @@ The SSRN upload packet is in `ssrn_submission/`:
 - `ssrn_submission/SSRN_METADATA.md`: copy-paste title, abstract, keywords, author metadata, AI disclosure, and data/software statement.
 - `ssrn_submission/SSRN_SUBMISSION_GUIDE.md`: submission checklist and field guidance.
 
-The manuscript author block intentionally uses `Independent Reviewer` only; no city or country is displayed.
+The manuscript author block intentionally uses `Independent Researcher` only; no city or country is displayed.
 
 Known limitations for the current public package:
 

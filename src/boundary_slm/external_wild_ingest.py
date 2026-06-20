@@ -50,7 +50,7 @@ WILD_BOUNDARY_COVERAGE = [
         "Qwen",
         "4.0",
         "no",
-        "Different Qwen generation; not part of the predeclared Qwen2.5 replacement chain.",
+        "Different Qwen generation; not part of the artifact-defined Qwen2.5 replacement chain.",
     ),
     (
         "Qwen/Qwen2-1.5B-Instruct",
@@ -64,21 +64,21 @@ WILD_BOUNDARY_COVERAGE = [
         "Qwen",
         "0.5",
         "yes",
-        "Retained in the predeclared Qwen2.5 size chain.",
+        "Retained in the artifact-defined Qwen2.5 size chain.",
     ),
     (
         "Qwen/Qwen2.5-1.5B-Instruct",
         "Qwen",
         "1.5",
         "yes",
-        "Retained in the predeclared Qwen2.5 size chain.",
+        "Retained in the artifact-defined Qwen2.5 size chain.",
     ),
     (
         "Qwen/Qwen2.5-3B-Instruct",
         "Qwen",
         "3.0",
         "yes",
-        "Retained in the predeclared Qwen2.5 size chain.",
+        "Retained in the artifact-defined Qwen2.5 size chain.",
     ),
     (
         "ibm-granite/granite-3.2-2b-instruct",

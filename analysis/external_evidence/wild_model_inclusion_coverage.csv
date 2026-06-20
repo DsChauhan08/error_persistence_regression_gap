@@ -1,9 +1,9 @@
 model,family,size_b,wild_tasks,selected_tasks_with_rows,selected_task_rows,included,reason
-Qwen/Qwen1.5-4B-Chat,Qwen,4.0,27,10,55337,no,Different Qwen generation; not part of the predeclared Qwen2.5 replacement chain.
+Qwen/Qwen1.5-4B-Chat,Qwen,4.0,27,10,55337,no,Different Qwen generation; not part of the artifact-defined Qwen2.5 replacement chain.
 Qwen/Qwen2-1.5B-Instruct,Qwen,1.5,27,10,55337,no,Single Qwen2 small model in WILD; no retained same-generation small replacement pair.
-Qwen/Qwen2.5-0.5B-Instruct,Qwen,0.5,27,10,55337,yes,Retained in the predeclared Qwen2.5 size chain.
-Qwen/Qwen2.5-1.5B-Instruct,Qwen,1.5,27,10,55337,yes,Retained in the predeclared Qwen2.5 size chain.
-Qwen/Qwen2.5-3B-Instruct,Qwen,3.0,27,10,55337,yes,Retained in the predeclared Qwen2.5 size chain.
+Qwen/Qwen2.5-0.5B-Instruct,Qwen,0.5,27,10,55337,yes,Retained in the artifact-defined Qwen2.5 size chain.
+Qwen/Qwen2.5-1.5B-Instruct,Qwen,1.5,27,10,55337,yes,Retained in the artifact-defined Qwen2.5 size chain.
+Qwen/Qwen2.5-3B-Instruct,Qwen,3.0,27,10,55337,yes,Retained in the artifact-defined Qwen2.5 size chain.
 ibm-granite/granite-3.2-2b-instruct,Granite,2.0,27,10,55337,no,No second under-4B Granite model in WILD for a same-family replacement pair.
 llama-3.2-1b,Llama,1.0,27,10,55337,yes,Retained in the Llama 3.2 small-model replacement pair.
 llama-3.2-3b,Llama,3.0,27,10,55337,yes,Retained in the Llama 3.2 small-model replacement pair.

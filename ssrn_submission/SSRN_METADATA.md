@@ -16,7 +16,7 @@ Dhananjay Singh Chauhan
 
 ## Affiliation
 
-Independent Reviewer
+Independent Researcher
 
 ## Email
 
@@ -71,4 +71,3 @@ The package contains the manuscript, analysis code, derived MMLU-Pro pairwise me
 ## Submission Note
 
 This preprint is framed as a software-tool and methods-artifact article. The core empirical support is the public, parser-independent WILD item-level correctness use case. The MMLU-Pro material is retained as a lower-priority archived-output diagnostic because it documents substantial testing work and shows the raw-response audit workflow, but parser-dependent MMLU-Pro claims are not treated as confirmatory until manual parser labels and complete inference manifests exist.
-
