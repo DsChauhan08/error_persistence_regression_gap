@@ -1,21 +1,35 @@
-# Journal Readiness Gates
+# Readiness Gates By Article Type
 
-This project separates a public GitHub/SSRN proof package from a stricter journal-ready package.
+This project no longer uses one universal `journal_ready` flag for every possible paper. The release status separates the scoped methods/software article from a broader empirical model-evaluation article.
 
 ## Current Gate Logic
 
-`journal_ready=true` requires all of the following:
+The scoped paper is a methods/software-tool article:
 
-1. `github_public_ready=true`: tests pass, hygiene scan passes, public manifest verifies, and WILD/source-manifest gates pass.
-2. `parser_validated=true`: all 452 first-pass parser-audit rows are human-labeled, all 120 high-risk rows are labeled, and parser agreement is at least 95%.
-3. `mmlu_pro_confirmatory=true`: MMLU-Pro scoring robustness passes after parser validation.
-4. `archive_ready=true`: the public repository has a persistent archive identifier.
+- `core_claim_ready=true`: WILD item-level correctness supports the replacement-accounting claim, and the MMLU-Pro source manifest verifies the archived item set.
+- `github_ssrn_ready=true`: public tests pass, public hygiene passes, the manifest verifies, licenses are present, and the public proof-of-analysis package is complete.
+- `methods_software_article_ready=true`: the public proof package is ready and has a persistent archive route.
+- `mmlu_parser_validated=false`: MMLU-Pro parser validation is not complete and is not claimed.
+- `mmlu_confirmatory_ready=false`: MMLU-Pro raw-output model evaluation is diagnostic only.
+- `full_empirical_ml_ready=false`: a full empirical MMLU-Pro model-family paper is not the target article type.
 
-The gate is intentionally not satisfied by WILD alone. WILD supports the core parser-independent claim, but MMLU-Pro cannot become confirmatory until the human parser audit is complete.
+The legacy `journal_ready` field is kept only as a backward-compatible alias for `full_empirical_ml_ready`. Do not use it as the readiness gate for the scoped methods/software article.
 
-## Fastest Path To `parser_validated=true`
+## Why Parser Validation Is Non-Blocking Here
 
-Run short labeling sessions from the full private/source workspace, where the withheld parser-audit sample is available:
+Parser validation is required for confirmatory MMLU-Pro raw-output claims. It is not required for the WILD-supported core claim because WILD supplies item-level binary correctness records and does not depend on answer extraction from raw model completions.
+
+The manuscript must therefore keep the claim split clear:
+
+- WILD item-level replacement accounting: supported.
+- MMLU-Pro source reconstruction: supported as provenance.
+- MMLU-Pro raw-output accounting: diagnostic only.
+- Parser-validation claims: not claimed.
+- Full empirical MMLU-Pro family conclusions: not claimed.
+
+## Path To Full Empirical Readiness
+
+To make `mmlu_parser_validated=true` and `mmlu_confirmatory_ready=true`, complete the private/source parser audit:
 
 ```bash
 PYTHONPATH=main/src python3 -m boundary_slm.parser_audit_labeler --limit 25
@@ -27,6 +41,8 @@ The labeler resumes automatically, prioritizes high-risk rows first, computes `h
 PYTHONPATH=main/src python3 -m boundary_slm.parser_audit_impact
 PYTHONPATH=main/src python3 -m boundary_slm.mmlu_scoring_robustness
 ```
+
+The full empirical gate should remain false unless the parser audit passes and the MMLU-Pro robustness gate does not materially change the claimed results.
 
 ## Archive Route Without Zenodo
 

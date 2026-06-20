@@ -635,14 +635,27 @@ def test_artifact_release_status_reports_github_ready_without_parser_validation(
         source_manifest_path=source_manifest,
         hygiene_report_path=hygiene,
         public_manifest_path=public_manifest,
+        archive_identifier="swh:1:snp:0123456789abcdef",
     )
     assert status["github_public_ready"]
+    assert status["github_ssrn_ready"]
     assert status["core_claim_ready"]
+    assert status["methods_software_article_ready"]
+    assert status["methods_submission_ready"]
+    assert not status["full_empirical_ml_ready"]
     assert not status["journal_ready"]
+    assert status["journal_ready_deprecated_scope"]
+    assert not status["mmlu_parser_validated"]
     assert not status["parser_validated"]
+    assert not status["mmlu_confirmatory_ready"]
     assert not status["mmlu_pro_confirmatory"]
     assert not any("missing release metadata" in blocker for blocker in status["blockers"])
+    assert not any("parser_validated=false" in blocker for blocker in status["blockers"])
+    assert status["scope_notes"]
     assert (out / "artifact_release_status.json").exists()
+    table = (out / "artifact_release_status.tex").read_text(encoding="utf-8")
+    assert "Methods/software article scope" in table
+    assert "Journal submission gate" not in table
 
 
 def test_artifact_release_status_blocks_github_ready_without_wild_claim(tmp_path: Path) -> None:
@@ -725,6 +738,8 @@ def test_artifact_release_status_can_be_journal_ready_when_all_gates_pass(tmp_pa
     assert status["parser_validated"]
     assert status["mmlu_pro_confirmatory"]
     assert status["archive_ready"]
+    assert status["methods_software_article_ready"]
+    assert status["full_empirical_ml_ready"]
     assert status["journal_ready"]
     assert not status["blockers"]
 

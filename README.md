@@ -10,7 +10,7 @@ This is not the full working repository. Internal review notes, venue strategy f
 
 ## Current Status
 
-This package is intended for public proof-of-analysis on GitHub and for an SSRN preprint. The active readiness target is `github_public_ready`, not a journal archive gate.
+This package is intended for public proof-of-analysis on GitHub and for an SSRN preprint. The active readiness targets are `github_ssrn_ready` and `methods_software_article_ready`, scoped to a WILD-supported protocol/software article. `full_empirical_ml_ready` remains false because MMLU-Pro parser validation and confirmatory raw-output evaluation are not claimed.
 
 Known limitations for the current public package:
 
@@ -20,7 +20,7 @@ Known limitations for the current public package:
 - Parser-audit sampling and automated consistency checks are included. The private/source audit sample is withheld because it contains response excerpts. Public files contain only aggregate/redacted summaries. The required 452-row human audit and 100-row second-pass consistency audit have not been completed.
 - Scoring-mode sensitivity summaries are included for the runs where saved predictions and raw responses were both available; these are validation artifacts, not a substitute for the manual parser audit.
 - Model labels are included exactly as they appear in the raw result files; revision hashes, exact repository IDs, prompt templates, decoding settings, package versions, and run dates were not captured in the raw JSONL files.
-- `analysis/artifact_release_status/artifact_release_status.json` is the release gate. It reports `github_public_ready=true` when the public repository URL, licenses, tests, hygiene scan, public manifest, WILD claim gate, and MMLU-Pro source-manifest gate are complete. Parser validation and MMLU-Pro confirmatory status remain visible but non-blocking because the core claim uses parser-independent WILD evidence.
+- `analysis/artifact_release_status/artifact_release_status.json` is the release gate. It reports scoped readiness by claim and article type: public proof-of-analysis readiness, methods/software article readiness, MMLU-Pro parser validation status, and full empirical ML paper readiness. Parser validation and MMLU-Pro confirmatory status remain visible but non-blocking for the WILD-supported protocol claim.
 
 ## Folder Map
 
@@ -41,13 +41,22 @@ Known limitations for the current public package:
 
 ## Reproduce
 
-From this folder:
+From this folder, the shortest public workflow is:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
+make reproduce-public
+make test
+make hygiene
+make manifest
+```
+
+The equivalent module-level commands are:
+
+```bash
 PYTHONPATH=src python -m boundary_slm.paper_metrics \
   --input-dir analysis/raw_tpu_results \
   --output-dir analysis/paper_metrics

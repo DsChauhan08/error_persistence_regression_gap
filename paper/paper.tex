@@ -233,11 +233,65 @@ Path note & Whether the directed pair is a real replacement path or a diagnostic
 
 The audit is primarily descriptive. McNemar-style paired tests are appropriate when comparing two classifiers on the same items \parencite{mcnemar1947note,dietterich1998approximate}, but replacement accounting should not treat shared-endpoint model pairs as independent evidence. The artifact therefore reports mass and churn metrics as the primary outputs and uses inferential checks only as clearly labeled diagnostics.
 
+\section{Implementation and Operation}
+
+The public artifact is structured as a small analysis package rather than a monolithic notebook. Each command writes CSV, JSON, and paper-table outputs that can be inspected independently. Table~\ref{tab:module-map} summarizes the main modules, their input requirements, and their role in the paper.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{p{0.24\linewidth}p{0.25\linewidth}p{0.27\linewidth}p{0.14\linewidth}}
+\toprule
+Module & Input & Output & Paper use \\
+\midrule
+WILD ingest & WILD item-level correctness records & Normalized records, pairwise replacement metrics, task-dispersion tables & Core \\
+Evidence registry & Source registry entries & Evidence-tier map and claim-use table & Claim boundary \\
+MMLU-Pro manifest & Derived MMLU-Pro item files and source parquet & Redacted source-row hashes and manifest status & Provenance \\
+Paper metrics & Derived MMLU-Pro correctness summaries & Pairwise metrics, audit cards, appendix tables & Diagnostic \\
+Parser-impact audit & Private parser-audit labels, when available & Parser-impact report and claim gate & Diagnostic gate \\
+Release hygiene & Public release directory & Leakage scan for raw responses, benchmark text, private samples, and local paths & Release safety \\
+\bottomrule
+\end{tabular}
+\caption{Software modules used by the public artifact. The WILD module validates the pairwise accounting layer; raw-output parser validation is a separate diagnostic layer and is not claimed complete.}
+\label{tab:module-map}
+\end{table}
+
+The public package targets Python 3.11 or newer and uses ordinary scientific Python dependencies listed in \texttt{requirements.txt}. From the release root, the shortest public workflow is:
+
+\begin{verbatim}
+make reproduce-public
+make test
+make hygiene
+\end{verbatim}
+
+The first command regenerates the public WILD and source-registry outputs, the second runs the test suite, and the third verifies that the public release does not contain raw model responses, benchmark text, private parser-audit samples, or local cache paths. The package also includes a \texttt{manifest} target that refreshes file hashes for the public release.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{ll}
+\toprule
+Field & Example output \\
+\midrule
+Current model & Qwen2.5-1.5B-Instruct \\
+Candidate model & Qwen2.5-3B-Instruct \\
+Shared WILD items & 54,464 \\
+Accuracy delta & +5.7 percentage points \\
+Improvement mass & 18.0\% \\
+Regression mass & 12.3\% \\
+Churn mass & 30.4\% \\
+Interpretation & Near-parity aggregate gain with substantial item-level churn \\
+\bottomrule
+\end{tabular}
+\caption{Worked WILD audit-card example for a selected-task pooled same-family comparison. The example illustrates how a small aggregate gain can still require reviewing a large changed item set.}
+\label{tab:worked-audit-card}
+\end{table}
+
 \section{Public WILD Correctness-Only Demonstration}
 
 The WILD demonstration is the parser-independent empirical support for the audit protocol because it avoids answer extraction. WILD exposes item identifiers, model identifiers, task identifiers, and binary correctness records. The full WILD release contains evaluations of 65 models over 109,564 unique items spanning 163 tasks from 27 datasets \parencite{krumdick2026wild}. The present artifact uses a selected public subset containing five Qwen and Llama models up to approximately four billion parameters and ten tasks. It supports item-level churn accounting, but it does not support raw-response parsing claims, prompt-format claims, or manual answer-extraction validation.
 
-The WILD subset rule is fixed in the artifact: retain public item-level correctness rows for the selected Qwen2.5 chain and Llama 3.2 1B/3B models where the selected models share task coverage. The selected tasks are MMLU-Pro, MMLU, ARC-Challenge, GSM8K, HellaSwag, PIQA, BoolQ, IFEval, BBH, and MATH. This is a public cross-benchmark demonstration of the audit protocol, not a representative analysis of all WILD models or all WILD tasks.
+The WILD use case validates the pairwise accounting layer of the artifact, not the raw-output scoring layer. The subset rule is fixed in the artifact: retain public item-level correctness rows for same-family small-model chains with at least two public models at or below approximately four billion parameters, shared coverage over the selected tasks, and a plausible size or generation replacement path. The selected tasks are MMLU-Pro, MMLU, ARC-Challenge, GSM8K, HellaSwag, PIQA, BoolQ, IFEval, BBH, and MATH. Models without a retained same-family comparator are excluded from pairwise analysis but listed in Table~\ref{tab:wild-inclusion}. This is a public cross-benchmark demonstration of the audit protocol, not a representative analysis of all WILD models or all WILD tasks. No estimate in this section is interpreted as the average churn rate of all WILD models.
 
 \begin{table}[t]
 \centering
@@ -277,9 +331,7 @@ The Llama 3.2 1B to 3B comparison gives the same qualitative lesson. It improves
 
 The task-level dispersion table shows why an all-task mean is not enough. Across all selected WILD task-level comparisons, median churn is 33.9\% with an interquartile range of 30.0--39.4\%. For Qwen alone, median task-level churn is 32.6\%, and the highest mean-churn task among the selected tasks is PIQA at 42.9\%. These values do not imply a universal churn level for all small models. They show that the accounting method can be applied to a public item-level correctness matrix and that large churn appears outside the MMLU-Pro archived-output case study.
 
-\section{MMLU-Pro Archived-Output Case Study}
-
-\subsection{Source manifest}
+\section{MMLU-Pro Archived-Output Diagnostic}
 
 The MMLU-Pro case study uses 14 archived model-output runs over 3,008 shared items. A source-manifest script reconstructs the evaluated rows from the TIGER-Lab/MMLU-Pro test parquet snapshot and verifies saved identifiers against source category and answer labels. The manifest stores normalized item hashes and source identifiers, not benchmark question text. The reconstructed source revision is \nolinkurl{b189ec765aa7ed75c8acfea42df31fdae71f97be}; the source parquet SHA256 is \nolinkurl{0e24a191921c2f453518a537a8b2117bd137e7714d4ef1565e9ba06c1ecb9ad8}; and the public manifest item-hash SHA256 is \nolinkurl{1f482b880fad0d8c97aa08f83d250ffd43e715b78ec2619987e0db4e9a98d9d3}.
 
@@ -291,40 +343,27 @@ The MMLU-Pro case study uses 14 archived model-output runs over 3,008 shared ite
 \label{tab:mmlu-pro-manifest}
 \end{table}
 
-All 3,008 evaluated identifiers match the source rows with zero category or answer mismatches. The subset is now reconstructable, but the original reason for selecting exactly these 3,008 rows from MMLU-Pro was not preserved. The MMLU-Pro case study should therefore be read as an audit of a fixed archived subset, not as a statistically designed sample of the whole benchmark.
+All 3,008 evaluated identifiers match the source rows with zero category or answer mismatches. The subset is now reconstructable, but the original reason for selecting exactly these 3,008 rows from MMLU-Pro was not preserved. Because the subset-selection rationale was not preserved, no sampling inference is made from this subset. The subset is used only to exercise the raw-output audit pipeline.
 
-\subsection{Answer extraction and scoring validation}
+The raw-output diagnostic illustrates what is required beyond a binary correctness matrix. Three runs include saved prediction fields; the remaining rows require deterministic extraction from raw responses. A conservative prompt-echo guard marks responses ending in a bare chat marker after echoed prompt text as unanswered. This matters for Gemma-4-E2B-Instruct: after the guard, its answered rate is 5.2\% and parse-failure rate is 94.8\%. That run is retained in descriptive files as a generation-format failure but excluded from primary pairwise claims.
 
-The MMLU-Pro raw outputs are not perfectly uniform. Three runs include saved prediction fields; the remaining rows require deterministic extraction from raw responses. Each row is scored as answered or unanswered. A conservative prompt-echo guard marks responses ending in a bare chat marker after echoed prompt text as unanswered. This matters for Gemma-4-E2B-Instruct: after the guard, its answered rate is 5.2\% and parse-failure rate is 94.8\%. That run is retained in descriptive files as a generation-format failure but excluded from primary pairwise claims.
-
-\begin{table}[t]
-\centering
-\small
-\resizebox{\linewidth}{!}{\input{tables/extraction_coverage.tex}}
-\caption{Answer-source coverage by family. Saved predictions are used when present; otherwise explicit answer markers and fallback letter rules are applied to raw responses.}
-\label{tab:extraction-coverage}
-\end{table}
-
-A manual parser-audit package has been generated, including both family/method stratified rows and high-risk rows selected from fallback methods, prompt echoes, low-confidence parser decisions, and saved/raw disagreement cases. Human labels are not complete. The present paper therefore does not report human/parser agreement and does not present the MMLU-Pro raw-output case study as a fully validated model evaluation.
-
-The parser-audit protocol is preregistered in the artifact. The human labeler sees the source item identifier, model/family, extraction method, audit source, risk reason, parser prediction, parser answered flag, ground-truth option letter, and a private raw-response excerpt or source response field. Benchmark question text and response excerpts are not distributed in the public release. The labeler fills \texttt{human\_prediction}, \texttt{human\_answered}, \texttt{human\_parser\_correct}, and notes. Multiple-answer cases are labeled by the answer a reasonable benchmark scorer would credit; ambiguous cases are marked in notes and adjudicated before final reporting; no-answer or prompt-echo cases are labeled unanswered unless a clear option letter is actually supplied. The gate requires at least 452 completed labels, including all 120 high-risk rows, and reports agreement overall, by family, by extraction method, and by audit source.
+The parser-audit sample has been generated but not labeled. Therefore raw-output parser validation is not claimed, and the MMLU-Pro results are not used as confirmatory evidence for model-family behavior. Table~\ref{tab:mmlu-diagnostic-status} summarizes the diagnostic status of the case study.
 
 \begin{table}[t]
 \centering
 \small
-\input{tables/parser_validation_status.tex}
-\caption{Parser-validation status for the archived MMLU-Pro raw-output case study. Manual labels are required before reporting parser agreement as a validation result.}
-\label{tab:parser-validation-status}
-\end{table}
-
-The parser-impact report extends the audit from extraction accuracy to claim impact. It counts false correct, false incorrect, false unanswered, false regression-impact, and false improvement-impact cases. With the current unlabeled package, Table~\ref{tab:parser-impact} correctly blocks strong MMLU-Pro claims rather than imputing validation.
-
-\begin{table}[t]
-\centering
-\small
-\resizebox{\linewidth}{!}{\input{tables/parser_audit_impact.tex}}
-\caption{Parser-audit impact gate. The current artifact has generated the sample but has not completed human labels, so MMLU-Pro remains a parser-dependent diagnostic.}
-\label{tab:parser-impact}
+\begin{tabular}{p{0.32\linewidth}p{0.24\linewidth}p{0.34\linewidth}}
+\toprule
+Component & Status & Main-claim use \\
+\midrule
+Source reconstruction & 3,008/3,008 item identifiers matched & Provenance support \\
+Raw-response extraction & Deterministic parser plus scoring-mode sensitivity & Diagnostic only \\
+Manual parser validation & Audit sample generated; labels incomplete & Not claimed \\
+MMLU-Pro family comparison & Parser-dependent and incompletely manifested & Appendix diagnostic only \\
+\bottomrule
+\end{tabular}
+\caption{Diagnostic status of the archived MMLU-Pro raw-output workflow. The WILD-supported core claim does not depend on MMLU-Pro parser validation.}
+\label{tab:mmlu-diagnostic-status}
 \end{table}
 
 The scoring-mode sensitivity check uses the three runs that contain both saved predictions and raw responses. Table~\ref{tab:scoring-mode} compares the default saved-prediction-primary scoring with a raw-response-only parser. It shows that scoring asymmetry is materially important, not merely measurable: Gemma-3-1B-Instruct changes correctness on 11.6\% of rows across the two modes, and Phi-2's raw-response-only answerability is much lower than its saved-prediction-primary answerability. This sensitivity check is not a substitute for manual validation, but it prevents the paper from treating the parser as invisible.
@@ -337,79 +376,9 @@ The scoring-mode sensitivity check uses the three runs that contain both saved p
 \label{tab:scoring-mode}
 \end{table}
 
-The robustness generator also reruns MMLU-Pro accounting under five modes: default scoring, raw-only scoring where possible, exclusion of saved-prediction models, exclusion of low-confidence fallback extractions, and explicit-marker-only scoring where enough rows remain. The sign of the family contrast remains the same, but its magnitude changes under stricter extraction modes. The MMLU-Pro gate remains blocked because the manual parser audit is incomplete.
-
-\begin{table}[t]
-\centering
-\small
-\resizebox{\linewidth}{!}{\input{tables/mmlu_scoring_robustness.tex}}
-\caption{MMLU-Pro scoring-robustness modes over archived outputs. These are sensitivity analyses, not confirmatory validation while parser labels are incomplete.}
-\label{tab:mmlu-scoring-robustness}
-\end{table}
-
-\begin{table}[t]
-\centering
-\small
-\resizebox{\linewidth}{!}{\input{tables/family_contrast_robustness.tex}}
-\caption{Family-contrast robustness gate for the archived MMLU-Pro diagnostic. The gate blocks confirmatory family language until manual parser validation passes.}
-\label{tab:family-contrast-robustness}
-\end{table}
-
-\subsection{Run-provenance status}
-
 The archived raw run files preserve item IDs, categories, ground-truth labels, model labels, and raw responses. They do not preserve exact Hugging Face repository identifiers, revision hashes, prompt templates, chat templates, decoding parameters, runtime versions, run dates, or complete hardware metadata. Consequently, the MMLU-Pro accounting can be regenerated from saved outputs, but the original inference runs cannot be independently reproduced as validated model-behavior evaluations without rerunning or reconstructing the experiment.
 
-\subsection{Primary population and quality gate}
-
-All 14 MMLU-Pro model-output runs and all 3,008 items are retained in descriptive outputs. A model is eligible for primary same-family pairwise claims if at least 80\% of its rows have valid extracted answers. This gate excludes one run, Gemma-4-E2B-Instruct, whose outputs are dominated by prompt echoes rather than usable completions. The exclusion is treated as a generation-format incompatibility, not as a clean knowledge or reasoning failure.
-
-\begin{table}[t]
-\centering
-\small
-\resizebox{\linewidth}{!}{\input{tables/quality_gate_sensitivity.tex}}
-\caption{Sensitivity of primary-family results to the answerability gate. Metrics are percentages. The no-gate row is descriptive only because it includes the Gemma-4-E2B-Instruct prompt-echo failure run.}
-\label{tab:gate-sensitivity}
-\end{table}
-
-After the gate, Qwen contributes seven eligible models and 21 same-family directed comparisons. Gemma contributes four eligible models and six same-family directed comparisons. Llama and Phi are retained as single-model anchors but excluded from same-family pairwise claims.
-
-\subsection{Same-family accounting}
-
-Table~\ref{tab:mmlu-family} reports the primary same-family MMLU-Pro accounting after the quality gate. These are within-archive accuracies under the paper's scoring protocol and should not be read as official benchmark scores. The results are useful as an archived-output case study, but they remain parser-dependent until the manual parser audit is completed.
-
-\begin{table}[t]
-\centering
-\small
-\resizebox{\linewidth}{!}{\input{tables/family_summary.tex}}
-\caption{Primary MMLU-Pro same-family item-level accounting after excluding runs with answered rate below 80\%. Values are percentages. $I$ is improvement mass, $R$ is regression mass, and NRB is normalized regression burden.}
-\label{tab:mmlu-family}
-\end{table}
-
-Accuracy-improving directed comparisons still show substantial churn. Qwen has 20 accuracy-improving directed comparisons with mean churn of 35.2\%, mean improvement mass of 26.7\%, and mean regression mass of 8.5\%. Gemma has six accuracy-improving directed comparisons with mean churn of 27.3\%, mean improvement mass of 19.5\%, and mean regression mass of 7.9\%.
-
-Within this archived diagnostic, Qwen comparisons have lower average old-error persistence than Gemma comparisons. The contrast is not confirmatory because the archive is selected, parser-dependent, and incompletely manifested. The dependence-aware permutation check and model-level diagnostic figure are therefore reported only in the appendix.
-
-\subsection{Near-parity diagnostics and domain triage}
-
-Near-parity directed diagnostics are especially important because small aggregate movement can hide large item-level changes. Five primary MMLU-Pro comparisons have absolute accuracy delta at most five percentage points. Four are accuracy-improving directed diagnostics, and one is a negative-delta near-parity swap rather than an upgrade candidate model. Across these cases, small aggregate movement still corresponds to 18.0--32.5\% item-level churn.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.90\linewidth]{figures/near_parity_churn.pdf}
-\Description{Horizontal bar chart listing near-parity directed diagnostic pairs and their churn percentages despite small aggregate accuracy differences.}
-\caption{All primary near-parity comparisons, defined as absolute accuracy delta at most five percentage points. Small aggregate movement can still correspond to large item-level churn, but path interpretation determines whether the comparison is a plausible deployment replacement or only an all-pairs diagnostic.}
-\label{fig:near-parity}
-\end{figure}
-
-Domain summaries are used only to identify where manual review should start. They are not hypothesis tests and do not support causal domain-by-family claims.
-
-\begin{table}[t]
-\centering
-\small
-\input{tables/top_category_regressions.tex}
-\caption{Exploratory categories with the highest mean regression mass within each primary family. Values are percentages over category items averaged across eligible same-family comparisons.}
-\label{tab:category-regressions}
-\end{table}
+Detailed MMLU-Pro extraction coverage, parser gates, answerability gates, same-family diagnostics, near-parity diagnostics, and domain triage are reported in the appendix. They are included to document artifact behavior, not to support confirmatory MMLU-Pro model-evaluation claims.
 
 \section{External Evidence Availability}
 
@@ -429,7 +398,7 @@ Public model cards and technical reports provide useful aggregate context for sm
 
 \subsection{What the evidence supports}
 
-The public WILD demonstration supports the core audit claim without answer extraction: aggregate gains can coincide with large item-level churn. The MMLU-Pro archived-output case study supports the same practical message under a raw-output workflow, while also demonstrating why source manifests, parser audits, scoring-mode sensitivity, and run manifests matter.
+The public WILD demonstration supports the core audit claim without answer extraction: aggregate gains can coincide with large item-level churn. The MMLU-Pro archived-output diagnostic illustrates how the same accounting workflow must be extended when evidence begins as raw model responses, and why source manifests, parser audits, scoring-mode sensitivity, and run manifests matter.
 
 The MMLU-Pro family result should be read narrowly. In the evaluated archived runs, Qwen comparisons show lower old-error persistence than Gemma comparisons. The evidence does not establish a generalizable property of either model family.
 
@@ -476,7 +445,7 @@ The GitHub/SSRN public proof-of-analysis package is available at \url{https://gi
 \centering
 \small
 \resizebox{\linewidth}{!}{\input{tables/artifact_release_status.tex}}
-\caption{Artifact release-status gate for the GitHub/SSRN public package. Parser validation and MMLU-Pro confirmatory status remain visible but do not block the parser-independent WILD/source-manifest claim set.}
+\caption{Readiness status by claim type and article type. Parser validation and MMLU-Pro confirmatory status remain visible but do not block the parser-independent WILD/source-manifest claim set for a scoped methods/software article.}
 \label{tab:artifact-release-status}
 \end{table}
 
@@ -485,16 +454,13 @@ The accounting can be regenerated from saved outputs, but full model-behavior re
 The main public-package reproduction commands are:
 
 \begin{verbatim}
-PYTHONPATH=src python -m boundary_slm.paper_metrics
-PYTHONPATH=src python -m boundary_slm.mmlu_pro_manifest
-PYTHONPATH=src python -m boundary_slm.external_evidence_registry
-PYTHONPATH=src python -m boundary_slm.external_wild_ingest
-PYTHONPATH=src python -m boundary_slm.artifact_release_status \
-  --repository-url https://github.com/DsChauhan08/error_persistence_regression_gap
-PYTHONPATH=src python -m boundary_slm.artifact_manifest
-PYTHONPATH=src python -m boundary_slm.public_release_hygiene
-PYTHONPATH=src pytest -q
+make reproduce-public
+make test
+make hygiene
+make manifest
 \end{verbatim}
+
+The \texttt{make reproduce-public} target regenerates the public WILD and evidence-registry outputs. The public package also exposes the underlying Python modules for users who want to rerun individual steps directly.
 
 Parser-audit regeneration and scoring-mode sensitivity over private/source raw outputs require access to the withheld raw model-output JSONL files:
 
@@ -535,6 +501,48 @@ The author thanks the maintainers of the open-source model and evaluation ecosys
 
 \appendix
 
+\section{MMLU-Pro Diagnostic Details}
+
+\begin{table}[H]
+\centering
+\small
+\resizebox{\linewidth}{!}{\input{tables/extraction_coverage.tex}}
+\caption{Answer-source coverage by family. Saved predictions are used when present; otherwise explicit answer markers and fallback letter rules are applied to raw responses.}
+\label{tab:extraction-coverage}
+\end{table}
+
+\begin{table}[H]
+\centering
+\small
+\input{tables/parser_validation_status.tex}
+\caption{Parser-validation status for the archived MMLU-Pro raw-output diagnostic. Manual labels are required before reporting parser agreement as a validation result.}
+\label{tab:parser-validation-status}
+\end{table}
+
+\begin{table}[H]
+\centering
+\small
+\resizebox{\linewidth}{!}{\input{tables/parser_audit_impact.tex}}
+\caption{Parser-audit impact gate. The current artifact has generated the sample but has not completed human labels, so MMLU-Pro remains a parser-dependent diagnostic.}
+\label{tab:parser-impact}
+\end{table}
+
+\begin{table}[H]
+\centering
+\small
+\resizebox{\linewidth}{!}{\input{tables/mmlu_scoring_robustness.tex}}
+\caption{MMLU-Pro scoring-robustness modes over archived outputs. These are sensitivity analyses, not confirmatory validation while parser labels are incomplete.}
+\label{tab:mmlu-scoring-robustness}
+\end{table}
+
+\begin{table}[H]
+\centering
+\small
+\resizebox{\linewidth}{!}{\input{tables/family_contrast_robustness.tex}}
+\caption{Family-contrast robustness gate for the archived MMLU-Pro diagnostic. The gate blocks confirmatory family language until manual parser validation passes.}
+\label{tab:family-contrast-robustness}
+\end{table}
+
 \section{MMLU-Pro Model Runs and Quality Gate}
 
 \begin{table}[H]
@@ -553,6 +561,40 @@ The author thanks the maintainers of the open-source model and evaluation ecosys
 \resizebox{\linewidth}{!}{\input{tables/model_run_metadata_status.tex}}
 \caption{Run-metadata completeness in the archived MMLU-Pro raw-output files.}
 \label{tab:model-run-metadata}
+\end{table}
+
+\section{MMLU-Pro Same-Family Diagnostic Summaries}
+
+\begin{table}[H]
+\centering
+\small
+\resizebox{\linewidth}{!}{\input{tables/quality_gate_sensitivity.tex}}
+\caption{Sensitivity of primary-family diagnostic results to the answerability gate. Metrics are percentages. The no-gate row is descriptive only because it includes the Gemma-4-E2B-Instruct prompt-echo failure run.}
+\label{tab:gate-sensitivity}
+\end{table}
+
+\begin{table}[H]
+\centering
+\small
+\resizebox{\linewidth}{!}{\input{tables/family_summary.tex}}
+\caption{Primary MMLU-Pro same-family diagnostic accounting after excluding runs with answered rate below 80\%. Values are percentages. $I$ is improvement mass, $R$ is regression mass, and NRB is normalized regression burden.}
+\label{tab:mmlu-family}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\linewidth]{figures/near_parity_churn.pdf}
+\Description{Horizontal bar chart listing near-parity directed diagnostic pairs and their churn percentages despite small aggregate accuracy differences.}
+\caption{Primary near-parity MMLU-Pro diagnostics, defined as absolute accuracy delta at most five percentage points. Small aggregate movement can still correspond to large item-level churn, but path interpretation determines whether the comparison is a plausible deployment replacement or only an all-pairs diagnostic.}
+\label{fig:near-parity}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\small
+\input{tables/top_category_regressions.tex}
+\caption{Exploratory categories with the highest mean regression mass within each primary family. Values are percentages over category items averaged across eligible same-family comparisons.}
+\label{tab:category-regressions}
 \end{table}
 
 \section{Diagnostic MMLU-Pro Family Check}

@@ -1,6 +1,6 @@
 {
-  "created_utc": "2026-06-20T12:00:35.945754+00:00",
-  "file_count": 210,
+  "created_utc": "2026-06-20T16:35:45.994343+00:00",
+  "file_count": 211,
   "files": [
     {
       "bytes": 300,
@@ -23,24 +23,29 @@
       "sha256": "aedcc1b844fd163d67e6465998a5e73b19347c08110c7a89a509d0e8c3d92b9a"
     },
     {
-      "bytes": 126,
+      "bytes": 2648,
+      "path": "Makefile",
+      "sha256": "7d13eeada97c0b63794502dcadd4e4ecc46991bba6f1409cfc446a31af060198"
+    },
+    {
+      "bytes": 54,
       "path": "PUBLIC_RELEASE_HYGIENE.json",
-      "sha256": "2f2afb0d58d6bea1073e6b11dd51ea35bb5032f450021fe259ec8ffdf68cfc21"
+      "sha256": "fca3fa046bf116c5fd9a2fef81b038c7e26a533dcd06b6edf94697c90e0d2711"
     },
     {
-      "bytes": 9529,
+      "bytes": 9866,
       "path": "README.md",
-      "sha256": "6d43b6ea663895b28ec7eeb0775645df2707f59d9bf8f5797a27beb6bb612a2d"
+      "sha256": "3f152310c2de100b8d6d04db7bc3056e94de586c68c7239d49807dee375cc30d"
     },
     {
-      "bytes": 2147,
+      "bytes": 2732,
       "path": "analysis/artifact_release_status/artifact_release_status.json",
-      "sha256": "de31e219ecd8429d60f627c482684a8cc43ace86ed4373ba8bf2d5a7dc97eac7"
+      "sha256": "8b900e6709c746abcb1aaf7804e8d3643d8a2737d4a4cb16cd08f2745092b94a"
     },
     {
-      "bytes": 1433,
+      "bytes": 1488,
       "path": "analysis/artifact_release_status/artifact_release_status.tex",
-      "sha256": "ebc267bc52eb427433c9115aa4864a6bd9b2f80b04b98f286747d0dd13a2328f"
+      "sha256": "0cce8879d690ce715a0a3de35de895c9ebe9b8ea108dd5b6d190b428901f2b91"
     },
     {
       "bytes": 3774,
@@ -643,9 +648,9 @@
       "sha256": "b7f620833b95018eb728fbb99ee9004c3548b19660eb36f0d8581dcddcdaa376"
     },
     {
-      "bytes": 2834,
+      "bytes": 4003,
       "path": "docs/JOURNAL_READINESS_GATES.md",
-      "sha256": "cf9572200950d3ebfc87567b1e7b30d46d3eb55f49a9ccbaa6b3576c8488e0ce"
+      "sha256": "19c7897007fdfb990f00440357c43c20e81f2ff73b2a920a219ae2ae6d518794"
     },
     {
       "bytes": 3154,
@@ -723,14 +728,14 @@
       "sha256": "b203f8fe198a82afececa5fc5c2641fa529e3aa05b82b329bcf5891be339fc68"
     },
     {
-      "bytes": 443070,
+      "bytes": 440560,
       "path": "paper/paper.pdf",
-      "sha256": "2cef692fe8dbb9bddda482821843bc97648be749e0aa1fbcef2028bd8274f20e"
+      "sha256": "82d10e4d39ac55227318f55416095ac5de20a94d97979fed809cc4fea3ca2704"
     },
     {
-      "bytes": 48989,
+      "bytes": 48683,
       "path": "paper/paper.tex",
-      "sha256": "5eca738496f0f2d45d11732aee78872839bb8bb79515fcfc988f8a4bc2bd22cf"
+      "sha256": "bbe24e98b5f7e9998b9f8b726893b5a7c5ed459b5533fcaa866b6ebca5ff4e56"
     },
     {
       "bytes": 10305,
@@ -753,9 +758,9 @@
       "sha256": "1cb2ba39e82f77a707fe69caf43fa715616cf317673ead1f30f7091024743b09"
     },
     {
-      "bytes": 1433,
+      "bytes": 1488,
       "path": "paper/tables/artifact_release_status.tex",
-      "sha256": "ebc267bc52eb427433c9115aa4864a6bd9b2f80b04b98f286747d0dd13a2328f"
+      "sha256": "0cce8879d690ce715a0a3de35de895c9ebe9b8ea108dd5b6d190b428901f2b91"
     },
     {
       "bytes": 565,
@@ -883,9 +888,9 @@
       "sha256": "8e150df9d7649836b2731ca80ea817f34a1956d8abbd0b38ab0494c8b5b25a5a"
     },
     {
-      "bytes": 14594,
+      "bytes": 16128,
       "path": "src/boundary_slm/artifact_release_status.py",
-      "sha256": "b5b3caf36f6bec2089d3b76e82761f4ef0409522150262c6fd4b8ac0df00a3ed"
+      "sha256": "f5e30637b43cad6d7794feb2eced11917fd997798198e4df0ae16f8649e60dcd"
     },
     {
       "bytes": 19681,
@@ -1048,14 +1053,14 @@
       "sha256": "c1d503ebd62a04d223bc7cd92263450b1c4e267a1586b190cf065e0e53719c38"
     },
     {
-      "bytes": 31387,
+      "bytes": 32179,
       "path": "tests/test_validation_extensions.py",
-      "sha256": "df04367eb94b5c31f270b98fcba09e71e8c14b1c078d9a48cef3a044506fd9e2"
+      "sha256": "a337af6cdc374952fd47b6fbccb39db20881cac9c6cc317a86c9c739e2a47531"
     }
   ],
   "mismatches": 0,
   "missing": 0,
   "public_text_policy": "Public release excludes raw model responses, full benchmark text, private parser-audit samples, local caches, DOI metadata, and private notes.",
   "root": ".",
-  "total_bytes": 13059299
+  "total_bytes": 13063586
 }

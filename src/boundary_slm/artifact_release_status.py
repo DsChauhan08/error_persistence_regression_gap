@@ -130,7 +130,8 @@ def release_status(
         if not is_populated(metadata.get(key))
     ]
     github_public_ready = not missing and tests_ready and hygiene_ready and manifest_ready and core_claim_ready
-    journal_ready = github_public_ready and parser_validated and mmlu_confirmatory and archive_ready
+    methods_software_article_ready = github_public_ready and archive_ready
+    full_empirical_ml_ready = github_public_ready and parser_validated and mmlu_confirmatory and archive_ready
     blockers: list[str] = []
     if missing:
         blockers.append("missing release metadata: " + ", ".join(missing))
@@ -144,19 +145,41 @@ def release_status(
         blockers.append("WILD item-level correctness claim gate has not passed")
     if not source_ready:
         blockers.append("MMLU-Pro source-manifest gate has not passed")
-    if not parser_validated:
-        blockers.append("parser_validated=false; non-blocking for GitHub/SSRN because MMLU-Pro raw-output claims are diagnostic only")
-    if not mmlu_confirmatory:
-        blockers.append("mmlu_pro_confirmatory=false; non-blocking for GitHub/SSRN because WILD carries the core claim")
     if not archive_ready:
-        blockers.append("journal_ready=false; persistent archive identifier is missing")
+        blockers.append("persistent archive identifier is missing")
+    scope_notes: list[str] = []
+    if not parser_validated:
+        scope_notes.append(
+            "Parser validation is not required for the WILD-supported core claim because MMLU-Pro raw-output "
+            "results are excluded from the confirmatory claim set."
+        )
+    if not mmlu_confirmatory:
+        scope_notes.append(
+            "MMLU-Pro confirmatory model-evaluation claims are not made; that component remains diagnostic."
+        )
+    if not full_empirical_ml_ready:
+        scope_notes.append(
+            "Full empirical ML article readiness remains false until parser validation and MMLU-Pro robustness gates pass."
+        )
     return {
         "created_utc": datetime.now(timezone.utc).isoformat(),
         **metadata,
+        "github_ssrn_ready": github_public_ready,
         "github_public_ready": github_public_ready,
         "core_claim_ready": core_claim_ready,
-        "journal_ready": journal_ready,
+        "methods_submission_ready": methods_software_article_ready,
+        "methods_software_article_ready": methods_software_article_ready,
+        "methods_software_article_status": (
+            "ready_for_scoped_methods_software_submission"
+            if methods_software_article_ready
+            else "not_ready_for_scoped_methods_software_submission"
+        ),
+        "full_empirical_ml_ready": full_empirical_ml_ready,
+        "journal_ready": full_empirical_ml_ready,
+        "journal_ready_deprecated_scope": "legacy alias for full_empirical_ml_ready, not the scoped methods/software article gate",
+        "mmlu_parser_validated": parser_validated,
         "parser_validated": parser_validated,
+        "mmlu_confirmatory_ready": mmlu_confirmatory,
         "mmlu_pro_confirmatory": mmlu_confirmatory,
         "wild_claim_ready": wild_ready,
         "mmlu_pro_source_manifest_ready": source_ready,
@@ -173,10 +196,11 @@ def release_status(
         "parser_gate_status": parser_gate.get("status", "missing"),
         "mmlu_gate_status": mmlu_gate.get("status", "missing"),
         "blockers": blockers,
+        "scope_notes": scope_notes,
         "paper_wording_rule": (
-            "Use GitHub/SSRN public-release wording when github_public_ready=true. Do not present "
+            "Use scoped methods/software-article wording when methods_software_article_ready=true. Do not present "
             "MMLU-Pro raw-output accounting as confirmatory until parser validation and robustness gates pass. "
-            "Use journal-ready wording only when journal_ready=true."
+            "Do not use the legacy journal_ready field as a universal article-readiness gate."
         ),
     }
 
@@ -184,24 +208,32 @@ def release_status(
 def write_tex(path: Path, status: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     rows = [
-        ("Repository URL", status["repository_url"]),
+        ("Repository", status["repository_url"]),
+        ("Persistent archive", status["archive_identifier"] if status["archive_ready"] else "not provided"),
         ("Code license", status["code_license"]),
         ("Data-output license", status["data_output_license"]),
-        ("Python / OS", f"{status['python_version']} / {status['os']}"),
+        ("Python support", "Python 3.11+ recommended; local run metadata is recorded in JSON"),
         ("Dependency file", status["dependency_file"]),
-        ("Expected runtime", status["expected_runtime"]),
-        ("Latest test command", status["latest_test_command"]),
-        ("Latest test result", status["latest_test_result"]),
-        ("Persistent archive", status["archive_identifier"] if status["archive_ready"] else "not provided"),
-        ("WILD item-level evidence supported", str(status["wild_claim_ready"]).lower()),
-        ("MMLU-Pro source reconstruction passed", str(status["mmlu_pro_source_manifest_ready"]).lower()),
-        ("Public-package hygiene check", str(status["public_hygiene_ready"]).lower()),
-        ("Public-package manifest verified", str(status["public_manifest_ready"]).lower()),
-        ("Core WILD-based claim supported", str(status["core_claim_ready"]).lower()),
-        ("Parser validation complete", str(status["parser_validated"]).lower()),
-        ("MMLU-Pro confirmatory", str(status["mmlu_pro_confirmatory"]).lower()),
-        ("GitHub/SSRN package ready", str(status["github_public_ready"]).lower()),
-        ("Journal submission gate", str(status["journal_ready"]).lower()),
+        ("Latest public tests", status["latest_test_result"]),
+        ("WILD accounting layer", "Supported; core claim evidence"),
+        ("MMLU-Pro source reconstruction", "Supported; provenance evidence"),
+        ("Public proof-of-analysis package", "Ready" if status["github_ssrn_ready"] else "Not ready"),
+        (
+            "Methods/software article scope",
+            "Ready for WILD-supported protocol claims" if status["methods_software_article_ready"] else "Not ready",
+        ),
+        (
+            "MMLU-Pro parser validation",
+            "Complete" if status["parser_validated"] else "Not complete; parser-dependent claims excluded",
+        ),
+        (
+            "MMLU-Pro confirmatory evaluation",
+            "Supported" if status["mmlu_pro_confirmatory"] else "Not claimed; diagnostic only",
+        ),
+        (
+            "Full empirical ML article scope",
+            "Ready" if status["full_empirical_ml_ready"] else "Not ready; not the target article type",
+        ),
     ]
     lines = [r"\begin{tabular}{lp{0.62\linewidth}}", r"\toprule", r"Field & Value \\", r"\midrule"]
     for key, value in rows:
@@ -209,6 +241,9 @@ def write_tex(path: Path, status: dict[str, Any]) -> None:
     if status["blockers"]:
         lines.append(r"\midrule")
         lines.append(f"Blockers & {latex_escape('; '.join(status['blockers']))} \\\\")
+    if status.get("scope_notes"):
+        lines.append(r"\midrule")
+        lines.append(f"Scope note & {latex_escape(' '.join(status['scope_notes']))} \\\\")
     lines.extend([r"\bottomrule", r"\end{tabular}", ""])
     path.write_text("\n".join(lines), encoding="utf-8")
 
@@ -321,9 +356,10 @@ def main(argv: Iterable[str] | None = None) -> None:
     print(
         json.dumps(
             {
-                "github_public_ready": status["github_public_ready"],
+                "github_ssrn_ready": status["github_ssrn_ready"],
                 "core_claim_ready": status["core_claim_ready"],
-                "journal_ready": status["journal_ready"],
+                "methods_software_article_ready": status["methods_software_article_ready"],
+                "full_empirical_ml_ready": status["full_empirical_ml_ready"],
                 "blockers": status["blockers"],
             },
             indent=2,
