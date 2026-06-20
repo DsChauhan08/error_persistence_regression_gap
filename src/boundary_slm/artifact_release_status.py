@@ -76,6 +76,7 @@ def release_status(
     source_manifest_path: Path,
     hygiene_report_path: Path,
     public_manifest_path: Path,
+    archive_identifier: str,
 ) -> dict[str, Any]:
     parser_gate = read_json(parser_gate_path)
     mmlu_gate = read_json(mmlu_gate_path)
@@ -103,6 +104,7 @@ def release_status(
     latest_test_lower = str(latest_test_result or "").lower()
     tests_ready = is_populated(latest_test_result) and "passed" in latest_test_lower and "failed" not in latest_test_lower
     core_claim_ready = wild_ready and source_ready
+    archive_ready = is_populated(archive_identifier)
     metadata = {
         "repository_url": repository_url,
         "code_license": code_license,
@@ -113,6 +115,7 @@ def release_status(
         "expected_runtime": expected_runtime,
         "latest_test_command": latest_test_command,
         "latest_test_result": latest_test_result,
+        "archive_identifier": archive_identifier,
     }
     missing = [
         key
@@ -120,7 +123,7 @@ def release_status(
         if not is_populated(metadata.get(key))
     ]
     github_public_ready = not missing and tests_ready and hygiene_ready and manifest_ready and core_claim_ready
-    journal_ready = False
+    journal_ready = github_public_ready and parser_validated and mmlu_confirmatory and archive_ready
     blockers: list[str] = []
     if missing:
         blockers.append("missing release metadata: " + ", ".join(missing))
@@ -138,6 +141,8 @@ def release_status(
         blockers.append("parser_validated=false; non-blocking for GitHub/SSRN because MMLU-Pro raw-output claims are diagnostic only")
     if not mmlu_confirmatory:
         blockers.append("mmlu_pro_confirmatory=false; non-blocking for GitHub/SSRN because WILD carries the core claim")
+    if not archive_ready:
+        blockers.append("journal_ready=false; persistent archive identifier is missing")
     return {
         "created_utc": datetime.now(timezone.utc).isoformat(),
         **metadata,
@@ -150,6 +155,7 @@ def release_status(
         "mmlu_pro_source_manifest_ready": source_ready,
         "public_hygiene_ready": hygiene_ready,
         "public_manifest_ready": manifest_ready,
+        "archive_ready": archive_ready,
         "tests_ready": tests_ready,
         "parser_gate_path": str(parser_gate_path),
         "mmlu_gate_path": str(mmlu_gate_path),
@@ -162,7 +168,8 @@ def release_status(
         "blockers": blockers,
         "paper_wording_rule": (
             "Use GitHub/SSRN public-release wording when github_public_ready=true. Do not present "
-            "MMLU-Pro raw-output accounting as confirmatory until parser validation and robustness gates pass."
+            "MMLU-Pro raw-output accounting as confirmatory until parser validation and robustness gates pass. "
+            "Use journal-ready wording only when journal_ready=true."
         ),
     }
 
@@ -178,6 +185,7 @@ def write_tex(path: Path, status: dict[str, Any]) -> None:
         ("Expected runtime", status["expected_runtime"]),
         ("Latest test command", status["latest_test_command"]),
         ("Latest test result", status["latest_test_result"]),
+        ("Persistent archive", status["archive_identifier"] if status["archive_ready"] else "not provided"),
         ("WILD item-level gate", str(status["wild_claim_ready"]).lower()),
         ("MMLU-Pro source manifest", str(status["mmlu_pro_source_manifest_ready"]).lower()),
         ("Public hygiene scan passed", str(status["public_hygiene_ready"]).lower()),
@@ -186,6 +194,7 @@ def write_tex(path: Path, status: dict[str, Any]) -> None:
         ("Parser validation complete", str(status["parser_validated"]).lower()),
         ("MMLU-Pro confirmatory", str(status["mmlu_pro_confirmatory"]).lower()),
         ("GitHub/SSRN package ready", str(status["github_public_ready"]).lower()),
+        ("Journal submission gate", str(status["journal_ready"]).lower()),
     ]
     lines = [r"\begin{tabular}{lp{0.62\linewidth}}", r"\toprule", r"Field & Value \\", r"\midrule"]
     for key, value in rows:
@@ -214,6 +223,7 @@ def generate(
     source_manifest_path: Path = Path("main/analysis/source_manifest/mmlu_pro_manifest_report.json"),
     hygiene_report_path: Path = Path("public_release/error_persistence_regression_burden/PUBLIC_RELEASE_HYGIENE.json"),
     public_manifest_path: Path = Path("public_release/error_persistence_regression_burden/PUBLIC_RELEASE_MANIFEST.json"),
+    archive_identifier: str = "TODO",
 ) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     status = release_status(
@@ -231,6 +241,7 @@ def generate(
         source_manifest_path=source_manifest_path,
         hygiene_report_path=hygiene_report_path,
         public_manifest_path=public_manifest_path,
+        archive_identifier=archive_identifier,
     )
     write_json(output_dir / "artifact_release_status.json", status)
     write_tex(output_dir / "artifact_release_status.tex", status)
@@ -272,6 +283,11 @@ def parse_args(argv: Iterable[str] | None = None) -> argparse.Namespace:
         type=Path,
         default=Path("public_release/error_persistence_regression_burden/PUBLIC_RELEASE_MANIFEST.json"),
     )
+    parser.add_argument(
+        "--archive-identifier",
+        default="TODO",
+        help="Persistent archive identifier for journal submission, e.g. DOI, SWHID, OSF DOI, or repository archive URL.",
+    )
     return parser.parse_args(list(argv) if argv is not None else None)
 
 
@@ -293,6 +309,7 @@ def main(argv: Iterable[str] | None = None) -> None:
         source_manifest_path=args.source_manifest_path,
         hygiene_report_path=args.hygiene_report_path,
         public_manifest_path=args.public_manifest_path,
+        archive_identifier=args.archive_identifier,
     )
     print(
         json.dumps(

@@ -16,3 +16,7 @@ Minimum paper gate: 452 completed first-pass labels, all 120 high-risk rows labe
 Second-pass consistency check: after first-pass labels are complete, create a 100-row blind relabeling sample with `python -m boundary_slm.parser_audit_second_pass`. Fill the `second_human_*` fields without looking at the first-pass human columns, then regenerate the report. Report prediction, answered-status, and parser-correct consistency rates as audit reliability evidence.
 
 Batching workflow: `python -m boundary_slm.parser_audit_workbook --batch-size 50` creates private CSV chunks under `labeling_batches/` and a redacted progress report. Do not put batch CSV files in the public release.
+
+Interactive workflow: `python -m boundary_slm.parser_audit_labeler --limit 25` shows one private response excerpt at a time, asks for the human final answer, computes `human_parser_correct`, and saves after every row. This is the safest route if labeling is done in multiple sessions.
+
+Journal gate: after first-pass and second-pass labeling, regenerate `parser_audit_claim_gate.json`, `mmlu_claim_gate.json`, and `artifact_release_status.json`. `journal_ready` can become true only when parser validation passes, MMLU-Pro confirmatory robustness passes, the public package checks pass, and a persistent archive identifier is provided.

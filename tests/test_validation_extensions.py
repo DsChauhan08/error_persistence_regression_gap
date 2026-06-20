@@ -22,6 +22,7 @@ from boundary_slm.mmlu_pro_manifest import (
     source_row_hash,
 )
 from boundary_slm.parser_audit_impact import generate as generate_parser_impact
+from boundary_slm.parser_audit_labeler import apply_label, next_indices, progress as label_progress
 from boundary_slm.parser_audit_report import manual_claim_gate, summarize_manual_audit
 from boundary_slm.parser_audit import generate as generate_parser_audit
 from boundary_slm.parser_audit_second_pass import generate as generate_second_pass_audit
@@ -681,3 +682,78 @@ def test_artifact_release_status_blocks_github_ready_without_wild_claim(tmp_path
     assert not status["github_public_ready"]
     assert not status["core_claim_ready"]
     assert any("WILD item-level correctness" in blocker for blocker in status["blockers"])
+
+
+def test_artifact_release_status_can_be_journal_ready_when_all_gates_pass(tmp_path: Path) -> None:
+    out = tmp_path / "status"
+    parser_gate = tmp_path / "parser_gate.json"
+    mmlu_gate = tmp_path / "mmlu_gate.json"
+    wild_gate = tmp_path / "wild_gate.json"
+    source_manifest = tmp_path / "source_manifest.json"
+    hygiene = tmp_path / "hygiene.json"
+    public_manifest = tmp_path / "manifest.json"
+    write_json(parser_gate, {"claim_ready": True, "parser_validated": True, "status": "ready"})
+    write_json(mmlu_gate, {"claim_ready": True, "mmlu_pro_confirmatory": True, "status": "ready"})
+    write_json(wild_gate, {"claim_ready": True, "pairwise_comparison_count": 44})
+    write_json(
+        source_manifest,
+        {
+            "claim_ready": True,
+            "evaluated_item_count": 3008,
+            "matched_item_count": 3008,
+            "mismatch_item_count": 0,
+            "missing_source_item_count": 0,
+        },
+    )
+    write_json(hygiene, {"passed": True, "findings": []})
+    write_json(public_manifest, {"file_count": 10, "missing": 0, "mismatches": 0})
+    status = generate_release_status(
+        root=tmp_path,
+        output_dir=out,
+        repository_url="https://github.com/DsChauhan08/error_persistence_regression_gap",
+        latest_test_result="42 passed in 4.75s",
+        parser_gate_path=parser_gate,
+        mmlu_gate_path=mmlu_gate,
+        wild_claim_path=wild_gate,
+        source_manifest_path=source_manifest,
+        hygiene_report_path=hygiene,
+        public_manifest_path=public_manifest,
+        archive_identifier="swh:1:dir:0123456789abcdef",
+    )
+    assert status["github_public_ready"]
+    assert status["parser_validated"]
+    assert status["mmlu_pro_confirmatory"]
+    assert status["archive_ready"]
+    assert status["journal_ready"]
+    assert not status["blockers"]
+
+
+def test_parser_audit_labeler_computes_parser_correct_and_progress() -> None:
+    rows = [
+        {
+            "parser_prediction": "B",
+            "parser_answered": "true",
+            "audit_source": "high_risk",
+            "human_prediction": "",
+            "human_answered": "",
+            "human_parser_correct": "",
+        },
+        {
+            "parser_prediction": "C",
+            "parser_answered": "true",
+            "audit_source": "stratified",
+            "human_prediction": "C",
+            "human_answered": "true",
+            "human_parser_correct": "true",
+        },
+    ]
+    labeled_match = apply_label(rows[0], human_prediction="B", human_answered=True, human_notes="clear")
+    assert labeled_match["human_parser_correct"] == "true"
+    assert labeled_match["human_prediction"] == "B"
+    labeled_miss = apply_label(rows[0], human_prediction="A", human_answered=True, human_notes="")
+    assert labeled_miss["human_parser_correct"] == "false"
+    rows[0] = labeled_match
+    report = label_progress(rows)
+    assert report["completed_rows"] == 2
+    assert report["completed_high_risk_rows"] == 1
+    assert next_indices(rows, high_risk_first=True, limit=None) == []
