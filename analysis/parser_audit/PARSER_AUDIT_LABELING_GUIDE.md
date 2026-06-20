@@ -19,4 +19,6 @@ Batching workflow: `python -m boundary_slm.parser_audit_workbook --batch-size 50
 
 Interactive workflow: `python -m boundary_slm.parser_audit_labeler --limit 25` shows one private response excerpt at a time, asks for the human final answer, computes `human_parser_correct`, and saves after every row. This is the safest route if labeling is done in multiple sessions.
 
+Browser workflow: `python -m boundary_slm.parser_audit_label_server` starts a local-only labeling UI at `http://127.0.0.1:8765`. Use it when button-based labeling is faster than terminal input.
+
 Journal gate: after first-pass and second-pass labeling, regenerate `parser_audit_claim_gate.json`, `mmlu_claim_gate.json`, and `artifact_release_status.json`. `journal_ready` can become true only when parser validation passes, MMLU-Pro confirmatory robustness passes, the public package checks pass, and a persistent archive identifier is provided.

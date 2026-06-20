@@ -15,6 +15,14 @@ PYTHONPATH=main/src python3 -m boundary_slm.parser_audit_labeler --limit 25
 
 The interactive labeler resumes automatically, prioritizes high-risk rows first, computes `human_parser_correct`, and saves the CSV after every labeled row. Increase or remove `--limit` for longer sessions. After all rows are labeled, run:
 
+Browser option:
+
+```bash
+PYTHONPATH=main/src python3 -m boundary_slm.parser_audit_label_server
+```
+
+Then open `http://127.0.0.1:8765`. The browser UI also prioritizes high-risk rows first and saves after every click.
+
 ```bash
 PYTHONPATH=main/src python3 -m boundary_slm.parser_audit_impact
 PYTHONPATH=main/src python3 -m boundary_slm.mmlu_scoring_robustness

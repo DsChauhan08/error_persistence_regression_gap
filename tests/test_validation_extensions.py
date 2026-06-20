@@ -23,6 +23,7 @@ from boundary_slm.mmlu_pro_manifest import (
 )
 from boundary_slm.parser_audit_impact import generate as generate_parser_impact
 from boundary_slm.parser_audit_labeler import apply_label, next_indices, progress as label_progress
+from boundary_slm.parser_audit_label_server import complete_html, row_html
 from boundary_slm.parser_audit_report import manual_claim_gate, summarize_manual_audit
 from boundary_slm.parser_audit import generate as generate_parser_audit
 from boundary_slm.parser_audit_second_pass import generate as generate_second_pass_audit
@@ -757,3 +758,31 @@ def test_parser_audit_labeler_computes_parser_correct_and_progress() -> None:
     assert report["completed_rows"] == 2
     assert report["completed_high_risk_rows"] == 1
     assert next_indices(rows, high_risk_first=True, limit=None) == []
+
+
+def test_parser_audit_label_server_renders_without_raw_html_execution() -> None:
+    row = {
+        "model": "Qwen-test",
+        "item_id": "42",
+        "category": "math",
+        "ground_truth": "A",
+        "parser_prediction": "B",
+        "parser_answered": "true",
+        "extraction_method": "answer_is",
+        "extraction_confidence": "0.9",
+        "audit_source": "high_risk",
+        "risk_reason": "unit",
+        "response_excerpt": "<script>alert('x')</script> final answer is B",
+    }
+    status = {
+        "completed_rows": 1,
+        "total_rows": 2,
+        "completed_high_risk_rows": 1,
+        "high_risk_rows": 1,
+    }
+    html = row_html(row, 0, 2, status)
+    assert "Parser Audit Labeler" in html
+    assert "&lt;script&gt;" in html
+    assert "<script>alert" not in html
+    done = complete_html(status)
+    assert "Parser Audit Complete" in done

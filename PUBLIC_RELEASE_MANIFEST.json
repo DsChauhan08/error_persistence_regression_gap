@@ -1,6 +1,6 @@
 {
-  "created_utc": "2026-06-20T11:28:29.326832+00:00",
-  "file_count": 195,
+  "created_utc": "2026-06-20T11:34:50.228291+00:00",
+  "file_count": 196,
   "files": [
     {
       "bytes": 300,
@@ -33,14 +33,14 @@
       "sha256": "8b3be9301349a04bd8f82f235f25c15a60e771b00eef1909718535705f431b0c"
     },
     {
-      "bytes": 2136,
+      "bytes": 2442,
       "path": "analysis/artifact_release_status/artifact_release_status.json",
-      "sha256": "43b94fbe5273f110f6807ced5d6cf3b3544936435fef1974926c974fb6e5db3e"
+      "sha256": "1e5c648d4fb1c64b8c3298d0073150606a1df9681d8389771e50faf171101380"
     },
     {
       "bytes": 1380,
       "path": "analysis/artifact_release_status/artifact_release_status.tex",
-      "sha256": "c5f6dba44f869b276ca1628ddf82c2ee4dced157e46b8d6a5a2e56bb2969c57a"
+      "sha256": "7507495c3f6259e3dfbbf91929151f8036bcc3555ead15f3c10aae276c1ff6d7"
     },
     {
       "bytes": 3774,
@@ -328,14 +328,14 @@
       "sha256": "87fda360dd65ab0b00087c4a48bdf3055a0657270302e7a6ec99e6165da048ff"
     },
     {
-      "bytes": 2535,
+      "bytes": 2730,
       "path": "analysis/parser_audit/PARSER_AUDIT_LABELING_GUIDE.md",
-      "sha256": "ae540df7d4e44baf7ea2e179352fcdc76425cbae81f6774c4f21a3bf02881e0a"
+      "sha256": "3325c86e78afae92499f14f09e91f7e613b67624fbd0ccaa45fd06671815e52b"
     },
     {
-      "bytes": 1749,
+      "bytes": 1967,
       "path": "analysis/parser_audit/README.md",
-      "sha256": "53bbff86e5086ba7ac01093273d26ac74bd49357d42d36ac751965f5dd4054aa"
+      "sha256": "a4e481394b35be824c864fdb2af61fd2184777882659b67f05a84c8e74f2ed0a"
     },
     {
       "bytes": 0,
@@ -655,7 +655,7 @@
     {
       "bytes": 441100,
       "path": "paper/paper.pdf",
-      "sha256": "7191d88c9f4e70d465d3624cf071f0b17d198d94b15d22db8eebf9c96882f207"
+      "sha256": "37f0fd4147b687f487188a6a539c61ea87f0f390cc997c294ff1c285724c7763"
     },
     {
       "bytes": 47093,
@@ -685,7 +685,7 @@
     {
       "bytes": 1380,
       "path": "paper/tables/artifact_release_status.tex",
-      "sha256": "c5f6dba44f869b276ca1628ddf82c2ee4dced157e46b8d6a5a2e56bb2969c57a"
+      "sha256": "7507495c3f6259e3dfbbf91929151f8036bcc3555ead15f3c10aae276c1ff6d7"
     },
     {
       "bytes": 565,
@@ -903,6 +903,11 @@
       "sha256": "35ba817099fa257fc4a4abceac2388e4f72222ea24ae5fbb01771f63b3bc22a0"
     },
     {
+      "bytes": 7649,
+      "path": "src/boundary_slm/parser_audit_label_server.py",
+      "sha256": "438f36a4a4ef4bded92f51cb38f57493b7753e25599a7311e3177a4934aeb4f9"
+    },
+    {
       "bytes": 7613,
       "path": "src/boundary_slm/parser_audit_labeler.py",
       "sha256": "c4d73ffd65b4189ed202fbb79021fadad8834419e6c6df3c636b7d12713afb01"
@@ -973,14 +978,14 @@
       "sha256": "c1d503ebd62a04d223bc7cd92263450b1c4e267a1586b190cf065e0e53719c38"
     },
     {
-      "bytes": 30428,
+      "bytes": 31387,
       "path": "tests/test_validation_extensions.py",
-      "sha256": "61cc106e8200d9c05230680928397b47b7f3752875d86c221e7fe039a029f5e7"
+      "sha256": "df04367eb94b5c31f270b98fcba09e71e8c14b1c078d9a48cef3a044506fd9e2"
     }
   ],
   "mismatches": 0,
   "missing": 0,
   "public_text_policy": "Public release excludes raw model responses, full benchmark text, private parser-audit samples, local caches, DOI metadata, and private notes.",
   "root": ".",
-  "total_bytes": 13034310
+  "total_bytes": 13043637
 }
